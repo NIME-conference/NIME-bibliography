@@ -1,8 +1,0 @@
--- OK, we went on a blow when all the current progress got deleted. 
-What need to do 
- - Get the TIKA integration back on track
- - Remove the different extraction method into one 
- - Make an XML printer for objects and also for errors
- - Make a cleaning method for keywords
- - Make a cleaning methods for getting more introduction catched. 
- - Make a XML parser which prints the result of the extraction process
