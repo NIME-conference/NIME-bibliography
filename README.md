@@ -27,8 +27,20 @@ and file name of each paper are added to the text file NIME_dois.txt.
 - Additional files: If a resource contains an additional file that should be uploaded together with the paper this additional file should have the same file name with an additional file01 appended to the end. Zenodo displays the files alphabetically. Today this script only allows for adding one additional file per resource.
 - The .bib file: Special charachters in the .bib file should be written in LaTeX code.
 
-Thanks to Benedikte Wallace for developing the Zenodo upload script. 
+Thanks to [Benedikte Wallace](https://www.linkedin.com/in/benedikte-wallace-8b489782/) for developing the Zenodo upload script. 
 
+
+PDF scraping
+-------------
+
+The scripts in the PDF_scraping folder were used to extract keywords and abstracts from the first years of NIME papers where this information was not readily available. The Python based scripts try to open the pdf files, read the text and the meta-data Pdf-destiller. These data are then printed in a XML-stuctured document which is saved. At one point these data should be fed into a bibtex-file.
+
+Good to know: 
+* The bibtex files are contained within the nime_archive/nime/bibtex folder. They do all have .bib suffixes. 
+* The .pdf files can be found in nime_archive/web/XXXX (where the XXXX are the year in question. From 2001 to 2012). 
+* The .pdfs are not found in the git repository (they are too big and hence .gitignore d)
+
+Thanks to [Ola Løvholm](https://github.com/olovholm) for developing these scripts. 
 
 Contact
 -------
