@@ -1,0 +1,51 @@
+% Encoding: UTF-8
+
+@InProceedings{Norderval2011,
+  author    = {Kristin Norderval},
+  booktitle = {Installation Proceedings of the International Conference on New Interfaces for Musical Expression},
+  title     = {TURN ME! I need 12 Volts!},
+  year      = {2011},
+  address   = {Oslo, Norway},
+  editor    = {Kjell Tore Innervik and Ivar Frounberg},
+  month     = {June},
+  publisher = {Norwegian Academy of Music},
+  url       = {http://www.nime.org/proceedings/2019/nime2019_music001.pdf},
+}
+
+@InProceedings{2011,
+  author    = {Nicolas d'Alessandro and Roberto Calderon},
+  booktitle = {Installation Proceedings of the International Conference on New Interfaces for Musical Expression},
+  title     = {ROOM\#81},
+  year      = {2011},
+  address   = {Oslo, Norway},
+  editor    = {Kjell Tore Innervik and Ivar Frounberg},
+  month     = {June},
+  publisher = {Norwegian Academy of Music},
+  url       = {http://www.nime.org/proceedings/2019/nime2019_music001.pdf},
+}
+
+@InProceedings{Peschta2011,
+  author    = {Leo Peschta},
+  booktitle = {Installation Proceedings of the International Conference on New Interfaces for Musical Expression},
+  title     = {BM 0.1},
+  year      = {2011},
+  address   = {Oslo, Norway},
+  editor    = {Kjell Tore Innervik and Ivar Frounberg},
+  month     = {June},
+  publisher = {Norwegian Academy of Music},
+  url       = {http://www.nime.org/proceedings/2019/nime2019_music001.pdf},
+}
+
+@InProceedings{Andersson2011,
+  author    = {MusicalFieldsForever – Anders-Petter Andersson, Birgitta Cappelen, Fredrik Olofsson},
+  booktitle = {Installation Proceedings of the International Conference on New Interfaces for Musical Expression},
+  title     = {ORFI},
+  year      = {2011},
+  address   = {Oslo, Norway},
+  editor    = {Kjell Tore Innervik and Ivar Frounberg},
+  month     = {June},
+  publisher = {Norwegian Academy of Music},
+  url       = {http://www.nime.org/proceedings/2019/nime2019_music001.pdf},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}
