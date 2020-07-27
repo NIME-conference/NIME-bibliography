@@ -12,12 +12,13 @@ Merge
 
 All the individual BibTeX files can be merged into one large file using the following terminal command: 
 
-    cat nime20* > nime.bib
+    cat nime20* > nime_papers.bib
 
-This file is then read by a custom made parser running on the [nime.org server](https://github.com/NIME-conference/nime-website), inspired by the [bibtexbrowser](http://www.monperrus.net/martin/bibtexbrowser/). 
+This file is then read by a custom made parser running on the [nime.org server](https://www.nime.org/archives/). 
 
 
 
 Contact
 -------
-The bibliograpy has been uploaded and is currently updated by [Alexander Refsum Jensenius](http://www.hf.uio.no/imv/english/people/aca/alexanje/index.html), University of Oslo, and chair of the [NIME Steering Committee](http://www.nime.org/committee/).
+
+If you have questions about the bibliograpy, please get in touch with [Alexander Refsum Jensenius](http://people.uio.no/alexanje).
