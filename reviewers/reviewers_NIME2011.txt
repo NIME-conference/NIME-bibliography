@@ -1,0 +1,173 @@
+Adnan Marquez-Borbon
+Adrian Freed
+Alain Crevoisier
+Alexander Eichhorn
+Alexander Refsum Jensenius
+Alexandre Francois
+Alvaro Cassinelli
+Anders Andersson
+Anders Friberg
+Anders Vinjar
+Andreas Bergsland
+Andrew Cavan Fyans
+Andrew Hawryshkewich
+Andrew Johnston
+Andrew Sorensen
+Angelo Fraietta
+Anna Xambo
+Anthony Rowe
+Aristotelis Hadjakos
+Baptiste Caramiaux
+Ben Bogart
+Benjamin Knapp
+Bert Bongers
+Bill Hsu
+Bill Verplank
+Björn Wöldeck
+Bjørnar Habbestad
+Brennon Bortz
+Brett Park
+Carl Haakon Waadeland
+Carlos Guedes
+Chris Geiger
+Dan Overholt
+Dan Trueman
+David Gerhard
+Diemo Schwarz
+Edgar Berdahl
+Eduardo Miranda
+Eirik Birkeland
+Eivind Buene
+Erwin Schoonderwaldt
+Even Ruud
+Federico Fontana
+Florian Floyd Mueller
+Frauke Behrendt
+Gaspard Bucher
+Ge Wang
+Georg Essl
+George E. Lewis
+George Tzanetakis
+Giovanna Varni
+Giuseppe Torre
+Graham Coleman
+Greg Shear
+Gualtiero Volpe
+Hannes Hoelzl
+Hans Tammen
+Hans Wilmers
+Haruhiro Katayose
+Henrik Frisk
+Hugo Solis
+Ichiro Fujinaga
+Ivar Frounberg
+Ivica Bukvic
+James Maxwell
+Jamie Bullock
+Jan Schacher
+Jason Freeman
+Javier Jaimovich
+Jean-Marc Pelletier
+Jesse Allison
+Jieun Oh
+Jim Tørresen
+Joel Ryan
+John Maccallum
+Johnathan F. Lee
+Jordi Janer
+Jorge Solis
+Joseph Malloch
+Juraj Kojs
+Jyri Pakarinen
+Jøran Rudi
+Katherine Moriwaki
+Keith Hamel
+Kia Ng
+Kjell Tore Innervik
+Kjetil Falkenberg Hansen
+Kjetil Svalastog Matheussen
+Kristian Nymoen
+Kyrre Glette
+Langdon Crawford
+Lars Graugaard
+Lonce Wyse
+Luiz Naveda
+Luke Dubois
+Marcelo M. Wanderley
+Margaret Schedel
+Mariusz Kozak
+Mark David Hosale
+Mark Havryliv
+Mark Marshall
+Mark Zadel
+Mathieu Bosi
+Mats Claesson
+Mats Høvin
+Matthew Yee-King
+Matthieu Macret
+Michael Cohen
+Michael Gurevich
+Michael Lyons
+Michael Zbyszynski
+Morten Halle
+Nick Bryan-Kinns
+Nick Collins
+Nicolas Bouillot
+Nicolas D’Alessandro
+Niels Böttcher
+Nils Peters
+Norbert Schnell
+Owen Vallis
+Palle Dahlstedt
+Parag Chordia
+Patrick Pogscheba
+Paul Doornbusch
+Paul Lehrman
+Per Anders Nilsson
+Peter Kirn
+Peter Tornquist
+Philippe Pasquier
+Rebecca Fiebrink
+Richard Scott
+Risto Holopainen
+Rob Waring
+Robert Rowe
+Roberto Bresin
+Robin Fencott
+Roger Dannenberg
+Rolf Inge Godøy
+Ross Bencina
+Saburo Hirano
+Sarah Fdili Alaoui
+Scott Deal
+Scott Smallwood
+Sergi Jorda
+Sidney Fels
+Sile O’Modhrain
+Sinan Bokesoy
+Sinan Bökesoy
+Smilen Dimitrov
+Stefan Smulovitz
+Stefania Serafin
+Stephen Sinclair
+Steven Gelineck
+Ståle A. Skogstad
+Sylvain le Groux
+Takegawa Yoshinari
+Takuro Mizuta Lippit
+Tellef Kvifte
+Thomas B. Moeslund
+Thor Magnusson
+Timothy Place
+Tina Blaine
+Tobias Grosshauser
+Toiviainen Petri
+Tomoko Yonezawa
+Tomás Henriques
+Tone Åse
+Tor Halmrast
+Trond Engum
+Trond Lossius
+Wolfgang Fohl
+Yoichi Nagashima
+Øyvind Brandtsegg
