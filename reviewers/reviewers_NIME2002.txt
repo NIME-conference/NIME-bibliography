@@ -1,5 +1,6 @@
 Andy Hunt
 Antonio Camurri
+Atau Tanaka
 Axel Mulder
 Bert Bongers
 Bill Buxton
@@ -7,14 +8,21 @@ Bill Verplank
 Curtis Bahn
 Dave Wessel
 Ivan Poupyrev
+Joe Paradiso
 Joel Chadabe
 Kia Ng
 Laetitia Sonami
+Marcelo Wanderley
+Michael Alcorn
+Michael J. Lyons
+Mikael Fernström
 Miller Puckette
 Perry Cook
 Richard Boulanger
 Sergi Jorda
 Sidney Fels
+Sile O'Modhrain
 Teresa Marrin Nakra
 Tina Blaine (Bean)
+Todd Winkler
 Tomie Hahn
