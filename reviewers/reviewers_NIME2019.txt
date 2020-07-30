@@ -22,16 +22,15 @@ Andrew P. McPherson
 Angela McArthur
 Angelo Fraietta
 Angus Forbes
+Anıl Çamcı
 Anna Weisling
 Anne Hege
 Anthony Aakre
-Anıl Çamcı
 Ariane Stolfi
 Arne Eigenfeldt
 Aurie Hsu
 Avneesh Sarwate
 Balandino Di Donato
-Bean (Tina) Blaine
 Benjamin O'Brien
 Benjamin Smith
 Bongjun Kim
@@ -70,7 +69,7 @@ Dietrich Kammer
 Dominik Schlienger-Tuomi
 Edgar Berdahl
 Eduardo Meneses
-Eduardo R. Miranda
+Eduardo Miranda
 Eleonora Oreggia
 Elizabeth Hoffman
 Emmanouil Benetos
@@ -82,9 +81,9 @@ Esteban Maestre
 Fabio Morreale
 Federico Fontana
 Filipe Calegario
+Flávio Luiz Schiavoni
 Florent Berthaut
 Florian Heller
-Flávio Luiz Schiavoni
 Foad Hamidi
 Frederic Font
 Garth Paine
@@ -104,7 +103,7 @@ Hanlin Hu
 Hans Leeuw
 Haruhiro Katayose
 Hazar Emre Tez
-hiroki Nishino
+Hiroki Nishino
 Isabela Almeida
 Ivica Bukvic
 J. Camilo Sanchez Carranco
@@ -154,8 +153,8 @@ Lauren Hayes
 Laurent Grisoni
 Leya Breanna Baltaxe-Admony
 Liam Bray
-Lonce Wyse
 Loïc Reboursière
+Lonce Wyse
 Luca Turchet
 Luciano Zanatta
 Luke Dahl
@@ -175,7 +174,7 @@ Meg Schedel
 Mehmet Aydın Baytaş
 Michael Edinger
 Michael Gurevich
-Michael Lyons
+Michael J. Lyons
 Michael Rivera
 Michael Zbyszynski
 Miguel Ortiz
@@ -183,7 +182,6 @@ Miya Masaoka
 Mo Zareei
 Monica Bolles
 Muhammad Hafiz Wan Rosli
-MusikLab, Denmark
 Nicholas Ward
 Nick Bryan-Kinns
 Nick Hwang
@@ -204,7 +202,6 @@ Rafael Ramirez
 Razvan Paisa
 Rebecca Kleinberger
 Reyes Oteo
-RMIT, Australia
 Rob Hamilton
 Robert Appleton
 Robert Jarvis
@@ -219,7 +216,7 @@ Sang-won Leigh
 Sarah Reid
 Sasha Leitman
 Scott Barton
-Sergi Jorda
+Sergi Jordà
 Seth Parker Woods
 Seth Shafer
 Shani Aviram
@@ -240,11 +237,13 @@ Tejaswinee Kelkar
 Tifanie Bouchara
 Timothy Adnitt
 Timothy Hsu
+Tina Blaine
 Toby Gifford
 Todd Ingalls
 Tom Davis
 Tom Mitchell
 Ulf A. S. Holbrook
+Úna Monaghan
 Vanessa Yaremchuk
 Vangelis Lympouridis
 Veronika Stelmakh
@@ -259,4 +258,3 @@ Yoon Chung Han
 Yoonchang Han
 Yvette Jackson
 Zijie Zhu
-Úna Monaghan

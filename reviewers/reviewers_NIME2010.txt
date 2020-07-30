@@ -17,7 +17,6 @@ Arne Eigenfeldt
 Art Clay
 Axel Mulder
 Benjamin Knapp
-Bent Leather Band
 Berit Janssen
 Bert Bongers
 Bill Verplank
@@ -69,10 +68,11 @@ Jeremiah Nugroho
 Jie Liu
 Jieun Oh
 Joanne Cannon
+Joanne Cannon
 Joe Paradiso
 Johannes Mulder
 John MacCallum
-Johnathan F.Lee
+Johnathan F. Lee
 Jon Drummond
 Jordi Janer
 Jorge Solis
@@ -104,7 +104,7 @@ Mark Havryliv
 Martin Kaltenbrunner
 Martin Tomitsch
 Michael Gurevich
-Michael Lyons
+Michael J. Lyons
 Michael Zbyszynski
 Miguel Carvalhais
 Nick Bryan-Kinns
@@ -133,14 +133,14 @@ Samuel Ferguson
 Samuel Roig Torrubiano
 Saskia Bakker
 Scott Smallwood
-Sergi Jorda
+Sergi Jordà
 Sidney Fels
 Sile O'Modhrain
 Sinan Bokesoy
 Smilen Dimitrov
 Somaya Langley
 Steven Gelineck
-SUB-REVIEWER
+Stuart Favilla
 Sylvain Le Groux
 Takegawa Yoshinari
 Ted Hayes
@@ -149,7 +149,7 @@ Thomas Moeslund
 Thor Magnusson
 Tilo Hähnel
 Tobias Großhauser
-Tomoko Yonezawa
 Tomás Henriques
+Tomoko Yonezawa
 Warren Burt
 Xiaoyang Feng

@@ -7,7 +7,7 @@ Andrew Brouse
 Antonio Camurri
 Art Clay
 Axel Mulder
-Ben Knapp
+Benjamin Knapp
 Bill Verplank
 Bob Kollar
 Christa Sommerer
@@ -30,7 +30,7 @@ Garth Paine
 Ge Wang
 Georg Essl
 George Tzanetakis
-Gideon D’Arcangelo
+Gideon D'Arcangelo
 Gil Weinberg
 Giuseppe Torre
 Golan Levin
@@ -65,7 +65,7 @@ Martin Kaltenbrunner
 Matthew Wright
 Michael Gurevich
 Michael Lew
-Michael Lyons
+Michael J. Lyons
 Michael Zbyszynski
 Nick Bryan-Kinns
 Nicolas Bouillot
@@ -84,10 +84,10 @@ Robert Rowe
 Roger Dannenberg
 Samuel Roig Torrubiano
 Scott Smallwood
-Sergi Jorda
+Sergi Jordà
 Seungmin Rho
-Sid Fels
-Sile OModhrain
+Sidney Fels
+Sile O'Modhrain
 Sinan Bokesoy
 Smilen Dimitrov
 Stefania Serafin

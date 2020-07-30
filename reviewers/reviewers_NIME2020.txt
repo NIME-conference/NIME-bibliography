@@ -61,7 +61,7 @@ Edmund Hunt
 Eduardo Meneses
 Eleonora Oreggia
 Elizabeth Hoffman
-Enrique Tomás
+Enrique Tomas
 Eric Lyon
 Eric Sheffield
 Erica Volta
@@ -122,7 +122,7 @@ Joseph Malloch
 Juan Martinez Avila
 Juan Pablo Carrascal
 Juraj Kojs
-kazuhiro jo
+Kazuhiro Jo
 Kent Olofsson
 Kerry Hagan
 Kiran Bhumber
@@ -159,7 +159,7 @@ Mathieu Barthet
 Matthew Schumaker
 Mehmet Aydın Baytaş
 Michael Gurevich
-Michael Lyons
+Michael J. Lyons
 Michael Zbyszynski
 Miguel Ortiz
 Miya Masaoka

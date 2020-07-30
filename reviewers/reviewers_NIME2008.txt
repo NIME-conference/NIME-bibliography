@@ -4,7 +4,7 @@ Alexander Refsum Jensenius
 Alexandre Francois
 Alvaro Barbosa
 Alvise Vidolin
-Amalia De Gotzen
+Amalia De Götzen
 Anders-Petter Andersson
 Andrea Valle
 Andreas Breitscheid
@@ -87,10 +87,10 @@ Michael Edwards
 Michael F. Zbyszynski
 Michael Gurevich
 Michael Lew
-Michael Lyons
+Michael J. Lyons
 Michelangelo Lupone
 Miguel Azguime
-Mikael Fernstrom
+Mikael Fernström
 Neil Leonard
 Nick Bryan-Kinns
 Nicola Bernardini
@@ -114,7 +114,7 @@ Rolf Nordahl
 Sandra Pauletto
 Sandra Solimano
 Scott deLahunta
-Sergi Jorda
+Sergi Jordà
 Sidney Fels
 Sinan Bokesoy
 Smilen Dimitrov

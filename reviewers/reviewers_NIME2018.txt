@@ -6,7 +6,7 @@ Alex Mclean
 Alex Nieva
 Alexander Refsum Jensenius
 Alexandra Murray-Leslie
-Amalia de Götzen
+Amalia De Götzen
 Andrew Bluff
 Andrew Johnston
 Andrew P. McPherson
@@ -27,7 +27,7 @@ Carlos Guedes
 Cárthach Ó Nuanáin
 Cat Hope
 Cedric Honnet
-Charles Patrick Martin
+Charles Martin
 Charlie Roberts
 Chris Kiefer
 Christian Frisson
@@ -70,7 +70,7 @@ Grace Leslie
 Graham Wakefield
 Gualtiero Volpe
 Hans Leeuw
-Hiroki NISHINO
+Hiroki Nishino
 Ian Hattwick
 J. Camilo Sanchez Carranco
 Jack Atherton
@@ -97,9 +97,9 @@ John MacCallum
 John Robert Ferguson
 Johnty Wang
 Jon McCormack
-Jonathan D. Ericson
+Jonathan Ericson
 Jordan Suchow
-joseph larralde
+Joseph Larralde
 Joseph Malloch
 Josh Simmons
 Juan Carlos Martinez
@@ -136,10 +136,10 @@ Matthew David Hughes
 Michael F. Lynch
 Michael Gurevich
 Michael L Rivera
-Michael Lyons
+Michael J. Lyons
 Michael Zbyszynski
 Miguel Ortiz
-Mo H Zareei
+Mo H. Zareei
 Nicholas Ward
 Nick Bryan-Kinns
 Nick Hwang
@@ -175,11 +175,11 @@ Sang-won Leigh
 Sarah Reid
 Sasha Leitman
 Selem Charfi
-Sergi Jorda
+Sergi Jordà
 Seth Shafer
 Shawn Greenlee
 Shunichi Kasahara
-Sidney S. Fels
+Sidney Fels
 Sile O'Modhrain
 Sofian Audry
 Stefania Serafin

@@ -30,7 +30,7 @@ Chris Burns
 Chris Geiger
 Christopher Ariza
 Colby Leider
-Cornelius Poepel
+Cornelius Pöpel
 Cort Lippe
 Cyrille Henry
 D. Andrew Stewart
@@ -51,7 +51,7 @@ Federico Avanzini
 Federico Fontana
 Florian Floyd Mueller
 Franziska Schroeder
-Frederic Bevilacqua
+Frédéric Bevilacqua
 Gascia Ouzounian
 Gaspard Bucher
 Ge Wang
@@ -103,16 +103,16 @@ Martin Roth
 Matthew Burtner
 Meg Schedel
 Michael Cohen
-Michael Lyons
+Michael J. Lyons
 Michael Zbyszynski
-Miguel Ortiz Perez
+Miguel Ortiz
 Newton Armstrong
 Nicholas Bryan
 Nicholas Ward
 Nick Bryan-Kinns
 Nick Gillian
 Nicolas Bouillot
-Nicolas d’Alessandro
+Nicolas d'Alessandro
 Niels Boettcher
 Nils Peters
 Palle Dahlstedt
@@ -135,11 +135,11 @@ Ross Bencina
 Sarah Fdili Alaoui
 Scott Deal
 Scott Smallwood
-Sergi Jorda
+Sergi Jordà
 Sidney Fels
 Simon Waters
 Sinan Boekesoy
-Stale Skogstad
+Ståle A. Skogstad
 Stefania Serafin
 Stephen David Beck
 Stephen Sinclair
@@ -149,7 +149,7 @@ Sylvain Le Groux
 Tae Hong Park
 Thor Magnusson
 Tina Blaine
-Toiviainen Petri
+Petri Toiviainen
 Tom Davis
 Tom Erbe
 Tomas Henriques

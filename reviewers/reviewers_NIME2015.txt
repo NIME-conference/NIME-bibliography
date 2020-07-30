@@ -61,7 +61,7 @@ Edgar Berdahl
 Elaine Buckholtz
 Eldad Tsabary
 Elena Jessop
-emilien ghomi
+Emilien Ghomi
 Eric Lyon
 Eric Sheffield
 Esteban Maestre
@@ -70,8 +70,8 @@ Federico Avanzini
 Federico Fontana
 Florent Berthaut
 Francesco Grani
-Frederic Bevilacqua
-Gaetan Parseihian
+Frédéric Bevilacqua
+Gaëtan Parseihian
 Georg Essl
 George Tzanetakis
 Gerard Jounghyun Kim
@@ -84,8 +84,8 @@ Heather Frasch
 Hiroko Terasawa
 Hongchan Choi
 Hye Yeon Nam
-IOhannes zmoelnig
-Ivica Ico Bukvic
+Iohannes Zmoelnig
+Ivica Bukvic
 Jan Schacher
 Jason Freeman
 Jason Geistweidt
@@ -120,7 +120,7 @@ Lyn Goeringer
 Mara Helmuth
 Marco Donnarumma
 Marco Gillies
-margaret schedel
+Margaret Schedel
 Mari Kimura
 Marlon Schumacher
 Martin Kaltenbrunner
@@ -129,7 +129,7 @@ Mats Küssner
 Matthew Blessing
 Matthew Yee-King
 Michael Gurevich
-Michael Lyons
+Michael J. Lyons
 Michael Zbyszynski
 Michel Bernays
 Mick Grierson
@@ -171,7 +171,7 @@ Sang Won Lee
 Sasha Leitman
 Sebastian Lexer
 Sebastian Mealla
-Sergi Jorda
+Sergi Jordà
 Seunghun Kim
 Sidney Fels
 Simon Lui

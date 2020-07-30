@@ -12,7 +12,7 @@ Anthony Tang
 Art Clay
 Atau Tanaka
 Axel Mulder
-Ben Knapp
+Benjamin Knapp
 Bert Bongers
 Björn Hartmann
 Bob Huott
@@ -20,7 +20,7 @@ Brian Fisher
 Christa Sommerer
 Christian Zanesi
 Christopher Dobrian
-Cornelius Poepel
+Cornelius Pöpel
 Curtis Bahn
 Dafna Naphtali
 Dan Overholt
@@ -88,7 +88,7 @@ Martin Kaltenbrunner
 Matthew Burtner
 Michael Gurevich
 Michael Lew
-Michael Lyons
+Michael J. Lyons
 Michael Zbyszynski
 Michel Waisvisz
 Nick Bryan-Kinns
@@ -105,15 +105,15 @@ Sachiyo Takahashi
 Sam Roig Torrubiano
 Sasha Leitman
 Saul Greenberg
-Sergi Jorda
-Sid Fels
+Sergi Jordà
+Sidney Fels
 Sile O'Modhrain
 Sinan Bokesoy
 Stefania Serafin
 Steve Mann
 Stuart Favilla
 Suguru Goto
-Takuro Lippit
+Takuro Mizuta Lippit
 Teemu Mäki-Patola
 Teresa Marrin Nakra
 Thierry Coduys

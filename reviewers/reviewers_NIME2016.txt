@@ -54,7 +54,7 @@ Federico Fontana
 Florent Berthaut
 Florian Geiselhart
 Francesco Francesco Grani
-Frederic Bevilacqua
+Frédéric Bevilacqua
 Georg Essl
 George Tzanetakis
 Gershon Dublon
@@ -100,7 +100,7 @@ Martin Kaltenbrunner
 Mats Küssner
 Matt Hitchcock
 Michael Gurevich
-Michael Lyons
+Michael J. Lyons
 Michael Zbyszynski
 Michel Bernays
 Mo H. Zareei
@@ -126,7 +126,7 @@ Ross Bencina
 Sally Jane Norman
 Sam Ferguson
 Sang Won Lee
-Sergi Jorda
+Sergi Jordà
 Seunghun Kim
 Shawn Greenlee
 Sidney Fels
@@ -136,7 +136,7 @@ Stefania Serafin
 Stefano Baldan
 Stefano Delle Monache
 Stephan Moore
-Stephen Beck
+Stephen David Beck
 Steven Gelineck
 Tamara Smyth
 Thomas Mitchell

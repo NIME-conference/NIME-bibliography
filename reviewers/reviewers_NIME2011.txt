@@ -23,7 +23,7 @@ Benjamin Knapp
 Bert Bongers
 Bill Hsu
 Bill Verplank
-Björn Wöldeck
+Björn Wöldecke
 Bjørnar Habbestad
 Brennon Bortz
 Brett Park
@@ -46,7 +46,7 @@ Frauke Behrendt
 Gaspard Bucher
 Ge Wang
 Georg Essl
-George E. Lewis
+George Lewis
 George Tzanetakis
 Giovanna Varni
 Giuseppe Torre
@@ -107,13 +107,13 @@ Matthew Yee-King
 Matthieu Macret
 Michael Cohen
 Michael Gurevich
-Michael Lyons
+Michael J. Lyons
 Michael Zbyszynski
 Morten Halle
 Nick Bryan-Kinns
 Nick Collins
 Nicolas Bouillot
-Nicolas D’Alessandro
+Nicolas D'Alessandro
 Niels Böttcher
 Nils Peters
 Norbert Schnell
@@ -141,9 +141,9 @@ Saburo Hirano
 Sarah Fdili Alaoui
 Scott Deal
 Scott Smallwood
-Sergi Jorda
+Sergi Jordà
 Sidney Fels
-Sile O’Modhrain
+Sile O'Modhrain
 Sinan Bokesoy
 Sinan Bökesoy
 Smilen Dimitrov
@@ -160,8 +160,8 @@ Thomas B. Moeslund
 Thor Magnusson
 Timothy Place
 Tina Blaine
-Tobias Grosshauser
-Toiviainen Petri
+Tobias Großhauser
+Petri Toiviainen
 Tomoko Yonezawa
 Tomás Henriques
 Tone Åse

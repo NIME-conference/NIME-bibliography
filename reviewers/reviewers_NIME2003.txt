@@ -38,7 +38,7 @@ Marcelo M. Wanderley
 Marcelo Wanderley
 Michael Alcorn
 Michael J. Lyons
-Mikael Fernstrom
+Mikael Fernström
 Miller Puckette
 Neil Middleton
 Nicola Orio
@@ -50,13 +50,13 @@ Philippe Zaborowski
 Richard Boulanger
 Robert Ferguson
 Sean Ferguson
-Sergi Jorda
+Sergi Jordà
 Sidney Fels
 Sile O'Modhrain
 Stuart Favilla
 Suguru Goto
 Teresa Marrin Nakra
-Tina Blaine (Bean)
+Tina Blaine
 Todd Winkler
 Tomie Hahn
 Vincent Hayward

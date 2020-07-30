@@ -72,7 +72,7 @@ Joe Paradiso
 John Eacott
 Jonah Brucker-Cohen
 Jonathan F. Lee
-Joran Rudi
+Jøran Rudi
 Jordi Janer
 Juan Bello
 Julian Knowles
@@ -104,7 +104,7 @@ Matty Ostrowski
 Micah Silver
 Michael Gurevich
 Michael Lew
-Michael Lyons
+Michael J. Lyons
 Michael Schumacher
 Michael Zbyszynski
 Miya Masaoka
@@ -114,7 +114,7 @@ Nick Fells
 Olivier Pasquet
 Paul Amitai
 Paul Lehrman
-R. Benjamin Knapp
+Benjamin Knapp
 Robert Huott
 Robert Rowe
 Roberto Aimi
@@ -123,9 +123,9 @@ Roman Danylak
 Sam Roig
 Sasha Leitman
 Sean Ferguson
-Sergi Jorda
+Sergi Jordà
 Sidney Fels
-Sile O’Modhrain
+Sile O'Modhrain
 Sinan Bokesoy
 Smilen Dimitrov
 Spencer Kiser

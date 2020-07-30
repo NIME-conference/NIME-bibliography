@@ -39,9 +39,9 @@ Carolina Brum Medeiros
 Cathy Lane
 Chad McKinney
 Charlotte Magnusson
-Ching-­‐Hua Chuan
+Ching-­Hua Chuan
 Chris Kiefer
-Christophe D’Alessandro
+Christophe d'Alessandro
 Christophe Rhodes
 Christopher Burns
 Christos Michalakos
@@ -98,10 +98,10 @@ Jascha Narveson
 Jason Freeman
 Jason Geistweidt
 Javier Jaimovich
-Jean-­‐Baptiste Thiebaut
+Jean-Baptiste Thiebaut
 Jeff Snyder
 Jeffrey Trevino
-Jeong-­‐seob Lee
+Jeong-seob Lee
 Jesse Allison
 Ji Won Yoon
 Jim Murphy
@@ -152,7 +152,7 @@ Matthias Demoucron
 Matthias Schneiderbanger
 Michael Casey
 Michael Gurevich
-Michael Lyons
+Michael J. Lyons
 Michael Musick
 Michael Zbyszynski
 Michel Bernays
@@ -162,13 +162,13 @@ Miha Ciglar
 Miller Puckette
 Miriam Akkermann
 Mo H. Zareei
-Nan-­‐Wei Gong
+Nan-Wei Gong
 Nicholas Bryan
 Nicholas Gillian
 Nick Bryan-‐Kinns
 Nicola Montecchio
 Nicolas Bouillot
-Nicolas d’Alessandro
+Nicolas d'Alessandro
 Nicolas Farrugia
 Nicolas Rasamimanana
 Nils Peters
@@ -210,7 +210,7 @@ Sinan Boekesoy
 Stefania Serafin
 Stefano Baldan
 Stefano Delle Monache
-Stephen Beck
+Stephen David Beck
 Steven Gelineck
 Stéphane Huot
 Susanna Garcia
@@ -234,4 +234,4 @@ Xiao Xiao
 Xin Wei Sha
 Yaxu Paxo
 Yoonchang Han
-Émilien Ghomi
+Emilien Ghomi

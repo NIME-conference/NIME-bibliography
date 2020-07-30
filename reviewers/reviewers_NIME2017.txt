@@ -4,7 +4,7 @@ Ajay Kapur
 Alain Renaud
 Alexander Refsum Jensenius
 Alexandra Murray-Leslie
-Amalia De Goetzen
+Amalia De Götzen
 Andres Cabrera
 Andrew Johnston
 Andrew McPherson
@@ -29,7 +29,7 @@ Christophe d'Alessandro
 Cort Lippe
 Cumhur Erkut
 Cárthach Ó Nuanáin
-D. Andrew STEWART
+D. Andrew Stewart
 Dan Overholt
 Dan Shanahan
 Daniel Hug
@@ -49,7 +49,7 @@ Florent Berthaut
 Florian Geiselhart
 Florian Hollerweger
 Francesco Grani
-Frederic Bevilacqua
+Frédéric Bevilacqua
 Garrett Johnson
 Garth Paine
 Georg Essl
@@ -65,7 +65,7 @@ Hendrik Purwins
 Henrik von Coler
 Hiroki Nishino
 Hongchan Choi
-IOhannes zmoelnig
+Iohannes Zmoelnig
 Ivica Bukvic
 Jasmine Edison
 Jason Freeman
@@ -93,7 +93,7 @@ Marco Donnarumma
 Mari Kimura
 Martin Kaltenbrunner
 Michael Gurevich
-Michael Lyons
+Michael J. Lyons
 Michael Zbyszynski
 Mo H. Zareei
 Nicholas Bryan
@@ -120,7 +120,7 @@ Ross Bencina
 Sally Jane Norman
 Sam Ferguson
 Sang Won Lee
-Sergi Jorda
+Sergi Jordà
 Seunghun Kim
 Shawn Greenlee
 Sidney Fels
@@ -130,7 +130,7 @@ Stefania Serafin
 Stefano Delle Monache
 Stefano Fasciani
 Stephan Moore
-Stephen Beck
+Stephen David Beck
 Tamara Smyth
 Tejaswinee Kelkar
 Thomas Mitchell
