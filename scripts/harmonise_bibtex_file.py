@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 Loads a NIME Proceedings Bibtex File and harmonises the fields, entry order, and formatting with the standards set out in utils.py
 """
@@ -25,6 +26,9 @@ print(f"Loaded {len(bib_database.entries)} entries.")
 # set ordering property:
 if (args.id_order):
     utils.writer.order_entries_by = ("ID")
+    print("ordering by ID")
+else:
+    print("using default order:", utils.writer.order_entries_by)
 # else, canonical order: #utils.writer.order_entries_by = ("articleno", "url", "ID")
 
 # Write back to the bibtex file
