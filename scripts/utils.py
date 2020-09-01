@@ -27,7 +27,7 @@ FIELD_ORDER = ("author",
                "abstract")
 
 # bibtex entries indented by a single space
-FIELD_INDENT = "	"
+FIELD_INDENT = "  "
 
 # Writer object to use for writing back nime proceedings in the correct format.
 writer = BibTexWriter()
