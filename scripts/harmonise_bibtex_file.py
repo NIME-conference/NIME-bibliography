@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 """
 Loads a NIME Proceedings Bibtex File and harmonises the fields, entry order, and formatting with the standards set out in utils.py
 """
