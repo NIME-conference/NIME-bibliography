@@ -1,2 +1,2 @@
-cat reviewers_NIME* | sort > reviewers_all.txt
-uniq -c reviewers_all.txt | sort -nr > reviewers_count.txt
+cat reviewers_NIME* | sort > reviewers_all.md
+uniq -c reviewers_all.md | sort -nr > reviewers_count.md
