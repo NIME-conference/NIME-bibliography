@@ -14,7 +14,14 @@ All the individual BibTeX files can be merged into one large file using the foll
 
     cat nime20* > nime_papers.bib
 
-This file is then read by a custom made parser running on the [nime.org server](https://www.nime.org/archives/). 
+Publish on nime.org
+----------
+
+To update the bibliography on the [nime.org server](https://www.nime.org/archives/), it is necessary to run this script  
+
+    sh get_publications.sh
+
+in the [NIME Jekyll](https://github.com/NIME-conference/nime-website) repository.
 
 Format
 --------
