@@ -60,6 +60,8 @@ Articles should be ordered by page/article number within each proceedings file.
 
 The script `scripts/harmonise_bibtex_file.py` can be used to ensure that proceedings files are in the above format.
 
+Special charachters in the .bib file should be written in LaTeX code.
+
 Editing / Updates
 --------
 
