@@ -37,7 +37,7 @@ Deborah Szapiro
 Diana Young
 Dominikus Baur
 Edgar Berdahl
-Eduardo Miranda
+Eduardo R. Miranda
 Elise van den Hoven
 Ernest Edmonds
 Etienne Deleflie
@@ -96,7 +96,7 @@ Lian Loke
 Linda Candy
 Lizzie Muller
 Luiz Naveda
-Marcelo Wanderley
+Marcelo M. Wanderley
 Margaret Schedel
 Marie O'Mahony
 Mark David Hosale
@@ -105,7 +105,7 @@ Martin Kaltenbrunner
 Martin Tomitsch
 Michael Gurevich
 Michael J. Lyons
-Michael Zbyszynski
+Michael F. Zbyszynski
 Miguel Carvalhais
 Nick Bryan-Kinns
 Nick Collins
@@ -116,7 +116,7 @@ Owen Green
 Parag Chordia
 Paul Doornbusch
 Paul Lehrman
-Pierre Alexandre
+Pierre Alexandre Tremblay
 Pieter Coussement
 Randy Jones
 Rebecca Fiebrink
@@ -136,16 +136,16 @@ Scott Smallwood
 Sergi Jordà
 Sidney Fels
 Sile O'Modhrain
-Sinan Bokesoy
+Sinan Bökesoy
 Smilen Dimitrov
 Somaya Langley
 Steven Gelineck
 Stuart Favilla
-Sylvain Le Groux
+Sylvain le Groux
 Takegawa Yoshinari
 Ted Hayes
 Teemu Ahmaniemi
-Thomas Moeslund
+Thomas B. Moeslund
 Thor Magnusson
 Tilo Hähnel
 Tobias Großhauser

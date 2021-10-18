@@ -31,7 +31,7 @@ Davide Ferrari
 Diana Young
 Douglas Irving Repetto
 Edgar Berdahl
-Eduardo Miranda
+Eduardo R. Miranda
 Emmanuel Flety
 Eoin Brazil
 Eric Lapie
@@ -60,7 +60,7 @@ Jean Jeltsch
 Jeff Gray
 Jonathan F. Lee
 Jordi Janer
-Joseph Malloc
+Joseph Malloch
 Juraj Kojs
 Jyri Pakarinen
 Jøran Rudi
@@ -97,7 +97,7 @@ Nicola Bernardini
 Nicola Ferrari
 Nicolas Boillot
 Nicolas Rasamimanana
-Niels Bottcher
+Niels Böttcher
 Olivier Villon
 Pascal Decroupet
 Paul Lehrman
@@ -116,15 +116,15 @@ Sandra Solimano
 Scott deLahunta
 Sergi Jordà
 Sidney Fels
-Sinan Bokesoy
+Sinan Bökesoy
 Smilen Dimitrov
 Sofia Dahl
 Spencer Kiser
 Steven Gelineck
 Stuart Favilla
 Ted Coffey
-Teresa M. Nakra
-Thomas Moeslund
+Teresa Marrin Nakra
+Thomas B. Moeslund
 Thor Magnusson
 Tina Blaine
 Tomoko Yonezawa
@@ -132,7 +132,7 @@ Kia Ng
 Sile O'Modhrain
 Stefania Serafin
 Bill Verplank
-Marcelo Wanderley
+Marcelo M. Wanderley
 Ge Wang
 Antonio Camurri
 Gualtiero Volpe

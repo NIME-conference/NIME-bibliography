@@ -31,7 +31,7 @@ David Gerhard
 Diana Young
 Doug Van Nort
 Edgar Flores
-Eduardo Miranda
+Eduardo R. Miranda
 Edwin van der Heide
 Elaine Chew
 Emmanuel Fléty
@@ -71,7 +71,7 @@ Keith Hamel
 Kenji Mase
 Kia Ng
 Kirsty Beilharz
-Kjetil F. Hansen
+Kjetil Falkenberg Hansen
 Laetitia Sonami
 Lalya Gaye
 Lars Erik Holmquist
@@ -79,7 +79,7 @@ Linda Kaastra
 Loic Kessous
 Luke Barrington
 Magali Desbazeille
-Marcelo Wanderley
+Marcelo M. Wanderley
 Mari Kimura
 Marije Baalman
 Mark Applebaum
@@ -89,7 +89,7 @@ Matthew Burtner
 Michael Gurevich
 Michael Lew
 Michael J. Lyons
-Michael Zbyszynski
+Michael F. Zbyszynski
 Michel Waisvisz
 Nick Bryan-Kinns
 Norbert Schnell
@@ -102,13 +102,13 @@ Rolf Inge Godøy
 Roman Danylak
 Ronald McCaig
 Sachiyo Takahashi
-Sam Roig Torrubiano
+Samuel Roig Torrubiano
 Sasha Leitman
 Saul Greenberg
 Sergi Jordà
 Sidney Fels
 Sile O'Modhrain
-Sinan Bokesoy
+Sinan Bökesoy
 Stefania Serafin
 Steve Mann
 Stuart Favilla

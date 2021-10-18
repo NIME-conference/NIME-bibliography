@@ -54,12 +54,12 @@ Ivica Bukvic
 Jan Schacher
 Jason Geistweidt
 Javier Jaimovich
-Jefrey Trevino
+Jeffrey Trevino
 Jeong-seob Lee
 Ji Won Yoon
 Jieun Oh
 Jonas Braasch
-Joseph MallochJinsoo Na
+Joseph Malloch
 Juraj Kojs
 Kia Ng
 Kibeom Lee
@@ -72,7 +72,7 @@ Mari Kimura
 Mark Zadel
 Michael Gurevich
 Michael J. Lyons
-Michael Zbyszynski
+Michael F. Zbyszynski
 Naotoshi Osaka
 Nicholas Bryan
 Nick Gillian
@@ -91,14 +91,14 @@ Sarah Fdili Alaoui
 Seunghun Kim
 Shawn Trail
 Sidney Fels
-Sinan Boekesoy
+Sinan Bökesoy
 Stefania Serafin
 Stephen David Beck
 Stephen Sinclair
 Steven Gelineck
 Tae Hong Park
 Tom Erbe
-Tomas Henriques
+Tomás Henriques
 Tomoko Yonezawa
 William Tsun-Yuk Hsu
 Woon Seung Yeo

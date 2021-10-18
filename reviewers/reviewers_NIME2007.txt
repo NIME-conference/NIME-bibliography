@@ -36,7 +36,7 @@ Doug Geers
 Doug Van Nort
 Douglas Irving Repetto
 Edgar Flores
-Eduardo Miranda
+Eduardo R. Miranda
 Elaine Chew
 Emmanuel Flety
 Eric Lee
@@ -92,7 +92,7 @@ Loic Kessous
 Luke Barrington
 Luke DuBois
 Marc Battier
-Marcelo Wanderley
+Marcelo M. Wanderley
 Margaret Schedel
 Mari Kimura
 Mark Argo
@@ -106,7 +106,7 @@ Michael Gurevich
 Michael Lew
 Michael J. Lyons
 Michael Schumacher
-Michael Zbyszynski
+Michael F. Zbyszynski
 Miya Masaoka
 Nick Bryan-Kinns
 Nick Collins
@@ -120,13 +120,13 @@ Robert Rowe
 Roberto Aimi
 Roger Dannenberg
 Roman Danylak
-Sam Roig
+Samuel Roig Torrubiano
 Sasha Leitman
 Sean Ferguson
 Sergi Jordà
 Sidney Fels
 Sile O'Modhrain
-Sinan Bokesoy
+Sinan Bökesoy
 Smilen Dimitrov
 Spencer Kiser
 Stefania Serafin
@@ -136,7 +136,7 @@ Stuart Favilla
 Suguru Goto
 Takuro Mizuta Lippit
 Ted Coffey
-Teresa M. Nakra
+Teresa Marrin Nakra
 Thor Magnusson
 Tina Blaine
 Tomoko Yonezawa

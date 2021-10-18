@@ -18,7 +18,7 @@ Andrew Pfalz
 Andrew Schloss
 Angus Forbes
 Anna Weisling
-Anna Xambo
+Anna Xambó
 Arne Eigenfeldt
 Aron Glennon
 Baptiste Caramiaux
@@ -56,7 +56,7 @@ Diemo Schwarz
 Dimitri Diakopoulos
 Doug Van Nort
 Douglas Geers
-Douglas Repetto
+Douglas Irving Repetto
 Edgar Berdahl
 Elaine Buckholtz
 Eldad Tsabary
@@ -93,9 +93,9 @@ Javier Jaimovich
 Jeff Albert
 Jeff Snyder
 Jeffrey Trevino
-Jeremie Garcia
+Jérémie Garcia
 Jesse Allison
-Jim Torresen
+Jim Tørresen
 Joanne Cannon
 Joe Paradiso
 John Dobrian
@@ -104,12 +104,12 @@ Jon Nelson
 Jonas Braasch
 Jonathan Forsyth
 Jose Echeveste
-Jules Francoise
+Jules Françoise
 Juraj Kojs
 Kameron Christopher
 Kevin Patton
 Kia Ng
-Koray Tahiroglu
+Koray Tahiroğlu
 Kristian Nymoen
 Kyogu Lee
 Laurel Pardue
@@ -130,7 +130,7 @@ Matthew Blessing
 Matthew Yee-King
 Michael Gurevich
 Michael J. Lyons
-Michael Zbyszynski
+Michael F. Zbyszynski
 Michel Bernays
 Mick Grierson
 Miguel Ortiz
@@ -175,7 +175,7 @@ Sergi Jordà
 Seunghun Kim
 Sidney Fels
 Simon Lui
-Sinan Bokesoy
+Sinan Bökesoy
 Stefania Serafin
 Stefano Baldan
 Stefano Delle Monache
@@ -188,7 +188,7 @@ Tamara Smyth
 Teresa Dillon
 Theophanis Tsandilas
 Thomas Mitchell
-Thomas Svedstrom
+Thomas Svedström
 Thor Magnusson
 Tifanie Bouchara
 Till Bovermann

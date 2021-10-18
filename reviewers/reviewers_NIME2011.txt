@@ -14,7 +14,7 @@ Andrew Hawryshkewich
 Andrew Johnston
 Andrew Sorensen
 Angelo Fraietta
-Anna Xambo
+Anna Xambó
 Anthony Rowe
 Aristotelis Hadjakos
 Baptiste Caramiaux
@@ -35,7 +35,7 @@ Dan Trueman
 David Gerhard
 Diemo Schwarz
 Edgar Berdahl
-Eduardo Miranda
+Eduardo R. Miranda
 Eirik Birkeland
 Eivind Buene
 Erwin Schoonderwaldt
@@ -72,7 +72,7 @@ Jesse Allison
 Jieun Oh
 Jim Tørresen
 Joel Ryan
-John Maccallum
+John MacCallum
 Johnathan F. Lee
 Jordi Janer
 Jorge Solis
@@ -108,12 +108,12 @@ Matthieu Macret
 Michael Cohen
 Michael Gurevich
 Michael J. Lyons
-Michael Zbyszynski
+Michael F. Zbyszynski
 Morten Halle
 Nick Bryan-Kinns
 Nick Collins
 Nicolas Bouillot
-Nicolas D'Alessandro
+Nicolas d'Alessandro
 Niels Böttcher
 Nils Peters
 Norbert Schnell
@@ -144,7 +144,7 @@ Scott Smallwood
 Sergi Jordà
 Sidney Fels
 Sile O'Modhrain
-Sinan Bokesoy
+Sinan Bökesoy
 Sinan Bökesoy
 Smilen Dimitrov
 Stefan Smulovitz

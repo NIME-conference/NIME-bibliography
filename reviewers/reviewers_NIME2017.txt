@@ -10,9 +10,9 @@ Andrew Johnston
 Andrew McPherson
 Andrew Schloss
 Angus Forbes
-Anil Camci
+Anıl Çamcı
 Anna Weisling
-Anna Xambo
+Anna Xambó
 Arne Eigenfeldt
 Baptiste Caramiaux
 Ben Taylor
@@ -72,18 +72,18 @@ Jason Freeman
 Jason Geistweidt
 Javier Jaimovich
 Jeffrey Trevino
-Jeremie Garcia
-Jeronimo Barbosa
+Jérémie Garcia
+Jeronimo Barbosa da Costa
 Jesse Allison
-Jim Torresen
+Jim Tørresen
 Jingyin He
 John Robert Ferguson
 Johnty Wang
 Jonas Braasch
 Joseph Malloch
 Juan Pablo Carrascal
-Jules Francoise
-Koray Tahiroglu
+Jules Françoise
+Koray Tahiroğlu
 Kristian Nymoen
 Kyogu Lee
 Lauren Hayes
@@ -94,7 +94,7 @@ Mari Kimura
 Martin Kaltenbrunner
 Michael Gurevich
 Michael J. Lyons
-Michael Zbyszynski
+Michael F. Zbyszynski
 Mo H. Zareei
 Nicholas Bryan
 Nick Bryan-Kinns

@@ -13,7 +13,7 @@ Bert Bongers
 Curtis Bahn
 Daniel Arfib
 David Wessel
-Eduardo Miranda
+Eduardo R. Miranda
 Eric Lee
 Eric Singer
 Garth Paine
@@ -34,20 +34,20 @@ Kia Ng
 Kirk McNally
 Laetitia Sonami
 Lalya Gaye
-Marcelo Wanderley
+Marcelo M. Wanderley
 Mari Kimura
-Martin Kaltenbruner
+Martin Kaltenbrunner
 Martin Kaltenbrunner
 Michael J. Lyons
 Perry Cook
 Randy Jones
-Sam Roig
+Samuel Roig Torrubiano
 Scot Gresham Lancaster
 Sergi Jordà
 Sidney Fels
 Sile O'Modhrain
 Stefania Serafin
-Suguro Goto
+Suguru Goto
 Teresa Marrin Nakra
 Thor Magnusson
 Tina Blaine

@@ -11,7 +11,7 @@ Andres Cabrera
 Andrew Cavan Fyans
 Andrew Johnston
 Andy Schloss
-Anna Xambo
+Anna Xambó
 Antonio Camurri
 Aristotelis Hadjakos
 Arne Eigenfeldt
@@ -41,7 +41,7 @@ David Gerhard
 Davide Rocchesso
 Diemo Schwarz
 Edgar Berdahl
-Eduardo Miranda
+Eduardo R. Miranda
 Elaine Chew
 Enrico Costanza
 Eric Lyon
@@ -104,7 +104,7 @@ Matthew Burtner
 Meg Schedel
 Michael Cohen
 Michael J. Lyons
-Michael Zbyszynski
+Michael F. Zbyszynski
 Miguel Ortiz
 Newton Armstrong
 Nicholas Bryan
@@ -113,7 +113,7 @@ Nick Bryan-Kinns
 Nick Gillian
 Nicolas Bouillot
 Nicolas d'Alessandro
-Niels Boettcher
+Niels Böttcher
 Nils Peters
 Palle Dahlstedt
 Parag Chordia
@@ -138,21 +138,21 @@ Scott Smallwood
 Sergi Jordà
 Sidney Fels
 Simon Waters
-Sinan Boekesoy
+Sinan Bökesoy
 Ståle A. Skogstad
 Stefania Serafin
 Stephen David Beck
 Stephen Sinclair
 Steve Rush
 Steven Gelineck
-Sylvain Le Groux
+Sylvain le Groux
 Tae Hong Park
 Thor Magnusson
 Tina Blaine
 Petri Toiviainen
 Tom Davis
 Tom Erbe
-Tomas Henriques
+Tomás Henriques
 Tomoko Yonezawa
 Wendy Ju
 William Tsun-Yuk Hsu

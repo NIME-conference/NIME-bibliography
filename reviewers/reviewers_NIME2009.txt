@@ -20,7 +20,7 @@ David Gerhard
 David Hindman
 Diana Young
 Edgar Berdahl
-Eduardo Miranda
+Eduardo R. Miranda
 Eoin Brazil
 Eric Lee
 Eric Singer
@@ -59,14 +59,14 @@ Laetitia Sonami
 Langdon Crawford
 Leandro Costalonga
 Luke Barrington
-Marcelo Wanderley
+Marcelo M. Wanderley
 Margaret Schedel
 Martin Kaltenbrunner
 Matthew Wright
 Michael Gurevich
 Michael Lew
 Michael J. Lyons
-Michael Zbyszynski
+Michael F. Zbyszynski
 Nick Bryan-Kinns
 Nicolas Bouillot
 Nicolas d'Alessandro
@@ -76,7 +76,7 @@ Paul Lehrman
 R. Luke DuBois
 Randy Jones
 Rebecca Fiebrink
-Riccardo Schul
+Riccardo Schulz
 Riccardo Schulz
 Richard Stern
 Robert Huott
@@ -88,16 +88,16 @@ Sergi Jordà
 Seungmin Rho
 Sidney Fels
 Sile O'Modhrain
-Sinan Bokesoy
+Sinan Bökesoy
 Smilen Dimitrov
 Stefania Serafin
 Steven Gelineck
 Ted Coffey
-Teresa Nakra
-Thomas Moeslund
+Teresa Marrin Nakra
+Thomas B. Moeslund
 Thor Magnusson
 Tom Sullivan
-Tomas Henriques
+Tomás Henriques
 Tomoko Yonezawa
 Torsten Anders
 Wayne Siegel

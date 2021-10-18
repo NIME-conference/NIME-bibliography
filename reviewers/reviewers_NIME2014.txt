@@ -1,5 +1,5 @@
 Adam Neal
-Adnan Marquez­‐Borbon
+Adnan Marquez-Borbon
 Ajay Kapur
 Alain Crevoisier
 Alain Renaud
@@ -39,7 +39,7 @@ Carolina Brum Medeiros
 Cathy Lane
 Chad McKinney
 Charlotte Magnusson
-Ching-­Hua Chuan
+Ching-Hua Chuan
 Chris Kiefer
 Christophe d'Alessandro
 Christophe Rhodes
@@ -63,7 +63,7 @@ Diana Siwiak
 Diemo Schwarz
 Dimitri Diakopoulos
 Doug Van Nort
-Edgar Berdhal
+Edgar Berdahl
 Eldad Tsabary
 Elena Jessop
 Emilios Cambouropoulos
@@ -105,7 +105,7 @@ Jeong-seob Lee
 Jesse Allison
 Ji Won Yoon
 Jim Murphy
-Jim Torresen
+Jim Tørresen
 Jingyin He
 Joanne Armitage
 Joanne Cannon
@@ -147,14 +147,14 @@ Marlon Schumacher
 Martin Kaltenbrunner
 Martin Parker
 Mats Küssner
-Matthew Yee­‐King
+Matthew Yee-King
 Matthias Demoucron
 Matthias Schneiderbanger
 Michael Casey
 Michael Gurevich
 Michael J. Lyons
 Michael Musick
-Michael Zbyszynski
+Michael F. Zbyszynski
 Michel Bernays
 Mick Grierson
 Miguel Ortiz
@@ -165,7 +165,7 @@ Mo H. Zareei
 Nan-Wei Gong
 Nicholas Bryan
 Nicholas Gillian
-Nick Bryan-‐Kinns
+Nick Bryan-Kinns
 Nicola Montecchio
 Nicolas Bouillot
 Nicolas d'Alessandro
@@ -206,7 +206,7 @@ Shawn Trail
 Shelly Knotts
 Sidney Fels
 Simon Lui
-Sinan Boekesoy
+Sinan Bökesoy
 Stefania Serafin
 Stefano Baldan
 Stefano Delle Monache
@@ -223,7 +223,7 @@ Thor Magnusson
 Tifanie Bouchara
 Tim Murray­‐Browne
 Tom Erbe
-Tomas Henriques
+Tomás Henriques
 Tomoko Yonezawa
 Valtteri Wikström
 Vanessa Yaremchuk

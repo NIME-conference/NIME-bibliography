@@ -13,7 +13,7 @@ Andrew Johnston
 Andrew McPherson
 Andrew Milne
 Angus Forbes
-Anna Xambo
+Anna Xambó
 Arne Eigenfeldt
 Asha Tamirisa
 Baptiste Caramiaux
@@ -53,7 +53,7 @@ Fabio Morreale
 Federico Fontana
 Florent Berthaut
 Florian Geiselhart
-Francesco Francesco Grani
+Francesco Grani
 Frédéric Bevilacqua
 Georg Essl
 George Tzanetakis
@@ -73,10 +73,10 @@ Jason Freeman
 Jason Geistweidt
 Javier Jaimovich
 Jeffrey Trevino
-Jeremie Garcia
+Jérémie Garcia
 Jesse Allison
 Ji Won Yoon
-Jim Torresen
+Jim Tørresen
 Jingyin He
 Joe Cantrell
 John Robert Ferguson
@@ -84,9 +84,9 @@ John Taylor
 Jonas Braasch
 Jos Mulder
 Juan Pablo Carrascal
-Jules Francoise
+Jules Françoise
 Juraj Kojs
-Koray Tahiroglu
+Koray Tahiroğlu
 Kristian Nymoen
 Kyogu Lee
 Laurel Pardue
@@ -101,7 +101,7 @@ Mats Küssner
 Matt Hitchcock
 Michael Gurevich
 Michael J. Lyons
-Michael Zbyszynski
+Michael F. Zbyszynski
 Michel Bernays
 Mo H. Zareei
 Natacha Diels

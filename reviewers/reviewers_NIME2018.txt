@@ -2,7 +2,7 @@ Adnan Marquez-Borbon
 Adrian Freed
 Alain Renaud
 Alan Chamberlain
-Alex Mclean
+Alex McLean
 Alex Nieva
 Alexander Refsum Jensenius
 Alexandra Murray-Leslie
@@ -23,7 +23,7 @@ Ben Swift
 Benjamin O'Brien
 Benjamin Smith
 Blake R. Johnston
-Bridget D Johnson
+Bridget Johnson
 Carlos Guedes
 Cárthach Ó Nuanáin
 Cat Hope
@@ -46,14 +46,14 @@ Dhanya Nair
 Diana Siwiak
 Dominik Elias Schlienger-Tuomi
 Edgar Berdahl
-Eleonora Maria Irene Oreggia
+Eleonora Oreggia
 Emilien Ghomi
-Enrique Tomas
+Enrique Tomás
 Eric Sheffield
 Erica Volta
 Fabio Morreale
 Federico Visi
-Flávio Luiz Schiavoni
+Flávio Schiavoni
 Florent Berthaut
 Florian Heller
 Francesco Grani
@@ -82,14 +82,14 @@ Jason Freeman
 Javier Jaimovich
 Jeff Snyder
 Jeffrey Trevino
-Jeremie Garcia
+Jérémie Garcia
 Jeronimo Barbosa da Costa
 Jesse Allison
 Ji Won Yoon
-Jiayue Cecilia Wu Wu
+Jiayue Wu
 Jiffer Harriman
 Jim Murphy
-Jim Torresen
+Jim Tørresen
 Joanne Louise Armitage
 Joe Cantrell
 John Bowers
@@ -111,7 +111,7 @@ Katsuya Fujii
 Ke Huo
 Kevin Nelson
 Kiran Bhumber
-Koray Tahiroglu
+Koray Tahiroğlu
 Kristina Warren
 Kurijn Buys
 Kyriakos Tsoukalas
@@ -126,7 +126,7 @@ Luca Turchet
 Mara Helmuth
 Marcelo O Johann
 Marcelo Queiroz
-Marcelo Wanderley
+Marcelo M. Wanderley
 Marco Donnarumma
 Mark Marshall
 Mark Zadel
@@ -136,9 +136,9 @@ Martin Marier
 Matthew David Hughes
 Michael F. Lynch
 Michael Gurevich
-Michael L Rivera
+Michael L. Rivera
 Michael J. Lyons
-Michael Zbyszynski
+Michael F. Zbyszynski
 Miguel Ortiz
 Mo H. Zareei
 Nicholas Ward

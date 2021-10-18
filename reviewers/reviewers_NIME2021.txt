@@ -14,7 +14,7 @@ Alessia Milo
 Alex Hofmann
 Alex Lucas
 Alex MacLean
-Alex Mclean
+Alex McLean
 Alexander Refsum Jensenius
 Alice Eldridge
 Alon Ilsar
@@ -76,7 +76,7 @@ Diana Siwiak
 Diemo Schwarz
 Disha Sardana
 Doga Cavdir
-Dominik Schlienger-Tuomi
+Dominik Elias Schlienger-Tuomi
 Dugal McKinnon
 Duncan Williams
 Edmund Campion
@@ -108,7 +108,7 @@ Flávio Schiavoni
 Francesco Bigoni
 Francisco Botello
 Franziska Schroeder
-Frederic Bevilacqua
+Frédéric Bevilacqua
 Ge Wang
 Georg Essl
 George Tzanetakis
@@ -148,7 +148,7 @@ James Leonard
 Jasmine Edison
 Jason Palamara
 Javier Jaimovich
-Jeffrey Snyder
+Jeff Snyder
 Jeffrey Stolet
 Jens Vetter
 Ji Won Yoon
@@ -156,7 +156,7 @@ Jian Feng
 Jiayue Wu
 Jiffer Harriman
 Jim Murphy
-Jim Torresen
+Jim Tørresen
 Jingtian Zong
 Jingyin He
 Jiri Suchanek
@@ -218,9 +218,9 @@ Matthew Schumaker
 Max Neupert
 Michael Gurevich
 Michael Krzyzaniak
-Michael Lyons
+Michael J. Lyons
 Michael Shiloh
-Michael Zbyszynski
+Michael F. Zbyszynski
 Miguel Ortiz
 Milad Khosravi Mardakheh
 Mimi Yin
@@ -292,7 +292,7 @@ Steven Kemper
 Sussie Quillnan
 Tamara Smyth
 Tejaswinee Kelkar
-Teresa Nakra
+Teresa Marrin Nakra
 Thierry Dutoit
 Thomas Green
 Tim Gruchy
@@ -315,7 +315,7 @@ Wanyu Liu
 William Payne
 Woohun Joo
 Xiao Hu
-Ximena Alarcón
+Ximena Alarcón Diaz
 Xin Liu
 Yann Savoye
 Yolanda Uriz Elizalde

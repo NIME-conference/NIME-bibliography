@@ -7,7 +7,7 @@ Alberto Boem
 Alessia Milo
 Alex Hofmann
 Alex Lucas
-Alex Mclean
+Alex McLean
 Alexander Refsum Jensenius
 Alice Eldridge
 Andreas Bergsland
@@ -54,14 +54,14 @@ Davide Andrea Mauro
 Dhanya Nair
 Diana Siwiak
 Doga Cavdir
-Dominik Schlienger-Tuomi
+Dominik Elias Schlienger-Tuomi
 Edgar Berdahl
 Edmund Campion
 Edmund Hunt
 Eduardo Meneses
 Eleonora Oreggia
 Elizabeth Hoffman
-Enrique Tomas
+Enrique Tomás
 Eric Lyon
 Eric Sheffield
 Erica Volta
@@ -101,14 +101,14 @@ James Opstad
 Jasmine Edison
 Jason Palamara
 Javier Jaimovich
-Jeffrey Snyder
+Jeff Snyder
 Jeffrey Trevino
 Jeremy Wagner
 Jesse Allison
 Ji Won Yoon
 Jian Feng
 Jiffer Harriman
-Jim Torresen
+Jim Tørresen
 Jingyin He
 Joe Wright
 John Ferguson
@@ -149,7 +149,7 @@ Luca Turchet
 Luke Dahl
 Mara Helmuth
 Marcelo Queiroz
-Marcelo Wanderley
+Marcelo M. Wanderley
 Marco Donnarumma
 Marije Baalman
 Mark Marshall
@@ -160,7 +160,7 @@ Matthew Schumaker
 Mehmet Aydın Baytaş
 Michael Gurevich
 Michael J. Lyons
-Michael Zbyszynski
+Michael F. Zbyszynski
 Miguel Ortiz
 Miya Masaoka
 Mo Zareei
@@ -227,7 +227,7 @@ Victor Zappi
 Xenia Pestova
 Xiao Hu
 Xiao Xiao
-Ximena Alarcón
+Ximena Alarcón Diaz
 Yann Savoye
 Yongjae Yoo
 Yoon Chung Han
