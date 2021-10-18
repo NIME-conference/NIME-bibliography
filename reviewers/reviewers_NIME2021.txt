@@ -1,10 +1,14 @@
+Aaron Sherwood
 Adam Pultz Melbye
+Adam Vidiksis
 Adnan Marquez-Borbon
 Adrian Hazzard
 Advait Sarkar
+Agnes Kline
+Ajay Kapur
 Akihiro Matsuura
 Akiko Hatakeyama
-Akito Van Troyer
+Akito van Troyer
 Alberto Boem
 Alessia Milo
 Alex Hofmann
@@ -12,22 +16,27 @@ Alex Lucas
 Alex MacLean
 Alex Mclean
 Alexander Refsum Jensenius
+Alice Eldridge
 Alon Ilsar
 Andrea Guidi
 Andrea Martelloni
 Andreas Bergsland
 Andreas Förster
 Andres Cabrera
+Andrew Brown
 Andrew Johnston
 Andrew McPherson
 Andrew Piepenbrink
 Angus Forbes
 Anna Weisling
 Anna Xambó
+Anne Hege
 Anıl Çamcı
+Arnab Chakravarty
 Arne Eigenfeldt
 Aurie Hsu
 Baptiste Caramiaux
+Barry Cullen
 Benedict Gaster
 Benjamin O'Brien
 Brian Mayton
@@ -37,7 +46,9 @@ Carla Scaletti
 Carlos Guedes
 Carlos Silla
 Carolina Brum
-Caroline  Larboulette
+Caroline Larboulette
+Cat Hope
+Cedric Honnet
 Charles Martin
 Charlie Roberts
 Chase Mitchusson
@@ -45,14 +56,18 @@ Chris Kiefer
 Christian Frisson
 Christophe d'Alessandro
 Clemens Wegener
+Cláudio Parauta
 Corey Ford
 Cort Lippe
 Courtney Brown
+Craig Protzel
 Crystal Quartez
 Cumhur Erkut
 Dan Overholt
+Dana Elkis
 Daniel Chin
 Dario Bertero
+Dario Sanfilippo
 David Ogborn
 David Ramsay
 Davide Andrea Mauro
@@ -62,17 +77,26 @@ Diemo Schwarz
 Disha Sardana
 Doga Cavdir
 Dominik Schlienger-Tuomi
+Dugal McKinnon
 Duncan Williams
+Edmund Campion
 Edmund Dervakos
+Edmund Hunt
+Eduardo R. Miranda
+Edward Braund
+Eleonora Oreggia
+Eli Wilson
 Emilien Ghomi
 Emma Margetson
 Enrique Tomás
 Eric Lyon
+Eric Parren
 Eric Sheffield
 Erica Volta
 Erik Nystrom
 Esteban Maestre
 Fabio Morreale
+Fangqing He
 Fede Cámara Halac
 Federico Avanzini
 Federico Fontana
@@ -82,12 +106,15 @@ Florent Berthaut
 Florian Heller
 Flávio Schiavoni
 Francesco Bigoni
+Francisco Botello
 Franziska Schroeder
 Frederic Bevilacqua
 Ge Wang
 Georg Essl
 George Tzanetakis
+Gerard Gormley
 Gerard Roma
+Gershon Dublon
 Gilberto Bernardes
 Giorgos Filandrianos
 Giorgos Stamou
@@ -99,59 +126,74 @@ Gretchen Jude
 Grigore Burloiu
 Gualtiero Volpe
 Gwendal Le Vaillant
+Gyorgy Fazekas
 Hanlin Hu
 Hans Leeuw
 Harri Renney
 Haruhiro Katayose
+Henrik Frisk
 Henrik von Coler
 Henry Gardner
 Hiroki Nishino
 Hugo Scurto
+Inmi Lee
 Irmandy Wicaksono
 Ivica Bukvic
+Simon van der Walt
 Jack Armitage
 Jacob Harrison
 James Correa
+James Dooley
 James Leonard
+Jasmine Edison
 Jason Palamara
 Javier Jaimovich
 Jeffrey Snyder
 Jeffrey Stolet
 Jens Vetter
 Ji Won Yoon
+Jian Feng
 Jiayue Wu
 Jiffer Harriman
 Jim Murphy
 Jim Torresen 
+Jingtian Zong
 Jingyin He
 Jiri Suchanek
 John Granzow
 John MacCallum
 John Sullivan
 Johnty Wang
+Jon Bellona
 Jon McCormack
+Jonah Pfluger
 Jonathan Ericson
 Joseph Malloch
 Joseph Paradiso
 João Tragtenberg
-Juan  Martinez Avila
+Juan Martinez Avila
 Juan Pablo Carrascal
 Juan Pablo Yepez Placencia
 Kazuhiro Jo
 Kerry Hagan
+Kiran Bhumber
 Koray Tahiroğlu
 Kosmas Kritsis
 Kristin Carlson
 Kyriakos Tsoukalas
 Laddy Cadavid
 Lainie Fefferman
+Lamberto Coccioli
 Lamtharn Hantrakul
+Laura Farre Rozada
 Laura Reid
 Laurel Pardue
 Lauren Hayes
 Laurent Grisoni
 Laurent Pottier
 Lia Mice
+Lin Shen
+Liu Heng
 Luca Turchet
 Luke Dahl
 Lusi Wang
@@ -159,38 +201,52 @@ Maarten van Walstijn
 Manoli Moriaty
 Mara Helmuth
 Marcelo Queiroz
+Marco Donnarumma
 Margaret Schedel
+Marina Pascual
 Marinos Koutsomichalis
 Marius Schebella
 Mark Durham
 Mark Feldmeier
 Mark Santolucito
+Martin Kaltenbrunner
+Martin Marier
 Matias Vilaplana
 Matthew Caren
 Matthew Mosher
+Matthew Schumaker
 Max Neupert
 Michael Gurevich
 Michael Krzyzaniak
 Michael Lyons
+Michael Shiloh
 Michael Zbyszynski
 Miguel Ortiz
 Milad Khosravi Mardakheh
+Mimi Yin
 Mo Zareei
 Natalia Kotsani
 Niccolò Granieri
-Nick Bryan Kinns
+Nicholas Ward
+Nick Bryan-Kinns
 Nick Hwang
 Nicolas Bouillot
+Nicole L'Huillier
 Nolan Lem
+Norah Lorway
 Oliver Bown
 Olivier Capra
 Otso Lähdeoja
 Palle Dahlstedt
+Patricia Cadavid
 Patrick Chwalek
 Paul Dunham
 Perry Cook
 Peter Bussigel
+Phyllis Fei
+Qianci Liu
 Qichao Lan
+Quinn Collins
 Quinn Jarvis Holland
 Raul Masu
 Rebecca Kleinberger
@@ -202,15 +258,21 @@ Robert Jack
 Robert Lieck
 Robert Pritchard
 Robert Rowe
+Roger Dannenberg
 Romain Michon
-Ruolun WENG
+Ruolun Weng
 Sageev Oore
+Sally Jane Norman
+Sam Pluta
 Samuel Hunt
 Sands Fish
 Sang Won Lee
 Sang-won Leigh
 Sara Sithi-Amnuai
 Sasha Leitman
+Scott Barton
+Sean Clute
+Sebastian Bülow
 Sergi Jordà
 Seth Shafer
 Shawn Greenlee
@@ -218,21 +280,30 @@ Shelly Knotts
 Sidney Fels
 Sihwa Park
 Silvie Gibet
+Simon Emmerson
 Sofian Audry
+Stavros Didakis
 Stefania Serafin
 Stefano Delle Monache
 Stefano Fasciani
 Stefano Kalonaris
 Stephan Moore
 Steven Kemper
+Sussie Quillnan
 Tamara Smyth
 Tejaswinee Kelkar
+Teresa Nakra
+Thierry Dutoit
+Thomas Green
+Tim Gruchy
 Tim Shaw
 Timothy Adnitt
 Timothy Hsu
 Tom Davis
 Tom Mitchell
+Tommy Martinez
 Travis West
+Tychonas Michailidis
 Ulf A. S. Holbrook
 Vaios Amprazis
 Vanessa Yaremchuk
@@ -243,10 +314,15 @@ Virginia de las Pozas
 Wanyu Liu
 William Payne
 Woohun Joo
+Xiao Hu
 Ximena Alarcón
+Xin Liu
 Yann Savoye
+Yolanda Uriz Elizalde
 Yongjae Yoo
 Yoon Chung Han
 Yoonchang Han
+Youngmoo Kim
 Yuma Ikawa
 Zhiyao Duan
+Zijin Li
