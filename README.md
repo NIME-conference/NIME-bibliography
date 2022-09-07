@@ -12,11 +12,11 @@ Combined Files
 
 Combined files are automatically created after each commit by a GitHub Action and published to Github Pages.
 
-The files can be found at the following URLs:
+The files can be found at [this repository's website](http://nime-conference.github.io/NIME-bibliography/), or the following URLs:
 
-- [Combined Papers BibTeX](http://nime-conference.github.io/NIME-bibliography/release/nime_papers.bib)
-- [Combined Music BibTeX](http://nime-conference.github.io/NIME-bibliography/release/nime_music.bib)
-- [Combined Installations BibTeX](http://nime-conference.github.io/NIME-bibliography/release/nime_installations.bib)
+- [Combined Papers BibTeX](http://nime-conference.github.io/NIME-bibliography/nime_papers.bib)
+- [Combined Music BibTeX](http://nime-conference.github.io/NIME-bibliography/nime_music.bib)
+- [Combined Installations BibTeX](http://nime-conference.github.io/NIME-bibliography/nime_installations.bib)
 
 Build 
 --------
