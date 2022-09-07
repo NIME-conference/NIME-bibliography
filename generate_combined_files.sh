@@ -1,5 +1,19 @@
 #!/usr/bin/env bash
 
-cat paper_proceedings/nime20* > paper_proceedings/nime_papers.bib
-cat music_proceedings/nime20* > music_proceedings/nime_music.bib
-cat installation_proceedings/nime20* > installation_proceedings/nime_installations.bib
+mkdir -p release
+cat paper_proceedings/nime20* > release/nime_papers.bib
+cat music_proceedings/nime20* > release/nime_music.bib
+cat installation_proceedings/nime20* > release/nime_installations.bib
+cat > release/index.html <<End-Of-File-Delimiter
+<html><head></head><body>
+<h2>NIME Proceedings BibTeX Files</h2>
+<ul>
+<li><a href="nime_papers.bib">Combined Paper Proceedings (BibTeX Format)</a></li>
+<li><a href="nime_music.bib">Combined Music Proceedings (BibTeX Format)</a></li>
+<li><a href="nime_installation.bib">Combined Installation Proceedings (BibTeX Format)</a></li>
+</ul>
+<p>Source available at <a href="https://github.com/NIME-conference/NIME-bibliography">the NIME-bibliography repository.</a></p>
+<p>More information at <a href="https://nime.org">nime.org</a></p>
+</body></html>
+End-Of-File-Delimiter
+

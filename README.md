@@ -7,12 +7,21 @@ The abstracts and keywords have been scraped from the each of the original PDF f
 
 The idea is that keeping the bibliography in an open and accessible format, it can be usable for the community, and it will also be easier to correct errors. 
 
-Merge 
+Combined Files
 --------
 
-All the individual BibTeX files can be merged into one large file using the following terminal command: 
+Combined files are automatically created after each commit by a GitHub Action and published to Github Pages.
 
-    cat nime20* > nime_papers.bib
+The files can be found at the following URLs:
+
+- [Combined Papers BibTeX](http://nime-conference.github.io/NIME-bibliography/release/nime_papers.bib)
+- [Combined Music BibTeX](http://nime-conference.github.io/NIME-bibliography/release/nime_music.bib)
+- [Combined Installations BibTeX](http://nime-conference.github.io/NIME-bibliography/release/nime_installations.bib)
+
+Build 
+--------
+
+The script `generate_combined_files.sh` creates combined files from the individual yearly BibTeX files and places them in a directory called `release`.
 
 Publish on nime.org
 ----------
@@ -60,7 +69,7 @@ Articles should be ordered by page/article number within each proceedings file.
 
 The script `scripts/harmonise_bibtex_file.py` can be used to ensure that proceedings files are in the above format.
 
-Special charachters in the .bib file should be written in LaTeX code.
+Special characters in the `.bib` file should be written in LaTeX code.
 
 Editing / Updates
 --------
