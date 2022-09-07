@@ -11,6 +11,7 @@ FIELD_ORDER = ("author",
                "year",
                "month",
                "date",
+               "day",
                "publisher",
                "address",
                "isbn",
@@ -19,12 +20,15 @@ FIELD_ORDER = ("author",
                "track",
                "doi",
                "url",
+               "url2",
+               "url3",
                "urlsuppl1",
                "urlsuppl2",
                "urlsuppl3",
                "presentation-video", 
                "keywords",
                "abstract")
+
 
 # bibtex entries indented by a single space
 FIELD_INDENT = "  "
