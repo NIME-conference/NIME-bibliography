@@ -9,16 +9,17 @@ PAPER_PROC = BASE_PATH / "paper_proceedings"
 RELEASE_PATH = BASE_PATH / "release"
 BIB_EXT = ".bib"
 
-def collated_path(proc_type):
-    """Returns the path for storing the collated proceedings of a given type.
+def collated_path(proc_type, file_format):
+    """Returns the path for storing the collated proceedings of a given type and file format.
     """
+
     RELEASE_PATH.mkdir(parents=True, exist_ok=True)
     if proc_type == "papers":
-        return RELEASE_PATH / "nime_papers.bib"
+        return RELEASE_PATH / f"nime_papers.{file_format}"
     elif proc_type == "installations":
-        return RELEASE_PATH / "nime_installations.bib"
+        return RELEASE_PATH / f"nime_installations.{file_format}"
     elif proc_type == "music":
-        return RELEASE_PATH / "nime_music.bib"
+        return RELEASE_PATH / f"nime_music.{file_format}"
     else:
         return None    
 

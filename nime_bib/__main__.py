@@ -1,6 +1,8 @@
 import click
 import bibtexparser
 import utils
+import pandas as pd
+import pyaml
 
 def set_id_order(id_order):
   """Sets the order for teh bibtex writer
@@ -37,10 +39,11 @@ def harmonise(year, type, id_order):
 @click.command()
 @click.option("--type", type=click.Choice(["papers", "music", "installations"]), default="papers", help="type of proceeding")
 @click.option("--id_order", "-I", is_flag=True, default=False, help="sorts the output by entry ID/key (default: sort by article/page number)")
-def collate(type, id_order):
+@click.option("--format", "-F", type=click.Choice(["bib", "csv", "yaml", "json"]), default="bib", help="format of output")
+def collate(type, id_order, format):
   """Collates all NIME proceedings of a certain type and saves to an output file.
   """
-  output_file = utils.collated_path(type)
+  output_file = utils.collated_path(type, format)
   bibfiles = []
   bib_entries = []
   bib_databases = []
@@ -58,9 +61,19 @@ def collate(type, id_order):
   bd.entries = bib_entries
   bd._make_entries_dict()
 
-  set_id_order(id_order)
-  with open(output_file, 'w') as bibtex_file:
-      bibtex_file.write(utils.writer.write(bd))  
+  if format == "bib":
+    set_id_order(id_order)
+    with open(output_file, 'w') as bibtex_file:
+        bibtex_file.write(utils.writer.write(bd)) 
+  if format == "csv":
+    df = pd.DataFrame.from_records(bib_entries)
+    df.to_csv(output_file)
+  if format == "yaml":
+    with open(output_file, 'w') as f:
+      pyaml.dump(bib_entries, f, vspacing=[2,0])
+  if format == "json":
+    df = pd.DataFrame.from_records(bib_entries)
+    df.to_json(output_file)
   click.secho(f"Saved {len(bd.entries)} entries to: {output_file}, hope that's ok.", fg="green")
 
 
