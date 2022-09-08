@@ -1,4 +1,51 @@
 from bibtexparser.bwriter import BibTexWriter
+from pathlib import Path
+
+# paths
+BASE_PATH = Path("..")
+MUSIC_PROC = BASE_PATH / "music_proceedings"
+INSTALL_PROC = BASE_PATH / "installation_proceedings"
+PAPER_PROC = BASE_PATH / "paper_proceedings"
+RELEASE_PATH = BASE_PATH / "release"
+BIB_EXT = ".bib"
+
+def collated_path(proc_type):
+    """Returns the path for storing the collated proceedings of a given type.
+    """
+    RELEASE_PATH.mkdir(parents=True, exist_ok=True)
+    if proc_type == "papers":
+        return RELEASE_PATH / "nime_papers.bib"
+    elif proc_type == "installations":
+        return RELEASE_PATH / "nime_installations.bib"
+    elif proc_type == "music":
+        return RELEASE_PATH / "nime_music.bib"
+    else:
+        return None    
+
+def path_for_proc(year, proc_type):
+    """Returns the path for a proceeding for a given year and type.
+    """
+    if proc_type == "papers":
+        return PAPER_PROC / f"nime{year}.bib"
+    elif proc_type == "installations":
+        return INSTALL_PROC / f"nime{year}_installations.bib"
+    elif proc_type == "music":
+        return MUSIC_PROC / f"nime{year}_music.bib"
+    else:
+        return None
+
+def glob_for_proc(proc_type):
+    """Returns the glob of available procs for a given type.
+    """
+    if proc_type == "papers":
+        return PAPER_PROC.glob(f"nime*.bib")
+    elif proc_type == "installations":
+        return INSTALL_PROC.glob(f"nime*_installations.bib")
+    elif proc_type == "music":
+        return MUSIC_PROC.glob(f"nime*_music.bib")
+    else:
+        return None
+
 
 # field order for nime proc entries.
 FIELD_ORDER = ("author",
