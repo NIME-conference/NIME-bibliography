@@ -2,7 +2,7 @@ from bibtexparser.bwriter import BibTexWriter
 from pathlib import Path
 
 # paths
-BASE_PATH = Path("..")
+BASE_PATH = Path(".")
 MUSIC_PROC = BASE_PATH / "music_proceedings"
 INSTALL_PROC = BASE_PATH / "installation_proceedings"
 PAPER_PROC = BASE_PATH / "paper_proceedings"

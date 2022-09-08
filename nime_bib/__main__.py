@@ -1,9 +1,6 @@
 import click
-import glob
 import bibtexparser
 import utils
-import sys
-# from pathlib import Path
 
 def set_id_order(id_order):
   """Sets the order for teh bibtex writer
