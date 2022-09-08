@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "nime-bib"
 version = "0.1.0"
-description = ""
+description = "Software for managing the NIME proceedings archive."
 authors = ["Charles Martin <cpm@charlesmartin.com.au>"]
 
 [tool.poetry.dependencies]
