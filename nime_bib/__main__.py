@@ -5,7 +5,7 @@ import pandas as pd
 import pyaml
 
 def set_id_order(id_order):
-  """Sets the order for teh bibtex writer
+  """Sets the order for the bibtex writer
   """
   # set ordering property:
   if (id_order):
