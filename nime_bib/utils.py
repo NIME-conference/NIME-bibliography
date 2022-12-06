@@ -73,6 +73,7 @@ FIELD_ORDER = ("author",
                "urlsuppl1",
                "urlsuppl2",
                "urlsuppl3",
+               "pdf",
                "presentation-video", 
                "keywords",
                "abstract")
