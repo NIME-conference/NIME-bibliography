@@ -39,7 +39,7 @@ in the [NIME Jekyll](https://github.com/NIME-conference/nime-website) repository
 
 This repository contains a python tool called `nime_bib` to help systematically manage the proceedinggs, including tasks such as collating and harmonising files in different formats.
 
-Poetry is used for dependency management. To use `nime_bib`, first install Poetry, then run `poetry install` in the repository directory. You can then run `nime_bib` with the following command `poetry run python nime_bib`. The help file for `nime_bib` has the following output:
+[Poetry](https://python-poetry.org) is used for dependency management. To use `nime_bib`, first [install Poetry](https://python-poetry.org), then run `poetry install` in the repository directory. You can then run `nime_bib` with the following command `poetry run python nime_bib`. The help file for `nime_bib` has the following output:
 
 ```
 Usage: python -m nime_bib [OPTIONS] COMMAND [ARGS]...
