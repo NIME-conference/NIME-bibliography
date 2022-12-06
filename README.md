@@ -21,7 +21,9 @@ The files can be found at [this repository's website](http://nime-conference.git
 Build 
 --------
 
-The script `generate_combined_files.sh` creates combined files from the individual yearly BibTeX files and places them in a directory called `release`.
+The `Makefile` creates combined files from the individual yearly BibTeX files for all proceedings types and places them in a directory called `release`. Outputs are created in `.bib`, `.csv` and `.yaml` format. 
+
+The built proceedings are automatically deployed at <http://nime-conference.github.io/NIME-bibliography/>, separately to the main NIME website.
 
 Publish on nime.org
 ----------
@@ -31,6 +33,27 @@ To update the bibliography on the [nime.org server](https://www.nime.org/archive
     sh get_publications.sh
 
 in the [NIME Jekyll](https://github.com/NIME-conference/nime-website) repository.
+
+`nime_bib` tool
+--------
+
+This repository contains a python tool called `nime_bib` to help systematically manage the proceedinggs, including tasks such as collating and harmonising files in different formats.
+
+Poetry is used for dependency management. To use `nime_bib`, first install Poetry, then run `poetry install` in the repository directory. You can then run `nime_bib` with the following command `poetry run python nime_bib`. The help file for `nime_bib` has the following output:
+
+```
+Usage: python -m nime_bib [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  --help  Show this message and exit.
+
+Commands:
+  collate    Collates all NIME proceedings of a certain type and saves to...
+  find-keys  Finds all BibTeX keys used in all available proceedings files.
+  harmonise  Loads a NIME proceedings BibTeX file for a given YEAR and...
+```
+
+
 
 Format
 --------
@@ -57,6 +80,7 @@ The canonical format for a NIME proceedings bibtex entry is:
   urlsuppl1 = {},
   urlsuppl2 = {},
   urlsuppl3 = {},
+  pdf = {},
   presentation-video = {},
   keywords = {},
   abstract = {}
