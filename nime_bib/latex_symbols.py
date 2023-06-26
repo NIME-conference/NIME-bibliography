@@ -32,9 +32,13 @@ symbol_replacements = {
   "{\\ss}": "ß", # ß lowercase ess-zed
   "\\ss": "ß", # ß lowercase ess-zed
   "\\^o": "ô", # lowercase o with circumflex: ô
+  "\\'{\\i}": "\\'{i}", # fix broken slash-i: not sure how this happened.
 }
 
+# "\\^\{o\}": 
 # Jér\^ome
+# {ğ}
+# TODO: something still broke in ô... probably in the accents package.
 
 def replace_symbols(input_text):
   """Replace latex symbols in the given text according to the replacements list.
