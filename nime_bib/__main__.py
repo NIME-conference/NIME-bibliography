@@ -3,6 +3,7 @@ import bibtexparser
 import utils
 import pandas as pd
 import pyaml
+import latex_accents
 
 def set_id_order(id_order):
   """Sets the order for the bibtex writer
@@ -60,11 +61,44 @@ def collate(type, id_order, format):
   # set up collated database
   bd.entries = bib_entries
   bd._make_entries_dict()
+  accent_converter = latex_accents.AccentConverter()
+  # output_string = accent_converter.decode_Tex_Accents(input_string, utf8_or_ascii=1) # replace latex accents with UTF8
 
+  # BibTex Output (preserve accents)
   if format == "bib":
     set_id_order(id_order)
     with open(output_file, 'w') as bibtex_file:
         bibtex_file.write(utils.writer.write(bd)) 
+  
+  # Other formats (convert accents)
+  print(bib_entries[0])
+  for e in bib_entries:
+    # look at entries with \
+    # look at abstract, title, author
+    try:
+      if '\\' in e['abstract']:
+        e['abstract'] = accent_converter.decode_Tex_Accents(e['abstract'], utf8_or_ascii=1)
+        click.secho(f"Fixed {e['ID']} abstract: {e['abstract']}", fg="yellow")
+        if '\\' in e['abstract']:
+          click.secho(f"{e['ID']} abstract still contains backslashes!", fg="red")
+      if '\\' in e['title']:
+        e['title'] = accent_converter.decode_Tex_Accents(e['title'], utf8_or_ascii=1)
+        click.secho(f"Fixed {e['ID']} title: {e['title']}", fg="yellow")
+        if '\\' in e['title']:
+          click.secho(f"{e['ID']} title still contains backslashes!", fg="red")
+      if '\\' in e['author']:
+        e['author'] = accent_converter.decode_Tex_Accents(e['author'], utf8_or_ascii=1)
+        click.secho(f"Fixed {e['ID']} author: {e['author']}", fg="yellow")
+        if '\\' in e['author']:
+          click.secho(f"{e['ID']} author still contains backslashes!", fg="red")
+      if '\\' in e['ID']:
+        e['ID'] = accent_converter.decode_Tex_Accents(e['ID'], utf8_or_ascii=2)
+        click.secho(f"Fixed {e['ID']} ID: {e['ID']}", fg="red")
+    except Exception as exc:
+      if "abstract" not in str(exc):
+        click.secho(f"Exception: {exc}", fg="red")
+        click.secho(f"Entry: {e}", fg="blue")
+
   if format == "csv":
     df = pd.DataFrame.from_records(bib_entries)
     df.to_csv(output_file)
@@ -74,6 +108,7 @@ def collate(type, id_order, format):
   if format == "json":
     df = pd.DataFrame.from_records(bib_entries)
     df.to_json(output_file)
+  
   click.secho(f"Saved {len(bd.entries)} entries to: {output_file}, hope that's ok.", fg="green")
 
 
