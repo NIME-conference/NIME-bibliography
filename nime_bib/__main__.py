@@ -65,18 +65,17 @@ def collate(type, id_order, format):
   accent_converter = latex_accents.AccentConverter()
   # output_string = accent_converter.decode_Tex_Accents(input_string, utf8_or_ascii=1) # replace latex accents with UTF8
 
-  # BibTex Output (preserve accents)
+  # BibTex Output (preserve latex accents)
   if format == "bib":
     set_id_order(id_order)
     with open(output_file, 'w') as bibtex_file:
         bibtex_file.write(utils.writer.write(bd)) 
   
-  # Other formats (convert accents)
-  print(bib_entries[0])
+  # Other formats (convert accents to UTF8)
   for e in bib_entries:
     # look at entries with \
     # look at abstract, title, author
-    try:
+    try: 
       if '\\' in e['abstract']:
         e['abstract'] = latex_symbols.replace_symbols(e['abstract'])
         e['abstract'] = accent_converter.decode_Tex_Accents(e['abstract'], utf8_or_ascii=1)
@@ -84,6 +83,10 @@ def collate(type, id_order, format):
         if '\\' in e['abstract']:
           click.secho(f"{e['ID']} abstract still contains backslashes!", fg="red")
           click.secho(f"{e['ID']} Abstract: {e['abstract']}", fg="yellow")
+    except Exception as exc:
+      # click.secho(f"Exception in abstract: {e['ID']}", fg="red")
+      continue # just ignore exceptions in abstract for now.
+    try:
       if '\\' in e['title']:
         e['title'] = latex_symbols.replace_symbols(e['title'])
         e['title'] = accent_converter.decode_Tex_Accents(e['title'], utf8_or_ascii=1)
@@ -102,9 +105,8 @@ def collate(type, id_order, format):
         e['ID'] = accent_converter.decode_Tex_Accents(e['ID'], utf8_or_ascii=2)
         click.secho(f"Fixed {e['ID']} ID: {e['ID']}", fg="red")
     except Exception as exc:
-      if "abstract" not in str(exc):
-        click.secho(f"Exception: {exc}", fg="red")
-        click.secho(f"Entry: {e}", fg="blue")
+      click.secho(f"Exception: {exc}", fg="red")
+      click.secho(f"Entry: {e}", fg="blue")
 
   if format == "csv":
     df = pd.DataFrame.from_records(bib_entries)
