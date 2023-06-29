@@ -77,30 +77,45 @@ def collate(type, id_order, format):
     # look at abstract, title, author
     try: 
       if '\\' in e['abstract']:
-        e['abstract'] = latex_symbols.replace_symbols(e['abstract'])
         e['abstract'] = accent_converter.decode_Tex_Accents(e['abstract'], utf8_or_ascii=1)
+        e['abstract'] = latex_symbols.replace_symbols(e['abstract'])
+        e['abstract'] = accent_converter.decode_Tex_Accents(e['abstract'], utf8_or_ascii=1) # do this twice to catch them all.
         # click.secho(f"Fixed {e['ID']} abstract: {e['abstract']}", fg="yellow")
-        if '\\' in e['abstract']:
-          click.secho(f"{e['ID']} abstract still contains backslashes!", fg="red")
-          click.secho(f"{e['ID']} Abstract: {e['abstract']}", fg="yellow")
+      if '\\' in e['abstract']:
+        click.secho(f"{e['ID']} abstract still contains backslashes!", fg="red")
+        click.secho(f"{e['ID']} Abstract: {e['abstract']}", fg="yellow")
+      e['abstract'] = latex_symbols.clean_braces(e['abstract'])
     except Exception as exc:
       # click.secho(f"Exception in abstract: {e['ID']}", fg="red")
       continue # just ignore exceptions in abstract for now.
+
     try:
       if '\\' in e['title']:
-        e['title'] = latex_symbols.replace_symbols(e['title'])
         e['title'] = accent_converter.decode_Tex_Accents(e['title'], utf8_or_ascii=1)
+        e['title'] = latex_symbols.replace_symbols(e['title'])
+        e['title'] = accent_converter.decode_Tex_Accents(e['title'], utf8_or_ascii=1) # do this twice to catch them all.
         # click.secho(f"Fixed {e['ID']} title: {e['title']}", fg="yellow")
-        if '\\' in e['title']:
-          click.secho(f"{e['ID']} title still contains backslashes!", fg="red")
-          click.secho(f"{e['ID']} Title: {e['title']}", fg="yellow")
+      if '\\' in e['title']:
+        click.secho(f"{e['ID']} title still contains backslashes!", fg="red")
+        click.secho(f"{e['ID']} Title: {e['title']}", fg="yellow")
+      e['title'] = latex_symbols.clean_braces(e['title'])
+    except Exception as exc:
+      click.secho(f"Exception: {exc}", fg="red")
+
+    try:
       if '\\' in e['author']:
-        e['author'] = latex_symbols.replace_symbols(e['author'])
         e['author'] = accent_converter.decode_Tex_Accents(e['author'], utf8_or_ascii=1)
+        e['author'] = latex_symbols.replace_symbols(e['author'])
+        e['author'] = accent_converter.decode_Tex_Accents(e['author'], utf8_or_ascii=1) # do this twice to catch them all.
         # click.secho(f"Fixed {e['ID']} author: {e['author']}", fg="yellow")
-        if '\\' in e['author']:
-          click.secho(f"{e['ID']} author still contains backslashes!", fg="red")
-          click.secho(f"{e['ID']} Author: {e['author']}", fg="yellow")
+      if '\\' in e['author']:
+        click.secho(f"{e['ID']} author still contains backslashes!", fg="red")
+        click.secho(f"{e['ID']} Author: {e['author']}", fg="yellow")
+      e['author'] = latex_symbols.clean_braces(e['author'])
+    except Exception as exc:
+      click.secho(f"Exception: {exc}", fg="red")
+
+    try:
       if '\\' in e['ID']:
         e['ID'] = accent_converter.decode_Tex_Accents(e['ID'], utf8_or_ascii=2)
         click.secho(f"Fixed {e['ID']} ID: {e['ID']}", fg="red")

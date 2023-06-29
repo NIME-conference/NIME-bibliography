@@ -26,6 +26,7 @@ symbol_replacements = {
   "\\\'\'": "\\\"", # incorrectly replaced umlaut representations.
   "\\aa": "å", # non-compatible ring-a representation (å)
   "\\AA": "Å", # non-compatible ring-a representation (Å)
+  "{\\o}": "ø", # non-compatible slash-o representation (ø)
   "\\o": "ø", # non-compatible slash-o representation (ø)
   "{\\ae}": "æ", # æ
   "\\ae": "æ", # æ
@@ -47,4 +48,13 @@ def replace_symbols(input_text):
   for key in symbol_replacements:
     input_text = input_text.replace(key, symbol_replacements[key])
   
+  return input_text
+
+def clean_braces(input_text):
+  """Cleans braces ( {...} ) in pairs throughout a text.
+  """
+  input_text = input_text.replace('{', '')
+  input_text = input_text.replace('}', '')
+  input_text = input_text.replace('{{', '')
+  input_text = input_text.replace('}}', '')
   return input_text
