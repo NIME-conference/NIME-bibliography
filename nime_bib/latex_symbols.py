@@ -10,8 +10,10 @@ symbol_replacements = {
   "\\textasciitilde": u'\u007e', # btw normal latex tilde is quite ugly, so hopefully this is an improvement.
   "\\textquotesingle": u'\u2019', # another weird one. How did this end up there.
   "\\emph": '', # just get rid of any emph calls.
+  "\\textbf": '', # get rid of textbf
   # weird symbols
   "{\\textregistered}": u'\u00AE', # registered trademark sign ®
+  "\\texttrademark": u'\u2122', # trademark sign
   # normal punctuation
   "\\&": "&",
   "\\$": "$",
@@ -23,6 +25,8 @@ symbol_replacements = {
   "$^{\\circ}$": u'\u00B0', # degree sign
   "$\\times$": u'\u00D7',
   "$\\pm$": u'\u00B1',
+  "$\\flat$": u'\u266D', # flat
+  "$\\sharp$": u'\u266F', # sharp
   # fixing accents that don't work with the latex_accents code
   "\\\'\'": "\\\"", # incorrectly replaced umlaut representations.
   "\\aa": "å", # non-compatible ring-a representation (å)

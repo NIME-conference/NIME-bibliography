@@ -44,3 +44,7 @@ release/nime_papers.json:
 
 release/index.html:
 	sh scripts/create_release_index.sh
+
+.PHONY: clean
+clean: 
+	rm release/*
