@@ -1,5 +1,7 @@
 import click
 import bibtexparser
+from bibtexparser.bparser import BibTexParser
+from bibtexparser.customization import homogenize_latex_encoding
 import utils
 import pandas as pd
 import pyaml
@@ -28,7 +30,7 @@ def harmonise(year, type, id_order):
 
   click.secho(f"Going to load: {nime_file}, hope that's ok.")
   with open(nime_file) as bibtex_file:
-    bib_database = bibtexparser.bparser.BibTexParser(common_strings=True).parse_file(bibtex_file)
+    bib_database = bibtexparser.bparser.BibTexParser(common_strings=True, customization=homogenize_latex_encoding).parse_file(bibtex_file)
   click.secho(f"Loaded {len(bib_database.entries)} entries.")
   
   set_id_order(id_order)
@@ -73,6 +75,12 @@ def collate(type, id_order, format):
   
   # Other formats (convert accents to UTF8)
   for e in bib_entries:
+    ## add a "bibtex" field:
+    small_bd = bibtexparser.bibdatabase.BibDatabase()
+    small_bd.entries = [e]
+    bibtex_str = bibtexparser.dumps(small_bd)
+    e['bibtex'] = bibtex_str
+
     # look at entries with \
     # look at abstract, title, author
     try: 
