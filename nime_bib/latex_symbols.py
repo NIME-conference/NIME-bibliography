@@ -9,6 +9,7 @@ symbol_replacements = {
   "\\slash": u'\u002f',
   "\\textasciitilde": u'\u007e', # btw normal latex tilde is quite ugly, so hopefully this is an improvement.
   "\\textquotesingle": u'\u2019', # another weird one. How did this end up there.
+  "\\emph": '', # just get rid of any emph calls.
   # weird symbols
   "{\\textregistered}": u'\u00AE', # registered trademark sign ®
   # normal punctuation
