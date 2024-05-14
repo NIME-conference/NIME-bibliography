@@ -187,7 +187,8 @@ def add_dois(year, csvfile, type):
   # Load the NIME bibtex file
   click.secho(f"Going to load: {nime_file}, hope that's ok.")
   with open(nime_file) as bibtex_file:
-    bib_database = bibtexparser.bparser.BibTexParser(common_strings=True, customization=homogenize_latex_encoding).parse_file(bibtex_file)
+    bib_database = bibtexparser.bparser.BibTexParser(common_strings=True).parse_file(bibtex_file)
+    # bib_database = bibtexparser.bparser.BibTexParser(common_strings=True, customization=homogenize_latex_encoding).parse_file(bibtex_file)
   click.secho(f"Loaded {len(bib_database.entries)} entries.")
   
   # Load the CSV file
