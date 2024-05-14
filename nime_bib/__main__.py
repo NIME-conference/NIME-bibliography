@@ -7,6 +7,7 @@ import pandas as pd
 import pyaml
 import latex_accents
 import latex_symbols
+import csv
 
 def set_id_order(id_order):
   """Sets the order for the bibtex writer
@@ -176,6 +177,38 @@ def find_keys():
   click.secho(entry_keys)
 
 
+@click.command()
+@click.argument('year', type=click.INT)
+@click.argument('csvfile', type=click.STRING)
+@click.option("--type", type=click.Choice(["papers", "music", "installations"]), default="papers", help="type of proceeding")
+def add_dois(year, csvfile, type):
+  """Adds DOIs to a year of NIME proceedings by key"""
+  nime_file = utils.path_for_proc(year, type)
+  # Load the NIME bibtex file
+  click.secho(f"Going to load: {nime_file}, hope that's ok.")
+  with open(nime_file) as bibtex_file:
+    bib_database = bibtexparser.bparser.BibTexParser(common_strings=True, customization=homogenize_latex_encoding).parse_file(bibtex_file)
+  click.secho(f"Loaded {len(bib_database.entries)} entries.")
+  
+  # Load the CSV file
+  key_to_doi = {}
+  with open(csvfile, newline='') as doi_file:
+    reader = csv.DictReader(doi_file)
+    for row in reader:
+        key_to_doi[row['key']] = row['doi']
+
+  # Add the DOIs
+  for e in bib_database.entries:
+    e['doi'] = key_to_doi[e['ID']]
+
+  # Write back to the bibtex file
+  set_id_order(True)
+  with open(nime_file, 'w') as bibtex_file:
+      bibtex_file.write(utils.writer.write(bib_database))
+
+  click.secho(f"Saved new entried to: {nime_file}, hope that's ok.", fg="green")
+
+
 @click.group()
 def cli():
     pass
@@ -183,6 +216,7 @@ def cli():
 cli.add_command(harmonise)
 cli.add_command(find_keys)
 cli.add_command(collate)
+cli.add_command(add_dois)
 
 if __name__ == '__main__':
     cli()
