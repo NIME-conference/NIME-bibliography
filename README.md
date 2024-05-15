@@ -48,12 +48,15 @@ Options:
   --help  Show this message and exit.
 
 Commands:
+  add-dois   Adds DOIs to a year of NIME proceedings by key
   collate    Collates all NIME proceedings of a certain type and saves to...
   find-keys  Finds all BibTeX keys used in all available proceedings files.
   harmonise  Loads a NIME proceedings BibTeX file for a given YEAR and...
 ```
 
+The `collate` function is used by this repo automatically to generate YAML files for the proceedings and publish them to github pages. These files are accessed by the NIME website repo to update the website's proceedings archives.
 
+The `add-dois` function is important for adding DOIs generated from Zenodo when archiving NIME submissions there.
 
 Format
 --------
@@ -93,7 +96,7 @@ Articles should be ordered by page/article number within each proceedings file.
 
 The script `scripts/harmonise_bibtex_file.py` can be used to ensure that proceedings files are in the above format.
 
-Special characters in the `.bib` file should be written in LaTeX code.
+Special characters in the `.bib` file should be written in UTF-8 code (not LaTeX symbol represenations).
 
 Editing / Updates
 --------
