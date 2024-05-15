@@ -200,6 +200,7 @@ def add_dois(year, csvfile, type):
 
   # Add the DOIs
   for e in bib_database.entries:
+    click.secho(f"Finding DOI for {e['ID']}", fg='yellow')
     e['doi'] = key_to_doi[e['ID']]
 
   # Write back to the bibtex file
