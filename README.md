@@ -1,7 +1,7 @@
 NIME-bibliography
 =================
 
-This is the bibliography files (in BibTeX format) of all publications from the annual [International Conference on New Interfaces for Musical Expression](http://www.nime.org) (NIME). These files are the source for the [NIME proceedings database](http://www.nime.org/archives/). 
+This is the bibliography files (in BibTeX format) of all publications from the annual [International Conference on New Interfaces for Musical Expression](http://www.nime.org) (NIME). These files are the source for the [NIME proceedings database](https://www.nime.org/archives/). 
 
 The abstracts and keywords have been scraped from the each of the original PDF file using [this script](https://github.com/olovholm/NIME). We have been doing some automatic and manual cleaning up after running the script, but there are still linguistic (and other) errors in the database. Please help us clean it up!
 
@@ -14,16 +14,16 @@ Combined files are automatically created after each commit by a GitHub Action an
 
 The files can be found at [this repository's website](http://nime-conference.github.io/NIME-bibliography/), or the following URLs:
 
-- [Combined Papers BibTeX](http://nime-conference.github.io/NIME-bibliography/nime_papers.bib)
-- [Combined Music BibTeX](http://nime-conference.github.io/NIME-bibliography/nime_music.bib)
-- [Combined Installations BibTeX](http://nime-conference.github.io/NIME-bibliography/nime_installations.bib)
+- [Combined Papers BibTeX](https://nime-conference.github.io/NIME-bibliography/nime_papers.bib)
+- [Combined Music BibTeX](https://nime-conference.github.io/NIME-bibliography/nime_music.bib)
+- [Combined Installations BibTeX](https://nime-conference.github.io/NIME-bibliography/nime_installations.bib)
 
 Build 
 --------
 
 The `Makefile` creates combined files from the individual yearly BibTeX files for all proceedings types and places them in a directory called `release`. Outputs are created in `.bib`, `.csv` and `.yaml` format. 
 
-The built proceedings are automatically deployed at <http://nime-conference.github.io/NIME-bibliography/>, separately to the main NIME website.
+The built proceedings are automatically deployed at <https://nime-conference.github.io/NIME-bibliography/>, separately to the main NIME website.
 
 Publish on nime.org
 ----------
@@ -114,4 +114,4 @@ We **do not suggest** using bibtex managers such as BibDesk/JabRef for small edi
 Contact
 -------
 
-If you have questions about the bibliograpy, please get in touch with [Alexander Refsum Jensenius](http://people.uio.no/alexanje).
+If you have questions about the bibliograpy, please get in touch with [Stefano Fasciani](https://people.uio.no/stefanof).
