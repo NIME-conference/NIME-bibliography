@@ -1,7 +1,7 @@
 BIBFILES = release/nime_installations.bib release/nime_music.bib release/nime_papers.bib
 CSVFILES = release/nime_installations.csv release/nime_music.csv release/nime_papers.csv
 YAMLFILES = release/nime_installations.yaml release/nime_music.yaml release/nime_papers.yaml
-JSONFILE = release/nime_installations.json release/nime_music.json release/nime_papers.json
+JSONFILES = release/nime_installations.json release/nime_music.json release/nime_papers.json
 
 .PHONY: all
 all: $(BIBFILES) $(CSVFILES) $(YAMLFILES) $(JSONFILES) release/index.html
