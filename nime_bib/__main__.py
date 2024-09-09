@@ -26,6 +26,8 @@ def set_id_order(id_order):
 @click.option("--id_order", "-I", is_flag=True, default=False, help="sorts the output by entry ID/key (default: sort by article/page number)")
 def harmonise(year, type, id_order):
   """Loads a NIME proceedings BibTeX file for a given YEAR and harmonises the fields and order.
+  This was specifically used to update older NIME .bib files to current standards.
+  From 2024, this should not be used on new .bib files for new NIME editions unless it is updated to meet current standards in the bib files (see README.md).
   """
   nime_file = utils.path_for_proc(year, type)
 
