@@ -25,6 +25,7 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
                 author = re.sub("([\(]).*?([\)])", "\g<1>\g<2>", author)
                 author = re.sub("[()*]", '', author)
                 author = re.sub(r";", "and", author)
+                author = author.rstrip()
                 title = row["title"]
                 booktitle = "Proceedings of the International Conference on New Interfaces for Musical Expression"
                 editor = "Astrid Bin and Courtney Nicole Reed"
@@ -36,6 +37,11 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
                 track = row["track"]
                 video = row["video"]
                 abstract = row["abstract"]
+                if abstract.find('-\n') > -1:
+                    abstract = re.sub('-\n', '', abstract)
+                    abstract = re.sub('\n', ' ', abstract)
+                else:
+                    abstract = re.sub('\n', '', abstract)
 
                 # calculate page number
                 src = f"{PAPERS_IN_DIR}/{cmt_id}.pdf"
