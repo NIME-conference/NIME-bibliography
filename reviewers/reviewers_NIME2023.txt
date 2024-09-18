@@ -42,7 +42,6 @@ Tom Davis
 James Dooley
 Thierry Dutoit
 Arne Eigenfeldt
-Cagri Erdem
 Çağrı Erdem
 Cumhur Erkut
 Georg Essl
@@ -64,7 +63,6 @@ John Granzow
 Carlos Guedes
 Michael Gurevich
 Kerry L Hagan
-Robert Hamilton
 Rob Hamilton
 Yoonchang Han
 Jacob Harrison
