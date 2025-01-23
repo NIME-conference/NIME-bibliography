@@ -66,7 +66,7 @@ def collate(type, id_order, format):
   
   # set up collated database
   bd.entries = bib_entries
-  bd._make_entries_dict()
+  bd._entries_dict()
   accent_converter = latex_accents.AccentConverter()
   # output_string = accent_converter.decode_Tex_Accents(input_string, utf8_or_ascii=1) # replace latex accents with UTF8
 
