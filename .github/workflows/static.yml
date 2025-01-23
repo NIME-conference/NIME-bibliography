@@ -39,7 +39,7 @@ jobs:
       - name: Collate Files
         run: make
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v2
         with:
           # Upload release folder
           path: 'release'
