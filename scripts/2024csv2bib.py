@@ -22,9 +22,9 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
                 # read data out of the CSV
                 cmt_id = row["cmtID"]
                 number = row["number"]
-                #key = f"nime2024_{number}"
-                key = f"nime2024_music_{number}"
-                key = f"nime2024_installations_{number}"
+                key = f"nime2024_{number}"
+                #key = f"nime2024_music_{number}"
+                #key = f"nime2024_installations_{number}"
                 author = row["proc-authors"]
                 author = re.sub("([\(]).*?([\)])", "\g<1>\g<2>", author)
                 author = re.sub("[()*]", '', author)
