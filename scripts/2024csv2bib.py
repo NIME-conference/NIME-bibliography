@@ -22,9 +22,9 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
                 # read data out of the CSV
                 cmt_id = row["cmtID"]
                 number = row["number"]
-                key = f"nime2024_{number}"
-                #key = f"nime2024_music_{number}"
-                #key = f"nime2024_installations_{number}"
+                #key = f"nime2024_{number}"
+                key = f"nime2024_music_{number}"
+                key = f"nime2024_installations_{number}"
                 author = row["proc-authors"]
                 author = re.sub("([\(]).*?([\)])", "\g<1>\g<2>", author)
                 author = re.sub("[()*]", '', author)
@@ -42,6 +42,9 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
                 track = row["track"]
                 video = row["video"]
                 abstract = row["abstract"]
+                supp1 = row["supp1"]
+                supp2 = row["supp2"]
+                supp3 = row["supp3"]
                 if abstract.find('-\n') > -1:
                     abstract = re.sub('-\n', '', abstract)
                     abstract = re.sub('\n', ' ', abstract)
@@ -79,8 +82,23 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
                 bibtexfile.write(bibtex_entry)
 
                 if copy_files:
-                    print(f"Copying: {src} to {dst}.")
+                    print(f"Copying: {src} to {dst}")
                     shutil.copyfile(src, dst)
+                    if supp1:
+                        src = f"{PAPERS_IN_DIR}/{cmt_id}.{supp1}"
+                        dst = f"{PAPERS_OUT_DIR}/{key}.{supp1}"
+                        print(f"Copying: {src} to {dst}")
+                        shutil.copyfile(src, dst)
+                    if supp2:
+                        src = f"{PAPERS_IN_DIR}/{cmt_id}.{supp2}"
+                        dst = f"{PAPERS_OUT_DIR}/{key}.{supp2}"
+                        print(f"Copying: {src} to {dst}")
+                        shutil.copyfile(src, dst)
+                    if supp3:
+                        src = f"{PAPERS_IN_DIR}/{cmt_id}.{supp3}"
+                        dst = f"{PAPERS_OUT_DIR}/{key}.{supp3}"
+                        print(f"Copying: {src} to {dst}")
+                        shutil.copyfile(src, dst)
 
 
 # Do the Conversion
