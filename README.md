@@ -32,7 +32,7 @@ To update the bibliography on the [nime.org server](https://www.nime.org/archive
 
     sh get_publications.sh
 
-in the [NIME Jekyll](https://github.com/NIME-conference/nime-website) repository.
+in the [nime-website](https://github.com/NIME-conference/nime-website) repository.
 
 `nime_bib` tool
 --------
