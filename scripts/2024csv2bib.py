@@ -7,6 +7,8 @@ from pypdf import PdfReader
 # Move PDF files to proceedings format
 PAPERS_IN_DIR = "NIME2024-camera-ready"
 PAPERS_OUT_DIR = "NIME2024-paper-proceedings"
+#PAPERS_OUT_DIR = "NIME2024-music-proceedings"
+#PAPERS_OUT_DIR = "NIME2024-installations-proceedings"
 
 def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
     """Convert a CSV file to BibTeX format"""
@@ -21,6 +23,8 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
                 cmt_id = row["cmtID"]
                 number = row["number"]
                 key = f"nime2024_{number}"
+                #key = f"nime2024_music_{number}"
+                #key = f"nime2024_installations_{number}"
                 author = row["proc-authors"]
                 author = re.sub("([\(]).*?([\)])", "\g<1>\g<2>", author)
                 author = re.sub("[()*]", '', author)
@@ -28,7 +32,8 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
                 author = author.rstrip()
                 title = row["title"]
                 booktitle = "Proceedings of the International Conference on New Interfaces for Musical Expression"
-                editor = "Astrid Bin and Courtney Nicole Reed"
+                editor = "Astrid Bin and Courtney Nicole Reed" 
+                #editor = "Laurel Smith Pardue and Palle Dahlstedt"
                 year = "2024"
                 month = "September"
                 address = "Utrecht, Netherlands"
@@ -77,12 +82,11 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
                     print(f"Copying: {src} to {dst}.")
                     shutil.copyfile(src, dst)
 
-# Example usage
-PAPERS_CSV_FILE = "./NIME2024.csv"
 
 # Do the Conversion
-convert_csv_to_bibtex(PAPERS_CSV_FILE, "nime2024_papers.bib", copy_files=True)
-
+convert_csv_to_bibtex("./NIME2024.csv", "nime2024_papers.bib", copy_files=True)
+#convert_csv_to_bibtex("./NIME2024-Music.csv", "nime2024_music.bib", copy_files=True)
+#convert_csv_to_bibtex("./NIME2024-Installations.csv", "nime2024_installations.bib", copy_files=True)
 
 
 # f"@inproceedings{article_id,
