@@ -86,17 +86,17 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
                     shutil.copyfile(src, dst)
                     if supp1:
                         src = f"{PAPERS_IN_DIR}/{cmt_id}.{supp1}"
-                        dst = f"{PAPERS_OUT_DIR}/{key}.{supp1}"
+                        dst = f"{PAPERS_OUT_DIR}/{key}_file01.{supp1}"
                         print(f"Copying: {src} to {dst}")
                         shutil.copyfile(src, dst)
                     if supp2:
                         src = f"{PAPERS_IN_DIR}/{cmt_id}.{supp2}"
-                        dst = f"{PAPERS_OUT_DIR}/{key}.{supp2}"
+                        dst = f"{PAPERS_OUT_DIR}/{key}_file02.{supp2}"
                         print(f"Copying: {src} to {dst}")
                         shutil.copyfile(src, dst)
                     if supp3:
                         src = f"{PAPERS_IN_DIR}/{cmt_id}.{supp3}"
-                        dst = f"{PAPERS_OUT_DIR}/{key}.{supp3}"
+                        dst = f"{PAPERS_OUT_DIR}/{key}_file03.{supp3}"
                         print(f"Copying: {src} to {dst}")
                         shutil.copyfile(src, dst)
 
