@@ -7,40 +7,40 @@ JSONFILES = release/nime_installations.json release/nime_music.json release/nime
 all: $(BIBFILES) $(CSVFILES) $(YAMLFILES) $(JSONFILES) release/index.html
 
 release/nime_installations.bib:
-	poetry run python nime_bib collate --type installations --format bib
+	poetry run python nime_bib collate --type installations --format bib --id_order
 
 release/nime_installations.csv:
-	poetry run python nime_bib collate --type installations --format csv
+	poetry run python nime_bib collate --type installations --format csv --id_order
 
 release/nime_installations.yaml:
-	poetry run python nime_bib collate --type installations --format yaml
+	poetry run python nime_bib collate --type installations --format yaml --id_order
 
 release/nime_installations.json:
-	poetry run python nime_bib collate --type installations --format json
+	poetry run python nime_bib collate --type installations --format json --id_order
 
 release/nime_music.bib:
-	poetry run python nime_bib collate --type music --format bib
+	poetry run python nime_bib collate --type music --format bib --id_order
 
 release/nime_music.csv:
-	poetry run python nime_bib collate --type music --format csv
+	poetry run python nime_bib collate --type music --format csv --id_order
 
 release/nime_music.yaml:
-	poetry run python nime_bib collate --type music --format yaml
+	poetry run python nime_bib collate --type music --format yaml --id_order
 
 release/nime_music.json:
-	poetry run python nime_bib collate --type music --format json
+	poetry run python nime_bib collate --type music --format json --id_order
 
 release/nime_papers.bib:
-	poetry run python nime_bib collate --type papers --format bib
+	poetry run python nime_bib collate --type papers --format bib --id_order
 
 release/nime_papers.csv:
-	poetry run python nime_bib collate --type papers --format csv
+	poetry run python nime_bib collate --type papers --format csv --id_order
 
 release/nime_papers.yaml:
-	poetry run python nime_bib collate --type papers --format yaml
+	poetry run python nime_bib collate --type papers --format yaml --id_order
 
 release/nime_papers.json:
-	poetry run python nime_bib collate --type papers --format json
+	poetry run python nime_bib collate --type papers --format json --id_order
 
 release/index.html:
 	sh scripts/create_release_index.sh
