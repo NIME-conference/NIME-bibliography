@@ -62,6 +62,7 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
                 last_page = prev_last_page + num_pages
                 prev_last_page = last_page
 
+                # Construct BibTeX entry
                 bibtex_entry = f"@article{{{key},\n" \
                                f"  author = {{{author}}},\n" \
                                f"  title = {{{title}}},\n" \
@@ -73,12 +74,17 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
                                f"  month = {{{month}}},\n" \
                                f"  address = {{{address}}},\n" \
                                f"  issn = {{{issn}}},\n" \
-                               f"  url = {{{url}}},\n" \
-                               f"  presentation-video = {{{video}}},\n" \
-                               f"  articleno = {{{number}}},\n" \
-                               f"  track = {{{track}}},\n" \
-                               f"  abstract = {{{abstract}}}\n" \
-                               f"}}\n\n"
+                               f"  url = {{{url}}},\n"
+                
+                # Add presentation-video only if video is not empty
+                if video.strip():
+                    bibtex_entry += f"  presentation-video = {{{video}}},\n"
+
+                bibtex_entry += f"  articleno = {{{number}}},\n" \
+                                f"  track = {{{track}}},\n" \
+                                f"  abstract = {{{abstract}}}\n" \
+                                f"}}\n\n"
+                
                 bibtexfile.write(bibtex_entry)
 
                 if copy_files:
