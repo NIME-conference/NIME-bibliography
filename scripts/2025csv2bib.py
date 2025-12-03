@@ -6,9 +6,8 @@ from pypdf import PdfReader
 
 # Move PDF files to proceedings format
 PAPERS_IN_DIR = "NIME2025-camera-ready"
-PAPERS_OUT_DIR = "NIME2025-paper-proceedings"
-#PAPERS_OUT_DIR = "NIME2025-music-proceedings"
-#PAPERS_OUT_DIR = "NIME2025-installations-proceedings"
+#PAPERS_OUT_DIR = "NIME2025-paper-proceedings"
+PAPERS_OUT_DIR = "NIME2025-music-proceedings"
 
 def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
     """Convert a CSV file to BibTeX format"""
@@ -22,9 +21,8 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
                 # read data out of the CSV
                 cmt_id = row["cmtID"]
                 number = row["number"]
-                key = f"nime2025_{number}"
-                #key = f"nime2025_music_{number}"
-                #key = f"nime2025_installations_{number}"
+                #key = f"nime2025_{number}"
+                key = f"nime2025_music_{number}"
                 author = row["proc-authors"]
                 author = re.sub("([\(]).*?([\)])", "\g<1>\g<2>", author)
                 author = re.sub("[()*]", '', author)
@@ -32,8 +30,8 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
                 author = author.rstrip()
                 title = row["title"]
                 booktitle = "Proceedings of the International Conference on New Interfaces for Musical Expression"
-                editor = "Doga Cavdir and Florent Berthaut" 
-                #editor = "Sophie Rose and Jos Mulder and Nicole Carroll"
+                #editor = "Doga Cavdir and Florent Berthaut" 
+                editor = "Sophie Rose and Jos Mulder and Nicole Carroll"
                 year = "2025"
                 month = "June"
                 address = "Canberra, Australia"
@@ -42,6 +40,7 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
                 track = row["track"]
                 video = row["video"]
                 abstract = row["abstract"]
+                pformat = row["format"] #form music only (“Live Performance”, “Remote Performance”, or “Installation”)
                 supp1 = row["supp1"]
                 supp2 = row["supp2"]
                 supp3 = row["supp3"]
@@ -63,7 +62,7 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
                 prev_last_page = last_page
 
                 # Construct BibTeX entry
-                bibtex_entry = f"@article{{{key},\n" \
+                bibtex_entry = f"@inproceedings{{{key},\n" \
                                f"  author = {{{author}}},\n" \
                                f"  title = {{{title}}},\n" \
                                f"  pages = {{{first_page}--{last_page}}},\n" \
@@ -82,6 +81,7 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
 
                 bibtex_entry += f"  articleno = {{{number}}},\n" \
                                 f"  track = {{{track}}},\n" \
+                                f"  format = {{{pformat}}},\n" \
                                 f"  abstract = {{{abstract}}}\n" \
                                 f"}}\n\n"
                 
@@ -108,9 +108,8 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
 
 
 # Do the Conversion
-convert_csv_to_bibtex("./NIME2025.csv", "nime2025_papers.bib", copy_files=True)
-#convert_csv_to_bibtex("./NIME2025-Music.csv", "nime2025_music.bib", copy_files=True)
-#convert_csv_to_bibtex("./NIME2025-Installations.csv", "nime2025_installations.bib", copy_files=True)
+#convert_csv_to_bibtex("./NIME2025.csv", "nime2025_papers.bib", copy_files=True)
+convert_csv_to_bibtex("./NIME2025-Music.csv", "nime2025_music.bib", copy_files=True)
 
 
 # f"@inproceedings{article_id,
