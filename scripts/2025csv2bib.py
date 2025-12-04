@@ -85,6 +85,18 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
                                 f"  abstract = {{{abstract}}}\n" \
                                 f"}}\n\n"
                 
+                if supp1:
+                    suppurl = f"http://nime.org/proceedings/{year}/{key}_file01.{supp1}"
+                    bibtex_entry += f"  urlsuppl1 = {{{suppurl}}},\n"
+
+                if supp2:
+                    suppurl = f"http://nime.org/proceedings/{year}/{key}_file02.{supp2}"
+                    bibtex_entry += f"  urlsuppl2 = {{{suppurl}}},\n"
+
+                if supp3:
+                    suppurl = f"http://nime.org/proceedings/{year}/{key}_file03.{supp3}"
+                    bibtex_entry += f"  urlsuppl3 = {{{suppurl}}},\n"
+                    
                 bibtexfile.write(bibtex_entry)
 
                 if copy_files:
@@ -106,15 +118,7 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
                         print(f"Copying: {src} to {dst}")
                         shutil.copyfile(src, dst)
 
-
-# Do the Conversion
+#Do the Conversion
 #convert_csv_to_bibtex("./NIME2025.csv", "nime2025_papers.bib", copy_files=True)
 convert_csv_to_bibtex("./NIME2025-Music.csv", "nime2025_music.bib", copy_files=True)
 
-
-# f"@inproceedings{article_id,
-#   urlsuppl1 = {},
-#   urlsuppl2 = {},
-#   urlsuppl3 = {},
-#   pdf = {},
-# }
