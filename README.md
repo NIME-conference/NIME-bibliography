@@ -78,6 +78,7 @@ The canonical format for a NIME proceedings bibtex entry is:
   issn = {},
   articleno = {},
   track = {},
+  note = {},
   doi = {},
   url = {http://www.nime.org/proceedings/year/article_id.pdf},
   urlsuppl1 = {},
