@@ -38,9 +38,9 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
                 issn = "2220-4806"
                 url = f"http://nime.org/proceedings/{year}/{key}.pdf"
                 track = row["track"]
+                note = row["note"] #form music only (“Live Performance”, “Remote Performance”, or “Installation”)
                 video = row["video"]
                 abstract = row["abstract"]
-                pformat = row["format"] #form music only (“Live Performance”, “Remote Performance”, or “Installation”)
                 supp1 = row["supp1"]
                 supp2 = row["supp2"]
                 supp3 = row["supp3"]
@@ -74,17 +74,8 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
                                f"  address = {{{address}}},\n" \
                                f"  issn = {{{issn}}},\n" \
                                f"  url = {{{url}}},\n"
-                
-                # Add presentation-video only if video is not empty
-                if video.strip():
-                    bibtex_entry += f"  presentation-video = {{{video}}},\n"
 
-                bibtex_entry += f"  articleno = {{{number}}},\n" \
-                                f"  track = {{{track}}},\n" \
-                                f"  format = {{{pformat}}},\n" \
-                                f"  abstract = {{{abstract}}}\n" \
-                                f"}}\n\n"
-                
+                # Add supplementary files only if not empty
                 if supp1:
                     suppurl = f"http://nime.org/proceedings/{year}/{key}_file01.{supp1}"
                     bibtex_entry += f"  urlsuppl1 = {{{suppurl}}},\n"
@@ -96,6 +87,17 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
                 if supp3:
                     suppurl = f"http://nime.org/proceedings/{year}/{key}_file03.{supp3}"
                     bibtex_entry += f"  urlsuppl3 = {{{suppurl}}},\n"
+                
+                # Add presentation-video only if video is not empty
+                if video.strip():
+                    bibtex_entry += f"  presentation-video = {{{video}}},\n"
+
+                bibtex_entry += f"  articleno = {{{number}}},\n" \
+                                f"  track = {{{track}}},\n" \
+                                f"  note = {{{note}}},\n" \
+                                f"  abstract = {{{abstract}}}\n" \
+                                f"}}\n\n"
+
                     
                 bibtexfile.write(bibtex_entry)
 
