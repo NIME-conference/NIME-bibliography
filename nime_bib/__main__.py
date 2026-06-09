@@ -22,7 +22,7 @@ def set_id_order(id_order):
 
 @click.command()
 @click.argument('year', type=click.INT)
-@click.option("--type", type=click.Choice(["papers", "music", "installations"]), default="papers", help="type of proceeding")
+@click.option("--type", type=click.Choice(["paper", "music", "installation", "alt"]), default="paper", help="type of proceedings")
 @click.option("--id_order", "-I", is_flag=True, default=False, help="sorts the output by entry ID/key (default: sort by article/page number)")
 def harmonise(year, type, id_order):
   """Loads a NIME proceedings BibTeX file for a given YEAR and harmonises the fields and order.
@@ -44,7 +44,7 @@ def harmonise(year, type, id_order):
   click.secho(f"Saved new entried to: {nime_file}, hope that's ok.", fg="green")
 
 @click.command()
-@click.option("--type", type=click.Choice(["papers", "music", "installations"]), default="papers", help="type of proceeding")
+@click.option("--type", type=click.Choice(["paper", "music", "installation", "alt"]), default="paper", help="type of proceedings")
 @click.option("--id_order", "-I", is_flag=True, default=False, help="sorts the output by entry ID/key (default: sort by article/page number)")
 @click.option("--format", "-F", type=click.Choice(["bib", "csv", "yaml", "json"]), default="bib", help="format of output")
 def collate(type, id_order, format):
@@ -153,11 +153,13 @@ def find_keys():
   """
   bibfiles = []
   bibdatabases = {}
-  for file in utils.glob_for_proc("papers"):
+  for file in utils.glob_for_proc("paper"):
       bibfiles.append(file)
   for file in utils.glob_for_proc("music"):
       bibfiles.append(file)
-  for file in utils.glob_for_proc("installations"):
+  for file in utils.glob_for_proc("installation"):
+      bibfiles.append(file)
+  for file in utils.glob_for_proc("alt"):
       bibfiles.append(file)
   
   def add_keys(e, k):
@@ -182,7 +184,7 @@ def find_keys():
 @click.command()
 @click.argument('year', type=click.INT)
 @click.argument('csvfile', type=click.STRING)
-@click.option("--type", type=click.Choice(["papers", "music", "installations"]), default="papers", help="type of proceeding")
+@click.option("--type", type=click.Choice(["paper", "music", "installation", "alt"]), default="paper", help="type of proceedings")
 def add_dois(year, csvfile, type):
   """Adds DOIs to a year of NIME proceedings by key"""
   nime_file = utils.path_for_proc(year, type)
