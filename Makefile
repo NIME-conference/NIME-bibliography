@@ -7,16 +7,16 @@ JSONFILES = release/nime_installations.json release/nime_music.json release/nime
 all: $(BIBFILES) $(CSVFILES) $(YAMLFILES) $(JSONFILES) release/index.html
 
 release/nime_installations.bib:
-	poetry run python nime_bib collate --type installations --format bib --id_order
+	poetry run python nime_bib collate --type installation --format bib --id_order
 
 release/nime_installations.csv:
-	poetry run python nime_bib collate --type installations --format csv --id_order
+	poetry run python nime_bib collate --type installation --format csv --id_order
 
 release/nime_installations.yaml:
-	poetry run python nime_bib collate --type installations --format yaml --id_order
+	poetry run python nime_bib collate --type installation --format yaml --id_order
 
 release/nime_installations.json:
-	poetry run python nime_bib collate --type installations --format json --id_order
+	poetry run python nime_bib collate --type installation --format json --id_order
 
 release/nime_music.bib:
 	poetry run python nime_bib collate --type music --format bib --id_order
@@ -31,16 +31,16 @@ release/nime_music.json:
 	poetry run python nime_bib collate --type music --format json --id_order
 
 release/nime_papers.bib:
-	poetry run python nime_bib collate --type papers --format bib --id_order
+	poetry run python nime_bib collate --type paper --format bib --id_order
 
 release/nime_papers.csv:
-	poetry run python nime_bib collate --type papers --format csv --id_order
+	poetry run python nime_bib collate --type paper --format csv --id_order
 
 release/nime_papers.yaml:
-	poetry run python nime_bib collate --type papers --format yaml --id_order
+	poetry run python nime_bib collate --type paper --format yaml --id_order
 
 release/nime_papers.json:
-	poetry run python nime_bib collate --type papers --format json --id_order
+	poetry run python nime_bib collate --type paper --format json --id_order
 
 release/index.html:
 	sh scripts/create_release_index.sh
