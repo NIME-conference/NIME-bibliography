@@ -4,6 +4,8 @@
 # Copyright (c) 2018-2020 Hayk Aleksanyan (https://github.com/hayk314)
 # for transforming LaTex accents to their UTF8 equivalents
 
+# updated on 9/6/2024 by Stefano Fasciani to fix several SyntaxWarning
+
 import re
 
 class AccentConverter:
@@ -74,10 +76,10 @@ class AccentConverter:
                                    strValue_circumflex,  "{\\^", "}" )
         regex_detectors.append( re.compile(r"{ *\\\^ *[a-zA-Z]{1} *}") )
         self.populate_encode_dict( encode_dict, strKey_circumflex,
-                                   strValue_circumflex, "\\\^", "" )
+                                   strValue_circumflex, r"\\^", "")
         regex_detectors.append( re.compile(r"\\\^ *[a-zA-z]{1}" ) )
         self.populate_encode_dict( encode_dict, strKey_circumflex,
-                                   strValue_circumflex, "\\\^{", "}" )
+                                   strValue_circumflex, r"\\^{", "}")
         regex_detectors.append( re.compile(r"\\\^{ *[a-zA-Z]{1} *}") )
 
         # caron hraceck \v{s}
@@ -107,7 +109,7 @@ class AccentConverter:
         # dot \.{o}
         strValue_dot = 'Ȧ ȧ Ḃ ḃ Ċ ċ Ḋ ḋ Ė ė Ḟ ḟ Ġ ġ Ḣ ḣ İ i̇̀ K̇ k̇ L̇ l̇ Ṁ ṁ Ṅ ṅ Ȯ ȯ Ṗ ṗ Q̇ q̇ Ṙ ṙ Ṡ ṡ Ṫ ṫ U̇ u̇ V̇ v̇ Ẇ ẇ Ẋ ẋ Ẏ ẏ Ż ż'
         strKey_dot   = 'A a B b C c D d E e F f G g H h I i K k L l M m N n O o P p Q q R r S s T t U u V v W w X x Y y Z z'
-        self.populate_encode_dict( encode_dict, strKey_dot, strValue_dot,  "{\\\.", "}" )
+        self.populate_encode_dict(encode_dict, strKey_dot, strValue_dot, r"{\\\.", "}")
         regex_detectors.append( re.compile(r"{ *\\\. *[a-zA-Z]{1} *}") )
         self.populate_encode_dict( encode_dict, strKey_dot, strValue_dot, "\\.", "" )
         regex_detectors.append( re.compile(r"\\\. *[a-zA-z]{1}" ) )
@@ -136,9 +138,9 @@ class AccentConverter:
         self.populate_encode_dict( encode_dict, strKey_tilde, strValue_tilde,  "{\\~", "}" )
         regex_detectors.append( re.compile(r"{ *\\~ *[a-zA-Z]{1} *}") )
         self.populate_encode_dict( encode_dict, strKey_tilde, strValue_tilde, "\\~", "" )
-        regex_detectors.append( re.compile('\\\~ *[a-zA-Z]{1}') )
+        regex_detectors.append(re.compile(r'\\~ *[a-zA-Z]{1}'))
         self.populate_encode_dict( encode_dict, strKey_tilde, strValue_tilde, "\\~{", "}" )
-        regex_detectors.append ( re.compile('\\\~{ *[a-zA-Z]{1} *}') )
+        regex_detectors.append(re.compile(r'\\~{ *[a-zA-Z]{1} *}'))
 
         # macron \=a
         strValue_macron = 'Ā ā B̄ b̄ C̄ c̄ D̄ d̄ Ē ē Ḡ ḡ Ī ī J̄ j̄ K̄ k̄ M̄ m̄ N̄ n̄ Ō ō P̄ p̄ Q̄ q̄ R̄ r̄ S̄ s̄ T̄ t̄ Ū ū V̄ v̄ W̄ w̄ X̄ x̄ Ȳ ȳ Z̄ z̄'
@@ -146,9 +148,9 @@ class AccentConverter:
         self.populate_encode_dict( encode_dict, strKey_macron, strValue_macron,  "{\\=", "}" )
         regex_detectors.append( re.compile(r"{ *\\= *[a-zA-Z]{1} *}") )
         self.populate_encode_dict( encode_dict, strKey_macron, strValue_macron, "\\=", "" )
-        regex_detectors.append( re.compile('\\\= *[a-zA-Z]{1}') )
+        regex_detectors.append(re.compile(r'\\= *[a-zA-Z]{1}'))
         self.populate_encode_dict( encode_dict, strKey_macron, strValue_macron, "\\={", "}" )
-        regex_detectors.append( re.compile('\\\={ *[a-zA-Z]{1} *}') )
+        regex_detectors.append(re.compile(r'\\={ *[a-zA-Z]{1} *}'))
 
         # bar under the letter \b{a}
         strValue_bar_under = 'A̱ a̱ Ḇ ḇ C̱ c̱ Ḏ ḏ E̱ e̱ G̱ g̱ H̱ ẖ I̱ i̱ J̱ j̱ Ḵ ḵ Ḻ ḻ M̱ m̱ Ṉ ṉ O̱ o̱ P̱ p̱ Ṟ ṟ S̱ s̱ Ṯ ṯ U̱ u̱ X̱ x̱ Y̱ y̱ Ẕ ẕ'
