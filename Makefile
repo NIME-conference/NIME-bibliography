@@ -1,13 +1,22 @@
-BIBFILES = release/nime_installations.bib release/nime_music.bib release/nime_papers.bib
-CSVFILES = release/nime_installations.csv release/nime_music.csv release/nime_papers.csv
-YAMLFILES = release/nime_installations.yaml release/nime_music.yaml release/nime_papers.yaml
-JSONFILES = release/nime_installations.json release/nime_music.json release/nime_papers.json
+BIBFILES = release/nime_alt.bib release/nime_installations.bib release/nime_music.bib release/nime_papers.bib
+CSVFILES = release/nime_alt.csv release/nime_installations.csv release/nime_music.csv release/nime_papers.csv
+YAMLFILES = release/nime_alt.yaml release/nime_installations.yaml release/nime_music.yaml release/nime_papers.yaml
+JSONFILES = release/nime_alt.json release/nime_installations.json release/nime_music.json release/nime_papers.json
 
 .PHONY: all
 all: $(BIBFILES) $(CSVFILES) $(YAMLFILES) $(JSONFILES) release/index.html
 
-release/nime_installations.bib:
-	poetry run python nime_bib collate --type installation --format bib --id_order
+release/nime_alt.bib:
+	poetry run python nime_bib collate --type alt --format bib --id_order
+
+release/nime_alt.csv:
+	poetry run python nime_bib collate --type alt --format csv --id_order
+
+release/nime_alt.yaml:
+	poetry run python nime_bib collate --type alt --format yaml --id_order
+
+release/nime_alt.json:
+	poetry run python nime_bib collate --type alt --format json --id_order
 
 release/nime_installations.csv:
 	poetry run python nime_bib collate --type installation --format csv --id_order
