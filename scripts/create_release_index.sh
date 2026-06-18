@@ -8,15 +8,19 @@ cat > release/index.html <<End-Of-File-Delimiter
 <li><a href="nime_papers.bib">Combined Paper Proceedings (BibTeX Format)</a></li>
 <li><a href="nime_music.bib">Combined Music Proceedings (BibTeX Format)</a></li>
 <li><a href="nime_installations.bib">Combined Installation Proceedings (BibTeX Format)</a></li>
+<li><a href="nime_alt.bib">Combined alt.nime Proceedings (BibTeX Format)</a></li>
 <li><a href="nime_papers.csv">Combined Paper Proceedings (CSV Format)</a></li>
 <li><a href="nime_music.csv">Combined Music Proceedings (CSV Format)</a></li>
 <li><a href="nime_installations.csv">Combined Installation Proceedings (CSV Format)</a></li>
+<li><a href="nime_alt.csv">Combined alt.nime Proceedings (CSV Format)</a></li>
 <li><a href="nime_papers.yaml">Combined Paper Proceedings (YAML Format)</a></li>
 <li><a href="nime_music.yaml">Combined Music Proceedings (YAML Format)</a></li>
 <li><a href="nime_installations.yaml">Combined Installation Proceedings (YAML Format)</a></li>
+<li><a href="nime_alt.yaml">Combined alt.nime Proceedings (YAML Format)</a></li>
 <li><a href="nime_papers.json">Combined Paper Proceedings (JSON Format)</a></li>
 <li><a href="nime_music.json">Combined Music Proceedings (JSON Format)</a></li>
 <li><a href="nime_installations.json">Combined Installation Proceedings (JSON Format)</a></li>
+<li><a href="nime_alt.json">Combined alt.nime Proceedings (JSON Format)</a></li>
 </ul>
 <p>Source available at <a href="https://github.com/NIME-conference/NIME-bibliography">the NIME-bibliography repository.</a></p>
 <p>More information at <a href="https://nime.org">nime.org</a></p>
