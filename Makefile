@@ -18,6 +18,9 @@ release/nime_alt.yaml:
 release/nime_alt.json:
 	poetry run python nime_bib collate --type alt --format json --id_order
 
+release/nime_installations.bib:
+	poetry run python nime_bib collate --type installation --format bib --id_order
+
 release/nime_installations.csv:
 	poetry run python nime_bib collate --type installation --format csv --id_order
 
