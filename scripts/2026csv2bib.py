@@ -41,7 +41,7 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
                 month = "June"
                 address = "London, United Kingdom"
                 issn = "2220-4806"
-                url = f"http://nime.org/proceedings/{year}/{key}"
+                url = f"http://nime.org/proceedings/{year}/{key}.pdf"
                 track = row["track"]
                 note = row["note"] #form music only (“Live Performance”, “Remote Performance”, or “Installation”)
                 video = row["video"]
@@ -56,8 +56,8 @@ def convert_csv_to_bibtex(csv_file, bibtex_file, copy_files = False):
                     abstract = re.sub('\n', '', abstract)
 
                 # calculate page number
-                src = f"{PAPERS_IN_DIR}/{cmt_id}"
-                dst = f"{PAPERS_OUT_DIR}/{key}"
+                src = f"{PAPERS_IN_DIR}/{cmt_id}.pdf"
+                dst = f"{PAPERS_OUT_DIR}/{key}.pdf"
                 src_paper_reader = PdfReader(src)
                 num_pages = len(src_paper_reader.pages)
                 print(f"Num pages: {num_pages}")
