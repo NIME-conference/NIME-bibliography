@@ -274,18 +274,18 @@ def _strip_pdf_suffix(key: str) -> str:
     default=False,
     help=(
         "interpret CSV keys as KEY_LANGUAGE.pdf and add "
-        "translations_doi={LANG, DOI, ...} and translated_title={LANG, TITLE, ...}"
+        "translations={LANG, DOI, TITLE, ...} to the BibTeX entries"
     )
 )
 def add_dois(year, csvfile, type, translated):
-  """Adds DOIs to a year of NIME proceedings by key.
+  """Adds DOIs (and optionally translation metadata) to a year of NIME proceedings.
 
   CSV 'key' values are expected to include a '.pdf' suffix and it is
   removed before matching.
 
   Normal mode:
       - CSV 'key' (without '.pdf') must match the BibTeX 'ID' exactly.
-      - Adds/overwrites 'doi' field in each matching entry.
+      - Adds/overwrites the 'doi' field in each matching entry.
 
   Translation mode (with --translated):
 
@@ -302,10 +302,9 @@ def add_dois(year, csvfile, type, translated):
         - uses KEY (before the last '_') as the BibTeX 'ID'
         - uses LANGUAGE (after the last '_') as a language label.
 
-      It then adds fields to the base BibTeX entry:
+      It then adds a single field to the base BibTeX entry:
 
-          translations_doi   = {LANG1, DOI1, LANG2, DOI2, ...}
-          translated_title   = {LANG1, TITLE1, LANG2, TITLE2, ...}
+          translations = {LANG1, DOI1, TITLE1, LANG2, DOI2, TITLE2, ...}
 
       It does NOT add or modify the standard 'doi' field.
   """
@@ -380,7 +379,7 @@ def add_dois(year, csvfile, type, translated):
             "title": title_value,
         })
 
-      # Add translation-related fields to BibTeX entries
+      # Add translation-related field to BibTeX entries
       for e in bib_database.entries:
         entry_id = e['ID']
         click.secho(f"Processing translations for {entry_id}", fg='yellow')
@@ -391,40 +390,25 @@ def add_dois(year, csvfile, type, translated):
 
         translations = basekey_to_translations[entry_id]
 
-        # Build translations_doi string: LANGUAGE, DOI, LANGUAGE, DOI, ...
-        doi_parts = []
-        # Build translated_title string: LANGUAGE, TITLE, LANGUAGE, TITLE, ...
-        title_parts = []
+        # Build translations string: LANGUAGE, DOI, TITLE, LANGUAGE, DOI, TITLE, ...
+        translations_parts = []
 
         for item in translations:
           lang = item["language"]
           doi = item["doi"]
           title = item["title"]
 
-          # always include language/doi pairs
-          doi_parts.append(lang)
-          doi_parts.append(doi)
+          # Always include language and doi; include title (can be empty string if absent)
+          translations_parts.append(lang)
+          translations_parts.append(doi)
+          translations_parts.append(title)
 
-          # only include title pair if non-empty
-          if title:
-            title_parts.append(lang)
-            title_parts.append(title)
-
-        if doi_parts:
-          translations_doi_value = ", ".join(doi_parts)
-          e['translations_doi'] = translations_doi_value
+        if translations_parts:
+          translations_value = ", ".join(translations_parts)
+          e['translations'] = translations_value
           click.secho(
-            f"Added translations_doi field for {entry_id}: "
-            f"{{{translations_doi_value}}}",
-            fg='green'
-          )
-
-        if title_parts:
-          translated_title_value = ", ".join(title_parts)
-          e['translated_title'] = translated_title_value
-          click.secho(
-            f"Added translated_title field for {entry_id}: "
-            f"{{{translated_title_value}}}",
+            f"Added translations field for {entry_id}: "
+            f"{{{translations_value}}}",
             fg='green'
           )
 
