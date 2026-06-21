@@ -56,7 +56,7 @@ Commands:
 
 The `collate` function is used by this repo automatically to generate YAML files for the proceedings and publish them to github pages. These files are accessed by the NIME website repo to update the website's proceedings archives.
 
-The `add-dois` function is important for adding DOIs generated from Zenodo when archiving NIME submissions there.
+The `add-dois` function is important for adding DOIs generated from Zenodo when archiving NIME submissions there, and it is also used to add the DOIs of the translated versions.
 
 Format
 --------
