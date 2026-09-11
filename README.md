@@ -52,7 +52,23 @@ Commands:
   collate    Collates all NIME proceedings of a certain type and saves to...
   find-keys  Finds all BibTeX keys used in all available proceedings files.
   harmonise  Loads a NIME proceedings BibTeX file for a given YEAR and...
+  validate   Checks every proceedings file for problems that would corrupt...
 ```
+
+The `validate` function checks the proceedings files for faults that would
+otherwise reach the published archive unnoticed. It runs automatically on every
+pull request and before each deployment.
+
+    poetry run python nime_bib validate
+
+It reports two kinds of problem. *Errors* are structural faults that silently
+lose or confuse data and they fail the build: entries that BibTeX cannot parse
+(a missing comma after a field is the usual cause, and such an entry is
+discarded without any warning), and keys reused across proceedings files.
+*Warnings* are content problems tracked in the issue tracker, such as missing
+authors or entries with neither a url nor a doi; pass `--strict` to fail on
+those too. After running `make`, `validate --release` additionally checks the
+collated output for LaTeX that failed to convert.
 
 The `collate` function is used by this repo automatically to generate YAML files for the proceedings and publish them to github pages. These files are accessed by the NIME website repo to update the website's proceedings archives.
 

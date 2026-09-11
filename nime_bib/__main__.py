@@ -8,6 +8,8 @@ import pyaml
 import latex_accents
 import latex_symbols
 import csv
+import re
+import yaml
 
 
 def set_id_order(id_order):
@@ -422,6 +424,159 @@ def add_dois(year, csvfile, type, translated):
   click.secho(f"Saved new entries to: {nime_file}, hope that's ok.", fg="green")
 
 
+def _convert_latex(text, accent_converter):
+  """Applies the same LaTeX-to-UTF8 conversion that collate uses.
+
+  Kept in step with collate so that validate reports what would actually
+  reach the published files, not what the source happens to contain.
+  """
+  text = accent_converter.decode_Tex_Accents(text, utf8_or_ascii=1)
+  text = latex_symbols.replace_symbols(text)
+  text = accent_converter.decode_Tex_Accents(text, utf8_or_ascii=1)
+  return text
+
+
+def _raw_entry_keys(text):
+  """Returns the BibTeX keys of every entry header found in raw file text.
+
+  Deliberately independent of bibtexparser: this is what we compare the
+  parsed result against, so that an entry the parser quietly discards
+  still shows up here.
+  """
+  return re.findall(r'^@\w+\s*\{\s*([^,\s]+)\s*,', text, re.M)
+
+
+@click.command()
+@click.option(
+    "--strict",
+    is_flag=True,
+    default=False,
+    help="treat warnings as errors (exit non-zero on any problem)"
+)
+@click.option(
+    "--release",
+    is_flag=True,
+    default=False,
+    help=(
+        "also check the built files in release/ (run `make` first). Catches "
+        "conversion faults that only appear in the collated output."
+    )
+)
+def validate(strict, release):
+  """Checks every proceedings file for problems that would corrupt the
+  published archive.
+
+  Errors are structural faults that silently lose or confuse data:
+  entries the BibTeX parser discards, and keys reused across files.
+  These fail the build.
+
+  Warnings are content problems that are tracked as known issues and do
+  not fail the build unless --strict is given.
+  """
+  errors = []
+  warnings = []
+  seen_keys = {}
+  accent_converter = latex_accents.AccentConverter()
+  total_raw = 0
+  n_files = 0
+
+  for _proc_type, path in utils.all_proc_files():
+    n_files += 1
+    text = path.read_text()
+    raw_keys = _raw_entry_keys(text)
+    bib_database = bibtexparser.bparser.BibTexParser(
+        common_strings=True
+    ).parse(text)
+    parsed_keys = [e['ID'] for e in bib_database.entries]
+    total_raw += len(raw_keys)
+
+    # Entries the parser silently dropped. bibtexparser turns an entry it
+    # cannot parse into a comment rather than raising, so a missing comma
+    # removes a paper from the archive with no other signal.
+    parsed_set = set(parsed_keys)
+    for key in raw_keys:
+      if key not in parsed_set:
+        errors.append(
+            f"{path}: entry '{key}' was not parsed - it is almost certainly "
+            f"malformed (a missing comma after a field is the usual cause) "
+            f"and will be missing from the published archive"
+        )
+    for comment in bib_database.comments:
+      first_line = comment.strip().splitlines()[0][:60]
+      errors.append(
+          f"{path}: unparsed content treated as a comment, starting "
+          f"'{first_line}'"
+      )
+
+    # Keys must be unique across every proceedings file, not just within one.
+    for key in parsed_keys:
+      if key in seen_keys:
+        errors.append(
+            f"{path}: key '{key}' is already used in {seen_keys[key]}"
+        )
+      else:
+        seen_keys[key] = path
+
+    for entry in bib_database.entries:
+      key = entry['ID']
+
+      for field in utils.REQUIRED_FIELDS:
+        if not entry.get(field, "").strip():
+          warnings.append(f"{path}: {key} has no {field}")
+
+      # LaTeX escapes are fine in the source files; what matters is
+      # whether collate can convert them. Run the same conversion here and
+      # warn only about what it fails to resolve, since that is what ends
+      # up on the website.
+      for field in utils.PUBLISHED_TEXT_FIELDS:
+        value = entry.get(field, "")
+        if '\\' in value and '\\' in _convert_latex(value, accent_converter):
+          warnings.append(
+              f"{path}: {key} has LaTeX in {field} that collate cannot convert"
+          )
+
+      if not entry.get("url", "").strip() and not entry.get("doi", "").strip():
+        warnings.append(f"{path}: {key} has neither url nor doi")
+
+  if release:
+    for path in sorted(utils.RELEASE_PATH.glob("*.yaml")):
+      for entry in yaml.safe_load(path.read_text()) or []:
+        for field in utils.PUBLISHED_TEXT_FIELDS:
+          # The 'bibtex' field is a raw dump and is excluded on purpose.
+          if '\\' in entry.get(field, ""):
+            warnings.append(
+                f"{path}: {entry.get('ID', '?')} was published with "
+                f"unconverted LaTeX in {field}"
+            )
+
+  click.secho(
+      f"Checked {total_raw} entries in {len(seen_keys)} unique keys "
+      f"across {n_files} files."
+  )
+
+  if warnings:
+    click.secho(f"\n{len(warnings)} warning(s):", fg="yellow")
+    for w in warnings:
+      click.secho(f"  {w}", fg="yellow")
+
+  if errors:
+    click.secho(f"\n{len(errors)} error(s):", fg="red")
+    for e in errors:
+      click.secho(f"  {e}", fg="red")
+
+  if errors or (strict and warnings):
+    click.secho("\nValidation failed.", fg="red")
+    raise SystemExit(1)
+
+  if warnings:
+    click.secho(
+        "\nValidation passed (warnings are tracked as known issues).",
+        fg="green"
+    )
+  else:
+    click.secho("\nValidation passed.", fg="green")
+
+
 @click.group()
 def cli():
     pass
@@ -431,6 +586,7 @@ cli.add_command(harmonise)
 cli.add_command(find_keys)
 cli.add_command(collate)
 cli.add_command(add_dois)
+cli.add_command(validate)
 
 if __name__ == '__main__':
     cli()
