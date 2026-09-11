@@ -96,3 +96,20 @@ writer.indent = FIELD_INDENT
 writer.display_order = FIELD_ORDER
 writer.common_strings = False # would like it to write month 3-letter codes, but can't seem to avoid writing them at the start of each file weirdly.
 writer.order_entries_by = ("articleno", "url", "ID")
+
+
+# all proceedings types, in the order used for reporting
+PROC_TYPES = ("paper", "music", "installation", "alt")
+
+# fields that are published as UTF-8 and should not contain LaTeX escapes
+PUBLISHED_TEXT_FIELDS = ("title", "author", "abstract", "keywords")
+
+# fields every entry is expected to carry
+REQUIRED_FIELDS = ("author", "title", "year", "booktitle")
+
+
+def all_proc_files():
+    """Yields (proc_type, path) for every available proceedings file."""
+    for proc_type in PROC_TYPES:
+        for path in sorted(glob_for_proc(proc_type)):
+            yield proc_type, path
