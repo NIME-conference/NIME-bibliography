@@ -13,15 +13,27 @@ import yaml
 
 
 def set_id_order(id_order):
-  """Sets the order for the bibtex writer
+  """Sets the entry order for the bibtex writer.
+
+  id_order=True sorts entries by their BibTeX key. Otherwise the writer's
+  default (article number, url, key) is used. Note the trailing comma:
+  ("ID") is just the string "ID", which bibtexparser would read as the two
+  field names "I" and "D" and silently not sort at all.
   """
-  # set ordering property:
-  if (id_order):
-      utils.writer.order_entries_by = ("ID")
+  if id_order:
+      utils.writer.order_entries_by = ("ID",)
       click.secho("ordering by ID")
   else:
       click.secho(f"Using default order: {utils.writer.order_entries_by}")
-  # else, canonical order: #utils.writer.order_entries_by = ("articleno", "url", "ID")
+
+
+def preserve_file_order():
+  """Makes the bibtex writer keep entries in the order they were parsed.
+
+  The source files are maintained in page/article order, and the collated
+  output concatenates them year by year, so this is the canonical order.
+  """
+  utils.writer.order_entries_by = None
 
 
 @click.command()
@@ -74,48 +86,43 @@ def harmonise(year, type, id_order):
     help="type of proceedings"
 )
 @click.option(
-    "--id_order",
-    "-I",
-    is_flag=True,
-    default=False,
-    help="sorts the output by entry ID/key (default: sort by article/page number)"
-)
-@click.option(
     "--format",
     "-F",
     type=click.Choice(["bib", "csv", "yaml", "json"]),
     default="bib",
     help="format of output"
 )
-def collate(type, id_order, format):
+def collate(type, format):
   """Collates all NIME proceedings of a certain type and saves to an output
   file.
+
+  Entries are output year by year (files sorted by name) and, within a
+  year, in the order they appear in the source file, which is page/article
+  order. The order is the same for every output format and every platform,
+  so two builds of the same sources can be compared byte for byte.
   """
   output_file = utils.collated_path(type, format)
-  bibfiles = []
+  bibfiles = utils.glob_for_proc(type)
   bib_entries = []
-  bib_databases = []
-  for file in utils.glob_for_proc(type):
-      bibfiles.append(file)
 
   with click.progressbar(bibfiles) as bar:
     for bf in bar:
-      with open(bf) as bibtex_file:
+      with open(bf, encoding="utf-8") as bibtex_file:
         bd = bibtexparser.bparser.BibTexParser(
             common_strings=True
         ).parse_file(bibtex_file)
-        bib_databases.append(bd)
         bib_entries.extend(bd.entries)
-  
+
   # set up collated database
+  bd = bibtexparser.bibdatabase.BibDatabase()
   bd.entries = bib_entries
   accent_converter = latex_accents.AccentConverter()
 
   # BibTex Output (preserve latex accents)
   if format == "bib":
-    set_id_order(id_order)
-    with open(output_file, 'w') as bibtex_file:
-        bibtex_file.write(utils.writer.write(bd)) 
+    preserve_file_order()
+    with open(output_file, 'w', encoding="utf-8") as bibtex_file:
+        bibtex_file.write(utils.writer.write(bd))
   
   # Other formats (convert accents to UTF8)
   for e in bib_entries:
@@ -125,70 +132,12 @@ def collate(type, id_order, format):
     bibtex_str = bibtexparser.dumps(small_bd)
     e['bibtex'] = bibtex_str
 
-    # look at entries with \
-    # look at abstract, title, author
-    try: 
-      if '\\' in e['abstract']:
-        e['abstract'] = accent_converter.decode_Tex_Accents(
-            e['abstract'],
-            utf8_or_ascii=1
-        )
-        e['abstract'] = latex_symbols.replace_symbols(e['abstract'])
-        e['abstract'] = accent_converter.decode_Tex_Accents(
-            e['abstract'],
-            utf8_or_ascii=1
-        )  # do this twice to catch them all.
-      if '\\' in e['abstract']:
-        click.secho(
-            f"{e['ID']} abstract still contains backslashes!",
-            fg="red"
-        )
-        click.secho(f"{e['ID']} Abstract: {e['abstract']}", fg="yellow")
-      e['abstract'] = latex_symbols.clean_braces(e['abstract'])
-    except Exception:
-      continue
-
-    try:
-      if '\\' in e['title']:
-        e['title'] = accent_converter.decode_Tex_Accents(
-            e['title'],
-            utf8_or_ascii=1
-        )
-        e['title'] = latex_symbols.replace_symbols(e['title'])
-        e['title'] = accent_converter.decode_Tex_Accents(
-            e['title'],
-            utf8_or_ascii=1
-        )  # do this twice to catch them all.
-      if '\\' in e['title']:
-        click.secho(
-            f"{e['ID']} title still contains backslashes!",
-            fg="red"
-        )
-        click.secho(f"{e['ID']} Title: {e['title']}", fg="yellow")
-      e['title'] = latex_symbols.clean_braces(e['title'])
-    except Exception as exc:
-      click.secho(f"Exception: {exc}", fg="red")
-
-    try:
-      if '\\' in e['author']:
-        e['author'] = accent_converter.decode_Tex_Accents(
-            e['author'],
-            utf8_or_ascii=1
-        )
-        e['author'] = latex_symbols.replace_symbols(e['author'])
-        e['author'] = accent_converter.decode_Tex_Accents(
-            e['author'],
-            utf8_or_ascii=1
-        )  # do this twice to catch them all.
-      if '\\' in e['author']:
-        click.secho(
-            f"{e['ID']} author still contains backslashes!",
-            fg="red"
-        )
-        click.secho(f"{e['ID']} Author: {e['author']}", fg="yellow")
-      e['author'] = latex_symbols.clean_braces(e['author'])
-    except Exception as exc:
-      click.secho(f"Exception: {exc}", fg="red")
+    # Convert LaTeX in the published text fields to UTF-8. Each field is
+    # handled independently: an entry with no abstract must still have its
+    # title and author converted (this used to `continue` on the missing
+    # abstract and skip them, see issue #98).
+    for field in ("abstract", "title", "author"):
+      _convert_entry_field(e, field, accent_converter)
 
     try:
       if '\\' in e['ID']:
@@ -417,7 +366,7 @@ def add_dois(year, csvfile, type, translated):
         # IMPORTANT: In translation mode we do NOT add or modify e['doi'].
 
   # Write back to the bibtex file
-  set_id_order(True)
+  preserve_file_order()
   with open(nime_file, 'w') as bibtex_file:
       bibtex_file.write(utils.writer.write(bib_database))
 
@@ -434,6 +383,23 @@ def _convert_latex(text, accent_converter):
   text = latex_symbols.replace_symbols(text)
   text = accent_converter.decode_Tex_Accents(text, utf8_or_ascii=1)
   return text
+
+
+def _convert_entry_field(entry, field, accent_converter):
+  """Converts LaTeX in one text field of an entry to UTF-8, in place.
+
+  Does nothing if the entry lacks the field. Warns in red about backslashes
+  that survive conversion, since those reach the published files as-is.
+  """
+  value = entry.get(field)
+  if value is None:
+    return
+  if '\\' in value:
+    value = _convert_latex(value, accent_converter)
+  if '\\' in value:
+    click.secho(f"{entry['ID']} {field} still contains backslashes!", fg="red")
+    click.secho(f"{entry['ID']} {field}: {value}", fg="yellow")
+  entry[field] = latex_symbols.clean_braces(value)
 
 
 def _raw_entry_keys(text):

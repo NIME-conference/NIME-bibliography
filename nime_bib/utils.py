@@ -41,18 +41,23 @@ def path_for_proc(year, proc_type):
         return None
 
 def glob_for_proc(proc_type):
-    """Returns the glob of available procs for a given type.
+    """Returns the available proceedings files for a given type, sorted by
+    filename (i.e. by year).
+
+    Sorted deliberately: Path.glob returns filesystem order, which differs
+    between macOS and the Linux CI runner and would make the collated output
+    non-reproducible.
     """
     if proc_type == "paper":
-        return PAPER_PROC.glob(f"nime*.bib")
+        return sorted(PAPER_PROC.glob("nime*.bib"))
     elif proc_type == "installation":
-        return INSTALL_PROC.glob(f"nime*_installations.bib")
+        return sorted(INSTALL_PROC.glob("nime*_installations.bib"))
     elif proc_type == "music":
-        return MUSIC_PROC.glob(f"nime*_music.bib")
+        return sorted(MUSIC_PROC.glob("nime*_music.bib"))
     elif proc_type == "alt":
-        return ALT_PROC.glob(f"nime*_alt.bib")
+        return sorted(ALT_PROC.glob("nime*_alt.bib"))
     else:
-        return None
+        return []
 
 
 # field order for nime proc entries.
