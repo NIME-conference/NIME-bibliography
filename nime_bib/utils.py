@@ -110,8 +110,13 @@ class NumericOrderWriter(BibTexWriter):
         key = []
         for field in self.order_entries_by:
             value = str(entry.get(field, "")).strip()
-            if field in self.NUMERIC_FIELDS and value.isdecimal():
-                key.append((0, int(value), ""))
+            if field in self.NUMERIC_FIELDS:
+                if value.isdecimal():
+                    key.append((0, int(value), ""))
+                else:
+                    # missing or malformed: sort after numbered entries, but
+                    # ignore the value so ties fall through to url and ID
+                    key.append((1, 0, ""))
             else:
                 key.append((1, 0, value.lower()))
         return tuple(key)
