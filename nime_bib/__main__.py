@@ -167,39 +167,26 @@ def collate(type, format):
 
 
 @click.command()
-def find_keys():
-  """Finds all BibTeX keys used in all available proceedings files.
+def list_fields():
+  """Lists every field name used across all proceedings files.
+
+  Fields not in utils.FIELD_ORDER are marked with "*": the writer puts them
+  after the ordered fields, so they are candidates for adding to it.
   """
-  bibfiles = []
-  bibdatabases = {}
-  for file in utils.glob_for_proc("paper"):
-      bibfiles.append(file)
-  for file in utils.glob_for_proc("music"):
-      bibfiles.append(file)
-  for file in utils.glob_for_proc("installation"):
-      bibfiles.append(file)
-  for file in utils.glob_for_proc("alt"):
-      bibfiles.append(file)
-  
-  def add_keys(e, k):
-      e_keys = set(e.keys())
-      k |= e_keys
+  counts = {}
+  for _, bf in utils.all_proc_files():
+    with open(bf, encoding="utf-8") as bibtex_file:
+      bib_database = bibtexparser.bparser.BibTexParser(
+          common_strings=True
+      ).parse_file(bibtex_file)
+    for e in bib_database.entries:
+      for field in e:
+        if field not in ("ENTRYTYPE", "ID"):
+          counts[field] = counts.get(field, 0) + 1
 
-  keys = set()
-
-  with click.progressbar(bibfiles) as bar:
-    for bf in bar:
-        with open(bf) as bibtex_file:
-            bib_database = bibtexparser.bparser.BibTexParser(
-                common_strings=True
-            ).parse_file(bibtex_file)
-        bibdatabases[bf] = bib_database
-        for e in bib_database.entries:
-            add_keys(e, keys)
-  
-  entry_keys = list(keys)
-  entry_keys.sort()
-  click.secho(entry_keys)
+  for field in sorted(counts):
+    marker = " " if field in utils.FIELD_ORDER else "*"
+    click.echo(f"{marker} {field}: {counts[field]}")
 
 
 def _strip_pdf_suffix(key: str) -> str:
@@ -549,7 +536,7 @@ def cli():
 
 
 cli.add_command(harmonise)
-cli.add_command(find_keys)
+cli.add_command(list_fields)
 cli.add_command(collate)
 cli.add_command(add_dois)
 cli.add_command(validate)
