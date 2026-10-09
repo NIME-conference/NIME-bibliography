@@ -27,6 +27,8 @@ jobs:
         uses: snok/install-poetry@v1
       - name: Setup nime_bib
         run: poetry install
+      - name: Run tests
+        run: poetry run python -m pytest -q
       - name: Validate proceedings files
         run: poetry run python nime_bib validate
       - name: Collate files

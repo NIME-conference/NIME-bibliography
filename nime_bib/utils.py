@@ -1,3 +1,4 @@
+from bibtexparser.bibdatabase import BibDatabase
 from bibtexparser.bwriter import BibTexWriter
 from pathlib import Path
 
@@ -95,8 +96,46 @@ FIELD_ORDER = ("author",
 # bibtex entries indented by a single space
 FIELD_INDENT = "  "
 
+class NumericOrderWriter(BibTexWriter):
+    """BibTexWriter that sorts the articleno field numerically.
+
+    bibtexparser compares every sort field as a lowercased string, which puts
+    articleno 10 before 2. Entries without a numeric articleno sort after those
+    with one, falling through to the remaining fields in order_entries_by.
+    """
+
+    NUMERIC_FIELDS = ("articleno",)
+
+    def _sort_key(self, entry):
+        key = []
+        for field in self.order_entries_by:
+            value = str(entry.get(field, "")).strip()
+            if field in self.NUMERIC_FIELDS:
+                if value.isdecimal():
+                    key.append((0, int(value), ""))
+                else:
+                    # missing or malformed: sort after numbered entries, but
+                    # ignore the value so ties fall through to url and ID
+                    key.append((1, 0, ""))
+            else:
+                key.append((1, 0, value.lower()))
+        return tuple(key)
+
+    def _entries_to_bibtex(self, bib_database):
+        if self.order_entries_by:
+            # sort here, then let the parent write the entries in the given order
+            sorted_db = BibDatabase()
+            sorted_db.entries = sorted(bib_database.entries, key=self._sort_key)
+            order, self.order_entries_by = self.order_entries_by, None
+            try:
+                return super()._entries_to_bibtex(sorted_db)
+            finally:
+                self.order_entries_by = order
+        return super()._entries_to_bibtex(bib_database)
+
+
 # Writer object to use for writing back nime proceedings in the correct format.
-writer = BibTexWriter()
+writer = NumericOrderWriter()
 writer.indent = FIELD_INDENT
 writer.display_order = FIELD_ORDER
 writer.common_strings = False # would like it to write month 3-letter codes, but can't seem to avoid writing them at the start of each file weirdly.
