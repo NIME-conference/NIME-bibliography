@@ -84,34 +84,45 @@ The canonical format for a NIME proceedings bibtex entry is:
   author = {},
   title = {},
   pages = {},
+  numpages = {},
   booktitle = {Proceedings of the International Conference on New Interfaces for Musical Expression},
-  editor = {}
+  volume = {},
+  series = {},
+  editor = {},
   year = {},
-  month = {}
+  month = {},
   date = {},
+  day = {},
+  publisher = {},
   address = {},
   isbn = {},
   issn = {},
   articleno = {},
   track = {},
   note = {},
+  copyright = {},
   doi = {},
-  url = {http://www.nime.org/proceedings/year/article_id.pdf},
+  url = {https://nime.org/proceedings/year/article_id.pdf},
+  url2 = {},
+  url3 = {},
   urlsuppl1 = {},
   urlsuppl2 = {},
   urlsuppl3 = {},
   pdf = {},
   presentation-video = {},
+  translations = {},
   keywords = {},
   abstract = {}
 }
 ```
 
+Fields that don't apply to an entry are left out. This order is defined by `FIELD_ORDER` in `nime_bib/utils.py`, and a test checks that this template matches it.
+
 (more fields are under discussion in [issues](https://github.com/NIME-conference/NIME-bibliography/issues/13))
 
 Articles should be ordered by page/article number within each proceedings file.
 
-The script `scripts/harmonise_bibtex_file.py` can be used to ensure that proceedings files are in the above format.
+`poetry run python nime_bib harmonise YEAR` rewrites a proceedings file in the above format, but see [#74](https://github.com/NIME-conference/NIME-bibliography/issues/74) first: it currently also converts UTF-8 characters to LaTeX escapes.
 
 Special characters in the `.bib` file should be written in UTF-8 code (not LaTeX symbol represenations).
 
@@ -124,7 +135,7 @@ Small edits can be done with a text editor and submitted as a [pull request](htt
 
 Commits should **only affect** files and lines where an actual change is occurring (i.e., don't change the formatting of a file arbitrarily), this allows us to revert changes if anything goes wrong.
 
-Larger projects (e.g., updating the URL or DOI fields for a whole year of the conference) should be done exclusively with scripts, Python scripts and notebooks for loading, editing, and saving bibtex files in our standardised format are provided under `/scripts`. In particular, `scripts/utils.py` has the canonical versions of the bibtex fields, ordering and sorting used in the proceedings.
+Larger projects (e.g., updating the URL or DOI fields for a whole year of the conference) should be done exclusively with scripts, Python scripts and notebooks for loading, editing, and saving bibtex files in our standardised format are provided under `/scripts`. In particular, `nime_bib/utils.py` has the canonical versions of the bibtex fields, ordering and sorting used in the proceedings.
 
 We **do not suggest** using bibtex managers such as BibDesk/JabRef for small edits (although these are useful for browsing the proceedings) as these programs have a habit of changing the formatting and order of every single entry in a file.
 

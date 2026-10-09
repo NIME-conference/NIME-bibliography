@@ -1,41 +1,16 @@
-from bibtexparser.bwriter import BibTexWriter
+"""Deprecated: re-exports nime_bib/utils.py, the canonical field order and
+writer, so that older notebooks in this directory that `import utils` keep
+working. This used to be a separate copy that drifted out of date (#105).
+New code should use nime_bib/utils.py directly.
+"""
+import importlib.util
+from pathlib import Path
 
-# field order for nime proc entries.
-FIELD_ORDER = ("author",
-               "title",
-               "pages",
-               "booktitle",
-               "volume",
-               "series",
-               "editor",
-               "year",
-               "month",
-               "date",
-               "day",
-               "publisher",
-               "address",
-               "isbn",
-               "issn",
-               "articleno",
-               "track",
-               "doi",
-               "url",
-               "url2",
-               "url3",
-               "urlsuppl1",
-               "urlsuppl2",
-               "urlsuppl3",
-               "presentation-video", 
-               "keywords",
-               "abstract")
+_spec = importlib.util.spec_from_file_location(
+    "nime_bib_utils",
+    Path(__file__).resolve().parents[1] / "nime_bib" / "utils.py")
+_utils = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_utils)
 
-
-# bibtex entries indented by a single space
-FIELD_INDENT = "  "
-
-# Writer object to use for writing back nime proceedings in the correct format.
-writer = BibTexWriter()
-writer.indent = FIELD_INDENT
-writer.display_order = FIELD_ORDER
-writer.common_strings = False # would like it to write month 3-letter codes, but can't seem to avoid writing them at the start of each file weirdly.
-writer.order_entries_by = ("articleno", "url", "ID")
+globals().update(
+    {k: v for k, v in vars(_utils).items() if not k.startswith("__")})
