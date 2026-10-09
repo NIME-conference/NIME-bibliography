@@ -22,15 +22,24 @@ def cli_module():
 
 
 @pytest.fixture
-def archive(tmp_path, monkeypatch):
+def archive(cli_module, tmp_path, monkeypatch):
     """An empty proceedings archive in a temporary directory.
 
-    The tool resolves every path relative to the working directory, so this
-    changes into it. Returns a function that writes a .bib file into it.
+    The tool resolves every path from utils.BASE_PATH (the repository root),
+    so this points those paths at the temporary directory instead, and also
+    changes into it so tests can open release files by relative path.
+    Returns a function that writes a .bib file into it.
     """
-    for d in ("paper_proceedings", "music_proceedings",
-              "installation_proceedings", "alt_proceedings"):
+    utils = sys.modules["utils"]
+    proc_dirs = {"PAPER_PROC": "paper_proceedings",
+                 "MUSIC_PROC": "music_proceedings",
+                 "INSTALL_PROC": "installation_proceedings",
+                 "ALT_PROC": "alt_proceedings"}
+    for name, d in proc_dirs.items():
         (tmp_path / d).mkdir()
+        monkeypatch.setattr(utils, name, tmp_path / d)
+    monkeypatch.setattr(utils, "BASE_PATH", tmp_path)
+    monkeypatch.setattr(utils, "RELEASE_PATH", tmp_path / "release")
     monkeypatch.chdir(tmp_path)
 
     def add_bib(relpath, text):

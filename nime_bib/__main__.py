@@ -63,7 +63,7 @@ def harmonise(year, type, id_order):
   nime_file = utils.path_for_proc(year, type)
 
   click.secho(f"Going to load: {nime_file}, hope that's ok.")
-  with open(nime_file) as bibtex_file:
+  with open(nime_file, encoding="utf-8") as bibtex_file:
     bib_database = bibtexparser.bparser.BibTexParser(
         common_strings=True,
         customization=homogenize_latex_encoding
@@ -72,7 +72,7 @@ def harmonise(year, type, id_order):
   
   set_id_order(id_order)
   # Write back to the bibtex file
-  with open(nime_file, 'w') as bibtex_file:
+  with open(nime_file, 'w', encoding="utf-8") as bibtex_file:
       bibtex_file.write(utils.writer.write(bib_database))
 
   click.secho(f"Saved new entried to: {nime_file}, hope that's ok.", fg="green")
@@ -123,20 +123,19 @@ def collate(type, format):
     preserve_file_order()
     with open(output_file, 'w', encoding="utf-8") as bibtex_file:
         bibtex_file.write(utils.writer.write(bd))
-  
+    click.secho(
+        f"Saved {len(bd.entries)} entries to: {output_file}, hope that's ok.",
+        fg="green"
+    )
+    return
+
   # Other formats (convert accents to UTF8)
   for e in bib_entries:
-    # add a "bibtex" field:
-    small_bd = bibtexparser.bibdatabase.BibDatabase()
-    small_bd.entries = [e]
-    bibtex_str = bibtexparser.dumps(small_bd)
-    e['bibtex'] = bibtex_str
-
     # Convert LaTeX in the published text fields to UTF-8. Each field is
     # handled independently: an entry with no abstract must still have its
     # title and author converted (this used to `continue` on the missing
     # abstract and skip them, see issue #98).
-    for field in ("abstract", "title", "author"):
+    for field in utils.PUBLISHED_TEXT_FIELDS:
       _convert_entry_field(e, field, accent_converter)
 
     try:
@@ -150,11 +149,18 @@ def collate(type, format):
       click.secho(f"Exception: {exc}", fg="red")
       click.secho(f"Entry: {e}", fg="blue")
 
+    # Add a "bibtex" field. Built after the conversion so that it agrees
+    # with its sibling fields, and with utils.writer so that it matches the
+    # field order and indentation of the published .bib files (issue #108).
+    small_bd = bibtexparser.bibdatabase.BibDatabase()
+    small_bd.entries = [e]
+    e['bibtex'] = utils.writer.write(small_bd)
+
   if format == "csv":
     df = pd.DataFrame.from_records(bib_entries)
     df.to_csv(output_file)
   if format == "yaml":
-    with open(output_file, 'w') as f:
+    with open(output_file, 'w', encoding="utf-8") as f:
       pyaml.dump(bib_entries, f, vspacing=[2, 0])
   if format == "json":
     df = pd.DataFrame.from_records(bib_entries)
@@ -249,14 +255,14 @@ def add_dois(year, csvfile, type, translated):
   nime_file = utils.path_for_proc(year, type)
   # Load the NIME bibtex file
   click.secho(f"Going to load: {nime_file}, hope that's ok.")
-  with open(nime_file) as bibtex_file:
+  with open(nime_file, encoding="utf-8") as bibtex_file:
     bib_database = bibtexparser.bparser.BibTexParser(
         common_strings=True
     ).parse_file(bibtex_file)
   click.secho(f"Loaded {len(bib_database.entries)} entries.")
   
   # Load the CSV file and apply logic depending on mode
-  with open(csvfile, newline='') as doi_file:
+  with open(csvfile, newline='', encoding="utf-8") as doi_file:
     reader = csv.DictReader(doi_file)
 
     if not translated:
@@ -354,7 +360,7 @@ def add_dois(year, csvfile, type, translated):
 
   # Write back to the bibtex file
   preserve_file_order()
-  with open(nime_file, 'w') as bibtex_file:
+  with open(nime_file, 'w', encoding="utf-8") as bibtex_file:
       bibtex_file.write(utils.writer.write(bib_database))
 
   click.secho(f"Saved new entries to: {nime_file}, hope that's ok.", fg="green")
@@ -370,6 +376,14 @@ def _convert_latex(text, accent_converter):
   text = latex_symbols.replace_symbols(text)
   text = accent_converter.decode_Tex_Accents(text, utf8_or_ascii=1)
   return text
+
+
+def _malformed_name_list(names):
+  """True if a BibTeX name list has an empty name between its 'and's.
+
+  Catches 'A and and B', 'A and, B', and a leading or trailing 'and'.
+  """
+  return bool(re.search(r"\band\s+and\b|\band,|^\s*and\s|\sand\s*$", names))
 
 
 def _convert_entry_field(entry, field, accent_converter):
@@ -435,7 +449,8 @@ def validate(strict, release):
 
   for _proc_type, path in utils.all_proc_files():
     n_files += 1
-    text = path.read_text()
+    text = path.read_text(encoding="utf-8")
+    path = path.relative_to(utils.BASE_PATH)  # for messages
     raw_keys = _raw_entry_keys(text)
     bib_database = bibtexparser.bparser.BibTexParser(
         common_strings=True
@@ -477,6 +492,12 @@ def validate(strict, release):
         if not entry.get(field, "").strip():
           warnings.append(f"{path}: {key} has no {field}")
 
+      if _malformed_name_list(entry.get("author", "")):
+        errors.append(
+            f"{path}: {key} has a stray 'and' in its author list, which "
+            f"publishes an author called 'and ...' (see issue #91)"
+        )
+
       # LaTeX escapes are fine in the source files; what matters is
       # whether collate can convert them. Run the same conversion here and
       # warn only about what it fails to resolve, since that is what ends
@@ -493,7 +514,7 @@ def validate(strict, release):
 
   if release:
     for path in sorted(utils.RELEASE_PATH.glob("*.yaml")):
-      for entry in yaml.safe_load(path.read_text()) or []:
+      for entry in yaml.safe_load(path.read_text(encoding="utf-8")) or []:
         for field in utils.PUBLISHED_TEXT_FIELDS:
           # The 'bibtex' field is a raw dump and is excluded on purpose.
           if '\\' in entry.get(field, ""):

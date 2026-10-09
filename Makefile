@@ -59,4 +59,4 @@ release/index.html:
 
 .PHONY: clean
 clean: 
-	rm release/*
+	rm -rf release

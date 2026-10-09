@@ -2,8 +2,8 @@ from bibtexparser.bibdatabase import BibDatabase
 from bibtexparser.bwriter import BibTexWriter
 from pathlib import Path
 
-# paths
-BASE_PATH = Path(".")
+# paths, relative to the repository root so the tool works from any directory
+BASE_PATH = Path(__file__).resolve().parents[1]
 PAPER_PROC = BASE_PATH / "paper_proceedings"
 MUSIC_PROC = BASE_PATH / "music_proceedings"
 INSTALL_PROC = BASE_PATH / "installation_proceedings"
@@ -65,6 +65,7 @@ def glob_for_proc(proc_type):
 FIELD_ORDER = ("author",
                "title",
                "pages",
+               "numpages",
                "booktitle",
                "volume",
                "series",
@@ -80,6 +81,7 @@ FIELD_ORDER = ("author",
                "articleno",
                "track",
                "note",
+               "copyright",
                "doi",
                "url",
                "url2",
@@ -88,7 +90,8 @@ FIELD_ORDER = ("author",
                "urlsuppl2",
                "urlsuppl3",
                "pdf",
-               "presentation-video", 
+               "presentation-video",
+               "translations",
                "keywords",
                "abstract")
 
