@@ -1,8 +1,9 @@
-# Validates the proceedings files on every pull request, so that a malformed
-# .bib entry cannot be merged. bibtexparser discards entries it cannot parse
+# Runs the nime_bib tests and validates the proceedings files on every pull
+# request and push to master, so that a code regression or a malformed .bib
+# entry cannot be merged. bibtexparser discards entries it cannot parse
 # without raising, so `make` alone will happily build and deploy an archive
 # with a paper missing from it.
-name: Validate proceedings
+name: CI
 
 on:
   pull_request:
@@ -14,6 +15,23 @@ permissions:
   contents: read
 
 jobs:
+  test:
+    name: tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+      - name: Setup nime_bib
+        run: poetry install
+      - name: Run tests
+        run: poetry run python -m pytest -v
+
   validate:
     runs-on: ubuntu-latest
     steps:
@@ -22,13 +40,11 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.14'
       - name: Install Poetry
         uses: snok/install-poetry@v1
       - name: Setup nime_bib
         run: poetry install
-      - name: Run tests
-        run: poetry run python -m pytest -q
       - name: Validate proceedings files
         run: poetry run python nime_bib validate
       - name: Collate files
