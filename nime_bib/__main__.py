@@ -383,7 +383,7 @@ def _malformed_name_list(names):
 
   Catches 'A and and B', 'A and, B', and a leading or trailing 'and'.
   """
-  return bool(re.search(r"\band\s+and\b|\band,|^\s*and\s|\sand\s*$", names))
+  return bool(re.search(r"\band\s+and\b|\band,|^\s*and\b|\band\s*$", names))
 
 
 def _convert_entry_field(entry, field, accent_converter):

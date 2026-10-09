@@ -120,6 +120,7 @@ def test_collate_bibtex_field_matches_converted_fields(cli_module, archive):
     "Ada Lovelace and, Charles Babbage",
     "and Ada Lovelace",
     "Ada Lovelace and",
+    "and",
 ])
 def test_validate_rejects_stray_and(cli_module, archive, author):
     archive("paper_proceedings/nime2099.bib",
@@ -133,6 +134,8 @@ def test_validate_rejects_stray_and(cli_module, archive, author):
     "Ada Lovelace and Charles Babbage",
     "Holland, Quinn and Rolland, Jean-Baptiste",
     "Sandra Anderson",
+    "Andrew Rand",
+    "Ada Lovelace and Andrew Anderson",
 ])
 def test_validate_accepts_well_formed_authors(cli_module, archive, author):
     archive("paper_proceedings/nime2099.bib",
