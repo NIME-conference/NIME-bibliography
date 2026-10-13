@@ -10,11 +10,12 @@ discoverable via Google Scholar.
 IMPORTANT:
 - The *compressed* PDFs produced by this script are the ones intended for the
   public-facing website (so that Google Scholar can index them).
-- The *high-resolution* originals are preserved under new names ending in
-  "_highres.pdf" in the same folder.
-- The true, unmodified high-resolution versions are also preserved and shared
-  on Zenodo. Zenodo itself is not indexed by Google Scholar, so we keep the
-  full-quality files there while serving compressed versions on the NIME site.
+- The *original / uncompressed* PDFs are preserved under new names ending in
+  "_uncompressed.pdf" in the same folder.
+- The true, unmodified original versions (i.e. these *_uncompressed.pdf files)
+  are also preserved and shared on Zenodo. Zenodo itself is not indexed by
+  Google Scholar, so we keep the full-quality/original files there while
+  serving compressed versions on the NIME site.
 
 Usage
 -----
@@ -28,7 +29,7 @@ subdirectories (2001, 2002, ..., 2026, and future years):
   - Compress all eligible NIME PDFs > 5 MB:
       python3 PDFcompressor.py
 
-  - Undo compression (restore all *_highres.pdf files back
+  - Undo compression (restore all *_uncompressed.pdf files back
     to their original names):
       python3 PDFcompressor.py --undo
 
@@ -41,7 +42,7 @@ The script:
 - Skips any PDF whose name ends with "_fileNN.pdf" (e.g. "_file01.pdf"), which
   are supplementary files.
 - Only compresses files larger than 5 MB.
-- Renames the original to "*_highres.pdf" and writes a
+- Renames the original to "*_uncompressed.pdf" and writes a
   compressed version with the original filename.
 - Iteratively adjusts Ghostscript image compression parameters to keep images
   as high quality as possible while bringing the PDF just under the 5 MB limit.
@@ -289,22 +290,22 @@ def run_ghostscript_profile(input_pdf: Path, output_pdf: Path, profile: Dict) ->
         return False
 
 
-def choose_highres_name(original: Path) -> Path:
+def choose_uncompressed_name(original: Path) -> Path:
     """
-    Choose a backup filename for the original, using *_highres.pdf only.
+    Choose a backup filename for the original, using *_uncompressed.pdf.
     If that name already exists, append a numerical suffix.
     """
     stem = original.stem
     parent = original.parent
 
-    candidate = parent / f"{stem}_highres.pdf"
+    candidate = parent / f"{stem}_uncompressed.pdf"
     if not candidate.exists():
         return candidate
 
-    # If *_highres.pdf exists, append a numerical suffix
+    # If *_uncompressed.pdf exists, append a numerical suffix
     i = 1
     while True:
-        c = parent / f"{stem}_highres_{i}.pdf"
+        c = parent / f"{stem}_uncompressed_{i}.pdf"
         if not c.exists():
             return c
         i += 1
@@ -330,11 +331,11 @@ def is_nime_target_pdf(path: Path) -> Optional[str]:
 
 # ---------- Compression Logic ----------
 
-def compress_pdf_to_target(original: Path, backup_highres: Path) -> Tuple[bool, int]:
+def compress_pdf_to_target(original: Path, backup_uncompressed: Path) -> Tuple[bool, int]:
     """
-    Compress `original` PDF (which is already renamed to `backup_highres`).
+    Compress `original` PDF (which is already renamed to `backup_uncompressed`).
     Iteratively tries different Ghostscript profiles starting from the original
-    high-res PDF each time.
+    uncompressed PDF each time.
 
     Strategy:
     - Try profiles from lightest to stronger compression.
@@ -346,7 +347,7 @@ def compress_pdf_to_target(original: Path, backup_highres: Path) -> Tuple[bool, 
     We early-exit as soon as we get a candidate at or above EARLY_EXIT_BYTES,
     i.e. safely under 5 MB, to avoid over-compressing.
     """
-    src = backup_highres
+    src = backup_uncompressed
     tmp_output = original.with_suffix(".tmp.pdf")
 
     best_under_size: Optional[int] = None
@@ -416,11 +417,11 @@ def compress_pdf_to_target(original: Path, backup_highres: Path) -> Tuple[bool, 
         # No candidate created – restore original
         if original.exists():
             original.unlink()
-        backup_highres.replace(original)
+        backup_uncompressed.replace(original)
         # Clean up any accidental tmp file
         if tmp_output.exists():
             tmp_output.unlink()
-        return False, backup_highres.stat().st_size
+        return False, backup_uncompressed.stat().st_size
 
     # Replace original with chosen candidate
     if original.exists():
@@ -500,11 +501,11 @@ def scan_and_compress(root: Path, dry_run: bool = False) -> None:
 
         st = year_stats[year]
 
-        # Skip if a highres backup already exists (to avoid re-compressing)
-        backup_candidate = choose_highres_name(path)
-        existing_backups = list(path.parent.glob(path.stem + "_highres*.pdf"))
+        # Skip if an uncompressed backup already exists (to avoid re-compressing)
+        backup_candidate = choose_uncompressed_name(path)
+        existing_backups = list(path.parent.glob(path.stem + "_uncompressed*.pdf"))
         if existing_backups:
-            print(f"[SKIP] {path} (backup already present; probably compressed earlier)")
+            print(f"[SKIP] {path} (uncompressed backup already present; probably compressed earlier)")
             continue
 
         print(f"[COMPRESS] {path}")
@@ -515,21 +516,21 @@ def scan_and_compress(root: Path, dry_run: bool = False) -> None:
             print()
             continue
 
-        backup_highres = backup_candidate
-        # Rename original -> backup_highres
+        backup_uncompressed = backup_candidate
+        # Rename original -> backup_uncompressed
         try:
-            path.replace(backup_highres)
+            path.replace(backup_uncompressed)
         except OSError as e:
             print(f"  ERROR: Could not rename to backup ({e}); skipping.")
             continue
 
-        success, size_after = compress_pdf_to_target(path, backup_highres)
+        success, size_after = compress_pdf_to_target(path, backup_uncompressed)
 
         if not success:
             print("  ERROR: Compression failed. Original restored.")
             # Restore stats: file_after is original size
             year_stats[year].total_size_after -= size_before
-            year_stats[year].total_size_after += backup_highres.stat().st_size
+            year_stats[year].total_size_after += backup_uncompressed.stat().st_size
             print()
             continue
 
@@ -542,7 +543,7 @@ def scan_and_compress(root: Path, dry_run: bool = False) -> None:
         print(f"  New size:      {human_size(size_after)}")
         delta = size_before - size_after
         print(f"  Saved:         {human_size(delta)}")
-        print(f"  Backup (highres): {backup_highres.name}")
+        print(f"  Backup (uncompressed/original): {backup_uncompressed.name}")
         print()
 
     # ---------- Summary ----------
@@ -578,20 +579,20 @@ def scan_and_compress(root: Path, dry_run: bool = False) -> None:
 
 def undo_compression(root: Path, dry_run: bool = False) -> None:
     """
-    Restore all *_highres.pdf backups to their original names.
+    Restore all *_uncompressed.pdf backups to their original names.
     """
     restored_count = 0
 
     for pdf in root.rglob("*.pdf"):
         name = pdf.name
-        if name.endswith("_highres.pdf"):
-            base_name = name[:-len("_highres.pdf")] + ".pdf"
+        if name.endswith("_uncompressed.pdf"):
+            base_name = name[:-len("_uncompressed.pdf")] + ".pdf"
         else:
             continue
 
         original_path = pdf.parent / base_name
 
-        # Overwrite existing compressed version with highres (if any)
+        # Overwrite existing compressed version with uncompressed/original (if any)
         if dry_run:
             print(f"[UNDO dry-run] Would restore {pdf} -> {original_path}")
         else:
@@ -610,7 +611,7 @@ def undo_compression(root: Path, dry_run: bool = False) -> None:
 
         restored_count += 1
 
-    print(f"Restored highres originals for {restored_count} files.")
+    print(f"Restored uncompressed/original PDFs for {restored_count} files.")
 
 
 # ---------- CLI ----------
@@ -628,7 +629,7 @@ def main():
     parser.add_argument(
         "--undo",
         action="store_true",
-        help="Undo mode: restore *_highres.pdf backups.",
+        help="Undo mode: restore *_uncompressed.pdf backups.",
     )
     parser.add_argument(
         "--dry-run",
