@@ -2,95 +2,119 @@
 NIME PDF Compressor
 ===================
 
-This script is used to compress NIME PDF papers so that their size is just
-below 5 MB, which is necessary because Google Scholar does not index PDF files
-larger than 5 MB. Without this compression, many NIME papers would not be
-discoverable via Google Scholar.
+Compress NIME PDF papers so their size is just below 5 MB (Google Scholar's
+limit), with a preferred target of 4.8 MB.
 
 IMPORTANT:
-- The *compressed* PDFs produced by this script are the ones intended for the
-  public-facing website (so that Google Scholar can index them).
-- The *original / uncompressed* PDFs are preserved under new names ending in
-  "_uncompressed.pdf" in the same folder.
-- The true, unmodified original versions (i.e. these *_uncompressed.pdf files)
-  are also preserved and shared on Zenodo. Zenodo itself is not indexed by
-  Google Scholar, so we keep the full-quality/original files there while
-  serving compressed versions on the NIME site.
+- Public-facing PDFs are the compressed ones.
+- Original/uncompressed PDFs are preserved as *_uncompressed.pdf alongside.
+- Zenodo holds the true originals; those are not Google Scholar-indexed.
 
-Usage
------
+Size model
+----------
 
-Run this script from the "proceedings" root directory, which contains year
-subdirectories (2001, 2002, ..., 2026, and future years):
+Google Scholar's documentation uses standard decimal megabytes:
 
-  - Dry run (no changes, just show what would be done):
-      python3 PDFcompressor.py --dry-run
+- 1 MB = 1,000,000 bytes (decimal, not binary MiB).
+- Hard limit: 5 MB = 5,000,000 bytes.
 
-  - Compress all eligible NIME PDFs > 5 MB:
-      python3 PDFcompressor.py
+To ensure a document is never skipped by the parser, it is safest to keep
+the final file size strictly under 5,000,000 bytes.
 
-  - Undo compression (restore all *_uncompressed.pdf files back
-    to their original names):
-      python3 PDFcompressor.py --undo
+We therefore set:
 
-The script:
-- Only considers files matching:
-    nimeYEAR_NUMBER.pdf
-    nimeYEAR_paperNUMBER.pdf
-    nimeYEAR_music_NUMBER.pdf
-    nimeYEAR_installations_NUMBER.pdf
-- Skips any PDF whose name ends with "_fileNN.pdf" (e.g. "_file01.pdf"), which
-  are supplementary files.
-- Only compresses files larger than 5 MB.
-- Renames the original to "*_uncompressed.pdf" and writes a
-  compressed version with the original filename.
-- Iteratively adjusts Ghostscript image compression parameters to keep images
-  as high quality as possible while bringing the PDF just under the 5 MB limit.
-- Prints per-file details and a summary per year and overall.
+- SCHOLAR_LIMIT_BYTES = 5_000_000 (hard ceiling).
+- MAX_BYTES = SCHOLAR_LIMIT_BYTES.
+- Preferred target: TARGET_BYTES = 4_800_000 (4.8 MB).
+- EARLY_EXIT_BYTES = 4_750_000.
 
-Ghostscript Requirement
------------------------
+We aim for TARGET_BYTES, but if the best we can do without destroying quality
+is somewhere between TARGET_BYTES and MAX_BYTES, we keep that and *flag* the file.
 
-This script depends on Ghostscript (`gs`) to perform the actual PDF compression.
-You **must** have Ghostscript installed and available in your system PATH.
+Tools required
+--------------
 
-Install instructions:
+This script uses:
+
+1. Ghostscript (`gs`) — for PDF compression via manual profiles + /ebook fallback.
+2. cpdf (`cpdf`) — for image recompression (using ImageMagick) when Ghostscript
+   cannot get under the limit.
+
+Ghostscript
+-----------
 
 - macOS (Homebrew):
-    1. Install Homebrew if you don't have it:
-         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    2. Install Ghostscript:
-         brew install ghostscript
 
-- Ubuntu / Debian (Linux):
-    1. Update package lists:
-         sudo apt-get update
-    2. Install Ghostscript:
-         sudo apt-get install ghostscript
+    # If you don't have Homebrew yet:
+    # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-- Fedora / RHEL (Linux):
-    1. Install Ghostscript:
-         sudo dnf install ghostscript
+    brew install ghostscript
+
+- Ubuntu / Debian:
+
+    sudo apt-get update
+    sudo apt-get install ghostscript
+
+- Fedora / RHEL:
+
+    sudo dnf install ghostscript
 
 - Windows:
-    1. Download the Ghostscript installer from:
-         https://ghostscript.com/download.html
-    2. Run the installer and follow the prompts.
-    3. During installation, ensure that the option to add Ghostscript to the
-       system PATH is enabled. If not, you may need to manually add the
-       Ghostscript "bin" directory (e.g. "C:\\Program Files\\gs\\gs10.XX\\bin")
-       to your PATH environment variable.
-    4. Verify installation by running in a Command Prompt:
-         gswin64c --version
-       or (depending on version):
-         gs --version
 
-After Ghostscript is installed, verify it is available by running in a terminal:
+    - Download from: https://ghostscript.com/download.html
+    - Install and ensure the Ghostscript "bin" directory (e.g.
+      "C:\\Program Files\\gs\\gs10.XX\\bin") is in your PATH.
+    - Test:
+        gs --version
 
-    gs --version
+cpdf
+----
 
-If this prints a version number (e.g. "10.03.1"), the script should be able to
-use Ghostscript for compression.
+- macOS (Homebrew):
+
+    brew install cpdf
+
+- Linux:
+
+    - Download binaries from: https://community.coherentpdf.com/downloads.html
+    - Extract and place `cpdf` in a directory in your PATH, e.g.:
+
+        tar xzf cpdf-binaries.tar.gz
+        sudo mv cpdf /usr/local/bin/
+        sudo chmod +x /usr/local/bin/cpdf
+
+    - Test:
+        cpdf -version
+
+- Windows:
+
+    - Download `cpdf.exe` from: https://community.coherentpdf.com/downloads.html
+    - Put it in a directory like `C:\\Tools\\cpdf` and add that to your PATH.
+    - Test:
+        cpdf -version
+
+ImageMagick (for cpdf image resampling)
+---------------------------------------
+
+cpdf’s -process-images downsampling relies on `magick` (ImageMagick).
+
+- macOS (Homebrew):
+
+    brew install imagemagick
+
+- Linux:
+
+    sudo apt-get install imagemagick
+
+- Windows:
+
+    - Install from https://imagemagick.org
+    - Ensure `magick` is on your PATH.
+
+Verify:
+
+    which magick   # macOS / Linux
+    magick -version
 """
 
 import argparse
@@ -104,103 +128,113 @@ from typing import Dict, Tuple, List, Optional
 
 # ---------- Configuration ----------
 
-MAX_BYTES = 5 * 1024 * 1024          # 5 MB
-# We prefer to be safely below 5 MB; we will early-exit once we are under this.
-EARLY_EXIT_BYTES = 4_800_000         # ~4.58 MB
+SCHOLAR_LIMIT_BYTES = 5_000_000      # hard Google Scholar ceiling (decimal MB)
+MAX_BYTES = SCHOLAR_LIMIT_BYTES      # no file may exceed this
 
-# We also track the largest candidate <= MAX_BYTES as "best".
-SAFETY_MARGIN = 64 * 1024
-TARGET_BYTES = MAX_BYTES - SAFETY_MARGIN
+TARGET_BYTES = 4_800_000             # 4.8 MB preferred target
+EARLY_EXIT_BYTES = 4_750_000         # early exit band near the target
 
-# Compression profiles from very light to stronger.
-# Each profile is a dict interpreted in run_ghostscript_profile().
-COMPRESSION_PROFILES = [
-    # 1) Very light: no forced JPEG, no downsampling, let Ghostscript choose filters.
+# Ghostscript MANUAL profiles (no /ebook here).
+# We progressively lower resolution and JPEG quality.
+GS_MANUAL_PROFILES = [
+    # 1) Very light: no downsampling, auto image filters.
     {
-        "name": "losslessish_no_downsample",
+        "name": "gs_losslessish_no_downsample",
         "downsample": False,
-        "force_jpeg": False,
         "color_res": None,
         "jpeg_q": None,
     },
-    # 2) Mild compression: 600 dpi, JPEG Q=95
+    # 2) 600 dpi, JPEG Q=95
     {
-        "name": "600dpi_q95",
+        "name": "gs_600dpi_q95",
         "downsample": True,
-        "force_jpeg": True,
         "color_res": 600,
         "jpeg_q": 95,
     },
     # 3) 450 dpi, JPEG Q=95
     {
-        "name": "450dpi_q95",
+        "name": "gs_450dpi_q95",
         "downsample": True,
-        "force_jpeg": True,
         "color_res": 450,
         "jpeg_q": 95,
     },
     # 4) 300 dpi, JPEG Q=95
     {
-        "name": "300dpi_q95",
+        "name": "gs_300dpi_q95",
         "downsample": True,
-        "force_jpeg": True,
         "color_res": 300,
         "jpeg_q": 95,
     },
-    # 5) 300 dpi, JPEG Q=90
+    # 5) 250 dpi, JPEG Q=90
     {
-        "name": "300dpi_q90",
+        "name": "gs_250dpi_q90",
         "downsample": True,
-        "force_jpeg": True,
-        "color_res": 300,
+        "color_res": 250,
         "jpeg_q": 90,
     },
-    # 6) 250 dpi, JPEG Q=85
+    # 6) 200 dpi, JPEG Q=90
     {
-        "name": "250dpi_q85",
+        "name": "gs_200dpi_q90",
         "downsample": True,
-        "force_jpeg": True,
-        "color_res": 250,
+        "color_res": 200,
+        "jpeg_q": 90,
+    },
+    # 7) 150 dpi, JPEG Q=85
+    {
+        "name": "gs_150dpi_q85",
+        "downsample": True,
+        "color_res": 150,
         "jpeg_q": 85,
     },
-    # 7) 200 dpi, JPEG Q=80
+    # 8) 120 dpi, JPEG Q=85
     {
-        "name": "200dpi_q80",
+        "name": "gs_120dpi_q85",
         "downsample": True,
-        "force_jpeg": True,
-        "color_res": 200,
+        "color_res": 120,
+        "jpeg_q": 85,
+    },
+    # 9) 100 dpi, JPEG Q=80
+    {
+        "name": "gs_100dpi_q80",
+        "downsample": True,
+        "color_res": 100,
         "jpeg_q": 80,
-    },
-    # 8) 180 dpi, JPEG Q=75
-    {
-        "name": "180dpi_q75",
-        "downsample": True,
-        "force_jpeg": True,
-        "color_res": 180,
-        "jpeg_q": 75,
-    },
-    # 9) 150 dpi, JPEG Q=70
-    {
-        "name": "150dpi_q70",
-        "downsample": True,
-        "force_jpeg": True,
-        "color_res": 150,
-        "jpeg_q": 70,
     },
 ]
 
-# Regex to match relevant NIME PDFs
+# Ghostscript /ebook fallback profile
+GS_EBOOK_PROFILE = {
+    "name": "gs_ebook",
+    "type": "ebook",
+}
+
+# cpdf image recompression profiles mirroring the GS ladder
+# cpdf uses floats for quality (e.g. 0.8 ~ 80%).
+CPDF_PROFILES = [
+    {"name": "cpdf_600dpi_q0.95", "jpeg_dpi": 600, "jpeg_quality": 0.95},
+    {"name": "cpdf_450dpi_q0.95", "jpeg_dpi": 450, "jpeg_quality": 0.95},
+    {"name": "cpdf_300dpi_q0.95", "jpeg_dpi": 300, "jpeg_quality": 0.95},
+    {"name": "cpdf_250dpi_q0.90", "jpeg_dpi": 250, "jpeg_quality": 0.90},
+    {"name": "cpdf_200dpi_q0.90", "jpeg_dpi": 200, "jpeg_quality": 0.90},
+    {"name": "cpdf_150dpi_q0.85", "jpeg_dpi": 150, "jpeg_quality": 0.85},
+    {"name": "cpdf_120dpi_q0.85", "jpeg_dpi": 120, "jpeg_quality": 0.85},
+    {"name": "cpdf_100dpi_q0.80", "jpeg_dpi": 100, "jpeg_quality": 0.80},
+]
+
+# Only consider NIME PDFs with the canonical naming patterns.
 NIME_PDF_PATTERN = re.compile(
     r"""^nime(?P<year>\d{4})_(
            \d+|
            paper\d+|
            music_\d+|
-           installations_\d+
+           music\d+|
+           installations_\d+|
+           alt_\d+
         )\.pdf$""",
     re.VERBOSE,
 )
 
-# Files containing _file01.pdf (or file02, etc.) are excluded entirely
+# Skip supplementary files like *_file01.pdf
 EXCLUDE_FILE_RE = re.compile(r"_file\d+\.pdf$", re.IGNORECASE)
 
 
@@ -213,12 +247,11 @@ def human_size(num_bytes: int) -> str:
         num_bytes /= 1024.0
 
 
-def run_ghostscript_profile(input_pdf: Path, output_pdf: Path, profile: Dict) -> bool:
+def run_ghostscript_manual(input_pdf: Path, output_pdf: Path, profile: Dict) -> bool:
     """
-    Run Ghostscript to compress one PDF according to a given profile.
-    Returns True on success, False on failure.
+    Run Ghostscript with a manual profile (moderate downsampling + JPEG).
     """
-    cmd = [
+    base_cmd = [
         "gs",
         "-sDEVICE=pdfwrite",
         "-dCompatibilityLevel=1.4",
@@ -230,13 +263,13 @@ def run_ghostscript_profile(input_pdf: Path, output_pdf: Path, profile: Dict) ->
         "-dSubsetFonts=true",
     ]
 
+    cmd = list(base_cmd)
+
     downsample = profile.get("downsample", False)
-    force_jpeg = profile.get("force_jpeg", False)
     color_res = profile.get("color_res", None)
     jpeg_q = profile.get("jpeg_q", None)
 
     if downsample and color_res is not None:
-        # Downsampling enabled
         cmd += [
             "-dDownsampleColorImages=true",
             "-dColorImageDownsampleType=/Bicubic",
@@ -251,50 +284,99 @@ def run_ghostscript_profile(input_pdf: Path, output_pdf: Path, profile: Dict) ->
             "-dMonoImageResolution=600",
         ]
     else:
-        # No downsampling
         cmd += [
             "-dDownsampleColorImages=false",
             "-dDownsampleGrayImages=false",
             "-dDownsampleMonoImages=false",
         ]
 
-    # Image encoding
-    if force_jpeg and jpeg_q is not None:
+    if jpeg_q is not None:
         cmd += [
-            "-dEncodeColorImages=true",
-            "-dEncodeGrayImages=true",
-            "-dEncodeMonoImages=true",
             "-dAutoFilterColorImages=false",
-            "-dAutoFilterGrayImages=false",
             "-dColorImageFilter=/DCTEncode",
-            "-dGrayImageFilter=/DCTEncode",
             f"-dJPEGQ={jpeg_q}",
         ]
     else:
-        # Let Ghostscript choose filters; typically more "lossless" / gentle
-        cmd += [
-            "-dAutoFilterColorImages=true",
-            "-dAutoFilterGrayImages=true",
-        ]
-        # Do not set JPEGQ or explicit DCTEncode filters here.
+        cmd += ["-dAutoFilterColorImages=true"]
 
     cmd += [
+        "-dAutoFilterGrayImages=true",
         f"-sOutputFile={str(output_pdf)}",
         str(input_pdf),
     ]
 
     try:
         subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        return True
+        return output_pdf.exists()
     except (subprocess.CalledProcessError, FileNotFoundError):
         return False
 
 
+def run_ghostscript_ebook(input_pdf: Path, output_pdf: Path) -> bool:
+    """
+    Run Ghostscript with /ebook preset (last resort).
+    """
+    cmd = [
+        "gs",
+        "-sDEVICE=pdfwrite",
+        "-dCompatibilityLevel=1.4",
+        "-dNOPAUSE",
+        "-dBATCH",
+        "-dQUIET",
+        "-dDetectDuplicateImages=true",
+        "-dCompressFonts=true",
+        "-dSubsetFonts=true",
+        "-dPDFSETTINGS=/ebook",
+        f"-sOutputFile={str(output_pdf)}",
+        str(input_pdf),
+    ]
+    try:
+        subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        return output_pdf.exists()
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return False
+
+
+def run_cpdf_process_images(input_pdf: Path, output_pdf: Path, profile: Dict) -> bool:
+    """
+    Run cpdf image-processing profile:
+
+        cpdf -process-images \
+             -lossless-to-jpeg <quality> \
+             -jpeg-to-jpeg <quality> \
+             -jpeg-to-jpeg-dpi <dpi> \
+             in.pdf AND -compress -o out.pdf
+
+    Using ImageMagick (magick) under the hood for downsampling.
+    """
+    jpeg_dpi = profile.get("jpeg_dpi", 300)
+    jpeg_quality = profile.get("jpeg_quality", 0.90)
+
+    cmd = [
+        "cpdf",
+        "-process-images",
+        "-lossless-to-jpeg",
+        str(jpeg_quality),
+        "-jpeg-to-jpeg",
+        str(jpeg_quality),
+        "-jpeg-to-jpeg-dpi",
+        str(jpeg_dpi),
+        str(input_pdf),
+        "AND",
+        "-compress",
+        "-o",
+        str(output_pdf),
+    ]
+    try:
+        result = subprocess.run(cmd, check=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if result.returncode != 0:
+            return False
+        return output_pdf.exists()
+    except FileNotFoundError:
+        return False
+
+
 def choose_uncompressed_name(original: Path) -> Path:
-    """
-    Choose a backup filename for the original, using *_uncompressed.pdf.
-    If that name already exists, append a numerical suffix.
-    """
     stem = original.stem
     parent = original.parent
 
@@ -302,7 +384,6 @@ def choose_uncompressed_name(original: Path) -> Path:
     if not candidate.exists():
         return candidate
 
-    # If *_uncompressed.pdf exists, append a numerical suffix
     i = 1
     while True:
         c = parent / f"{stem}_uncompressed_{i}.pdf"
@@ -312,9 +393,6 @@ def choose_uncompressed_name(original: Path) -> Path:
 
 
 def is_nime_target_pdf(path: Path) -> Optional[str]:
-    """
-    Return the year as a string if this path is a target NIME PDF, otherwise None.
-    """
     if not path.is_file():
         return None
     if path.suffix.lower() != ".pdf":
@@ -329,120 +407,237 @@ def is_nime_target_pdf(path: Path) -> Optional[str]:
     return m.group("year")
 
 
-# ---------- Compression Logic ----------
+# ---------- Profile runners ----------
 
-def compress_pdf_to_target(original: Path, backup_uncompressed: Path) -> Tuple[bool, int]:
+def run_gs_manual_profiles(src: Path, original: Path) -> Tuple[
+    Optional[Path], Optional[int], Optional[Path], Optional[int]
+]:
     """
-    Compress `original` PDF (which is already renamed to `backup_uncompressed`).
-    Iteratively tries different Ghostscript profiles starting from the original
-    uncompressed PDF each time.
+    Run Ghostscript manual profiles (no /ebook) against `src`, tracking:
 
-    Strategy:
-    - Try profiles from lightest to stronger compression.
-    - Track:
-        * best_under: largest size <= MAX_BYTES (closest under the limit)
-        * best_over: smallest size > MAX_BYTES (in case nothing gets under)
-    - Prefer best_under; if none, fall back to best_over (may still be > 5 MB).
+    - best_under: largest size <= MAX_BYTES
+    - best_over: smallest size > MAX_BYTES
 
-    We early-exit as soon as we get a candidate at or above EARLY_EXIT_BYTES,
-    i.e. safely under 5 MB, to avoid over-compressing.
+    Returns:
+        best_under_path, best_under_size, best_over_path, best_over_size
     """
-    src = backup_uncompressed
-    tmp_output = original.with_suffix(".tmp.pdf")
+    tmp_output = original.with_suffix(".gs_tmp.pdf")
 
     best_under_size: Optional[int] = None
     best_under_path: Optional[Path] = None
     best_over_size: Optional[int] = None
     best_over_path: Optional[Path] = None
 
-    for profile in COMPRESSION_PROFILES:
+    for profile in GS_MANUAL_PROFILES:
+        prof_name = profile.get("name", "gs_profile")
+
         if tmp_output.exists():
             tmp_output.unlink()
 
-        ok = run_ghostscript_profile(src, tmp_output, profile)
+        ok = run_ghostscript_manual(src, tmp_output, profile)
         if not ok or not tmp_output.exists():
             continue
 
         size = tmp_output.stat().st_size
 
         if size <= MAX_BYTES:
-            # Candidate under the 5 MB limit: keep the largest one
             if (best_under_size is None) or (size > best_under_size):
                 if best_under_path is not None and best_under_path.exists():
                     best_under_path.unlink()
-                prof_name = profile.get("name", "profile")
                 best_under_path = original.with_suffix(f".under_{prof_name}.pdf")
                 tmp_output.replace(best_under_path)
                 best_under_size = size
             else:
-                # Not a new best; delete this tmp_output
                 tmp_output.unlink()
 
-            # Early exit if we are already safely under the limit
-            if size >= EARLY_EXIT_BYTES:
+            if size <= TARGET_BYTES and size >= EARLY_EXIT_BYTES:
                 break
-
         else:
-            # size > MAX_BYTES – track the smallest over-limit candidate
             if (best_over_size is None) or (size < best_over_size):
                 if best_over_path is not None and best_over_path.exists():
                     best_over_path.unlink()
-                prof_name = profile.get("name", "profile")
                 best_over_path = original.with_suffix(f".over_{prof_name}.pdf")
                 tmp_output.replace(best_over_path)
                 best_over_size = size
             else:
-                # Not a new best-over; delete tmp_output
                 tmp_output.unlink()
 
-    # Final safety: ensure tmp_output is removed
     if tmp_output.exists():
         tmp_output.unlink()
 
-    # Decide which candidate to use
-    chosen_path: Optional[Path] = None
-    chosen_size: Optional[int] = None
+    return best_under_path, best_under_size, best_over_path, best_over_size
 
-    if best_under_path is not None:
-        chosen_path = best_under_path
-        chosen_size = best_under_size
-        # We don't need the "over" candidate anymore
-        if best_over_path is not None and best_over_path.exists():
-            best_over_path.unlink()
-    elif best_over_path is not None:
-        # Nothing got under 5 MB; use the least-bad over-limit version
-        chosen_path = best_over_path
-        chosen_size = best_over_size
-    else:
-        # No candidate created – restore original
-        if original.exists():
-            original.unlink()
-        backup_uncompressed.replace(original)
-        # Clean up any accidental tmp file
+
+def run_cpdf_profiles(src: Path, original: Path) -> Tuple[
+    Optional[Path], Optional[int], Optional[Path], Optional[int]
+]:
+    """
+    Run cpdf-based image recompression profiles (matching the GS ladder):
+
+    - For each CPDF_PROFILE:
+      cpdf -process-images -lossless-to-jpeg <q> -jpeg-to-jpeg <q> -jpeg-to-jpeg-dpi <dpi>
+           src AND -compress -o tmp
+
+    Track best_under / best_over similar to GS.
+    """
+    tmp_output = original.with_suffix(".cpdf_tmp.pdf")
+
+    best_under_size: Optional[int] = None
+    best_under_path: Optional[Path] = None
+    best_over_size: Optional[int] = None
+    best_over_path: Optional[Path] = None
+
+    for profile in CPDF_PROFILES:
+        prof_name = profile.get("name", "cpdf_profile")
+
         if tmp_output.exists():
             tmp_output.unlink()
-        return False, backup_uncompressed.stat().st_size
+
+        ok = run_cpdf_process_images(src, tmp_output, profile)
+        if not ok or not tmp_output.exists():
+            continue
+
+        size = tmp_output.stat().st_size
+
+        if size <= MAX_BYTES:
+            if (best_under_size is None) or (size > best_under_size):
+                if best_under_path is not None and best_under_path.exists():
+                    best_under_path.unlink()
+                best_under_path = original.with_suffix(f".under_{prof_name}.pdf")
+                tmp_output.replace(best_under_path)
+                best_under_size = size
+            else:
+                tmp_output.unlink()
+
+            if size <= TARGET_BYTES and size >= EARLY_EXIT_BYTES:
+                break
+        else:
+            if (best_over_size is None) or (size < best_over_size):
+                if best_over_path is not None and best_over_path.exists():
+                    best_over_path.unlink()
+                best_over_path = original.with_suffix(f".over_{prof_name}.pdf")
+                tmp_output.replace(best_over_path)
+                best_over_size = size
+            else:
+                tmp_output.unlink()
+
+    if tmp_output.exists():
+        tmp_output.unlink()
+
+    return best_under_path, best_under_size, best_over_path, best_over_size
+
+
+# ---------- Compression Logic ----------
+
+def compress_pdf_to_target(original: Path, backup_uncompressed: Path) -> Tuple[bool, int, bool]:
+    """
+    Compress `original` PDF (already renamed to `backup_uncompressed`).
+
+    Strategy:
+
+    1. Run Ghostscript manual profiles on backup_uncompressed.
+       - If we find a candidate <= MAX_BYTES: choose best_under.
+    2. If Ghostscript manual fails to produce <= MAX_BYTES:
+       - Run cpdf profiles on backup_uncompressed.
+       - If we find a candidate <= MAX_BYTES: choose best_under.
+    3. If still no <= MAX_BYTES:
+       - Run Ghostscript /ebook on backup_uncompressed.
+       - Choose the smallest among:
+         - GS manual best_over
+         - cpdf best_over
+         - /ebook output
+       - Note: we still enforce MAX_BYTES; we will only accept candidates
+         whose size <= MAX_BYTES.
+    4. If nothing at all is produced:
+       - Restore the original.
+    5. Flag the file if final_size > TARGET_BYTES.
+
+    Returns:
+        success (bool),
+        final_size (int),
+        flagged (bool): True if final_size > TARGET_BYTES
+    """
+    src = backup_uncompressed
+
+    # 1) Ghostscript manual
+    gs_under_path, gs_under_size, gs_over_path, gs_over_size = run_gs_manual_profiles(src, original)
+
+    if gs_under_size is not None and gs_under_size <= MAX_BYTES:
+        chosen_path = gs_under_path
+        chosen_size = gs_under_size
+        if gs_over_path is not None and gs_over_path.exists():
+            gs_over_path.unlink()
+    else:
+        # 2) cpdf image recompression
+        cpdf_under_path, cpdf_under_size, cpdf_over_path, cpdf_over_size = run_cpdf_profiles(src, original)
+
+        if cpdf_under_size is not None and cpdf_under_size <= MAX_BYTES:
+            chosen_path = cpdf_under_path
+            chosen_size = cpdf_under_size
+            if gs_over_path is not None and gs_over_path.exists():
+                gs_over_path.unlink()
+            if cpdf_over_path is not None and cpdf_over_path.exists():
+                cpdf_over_path.unlink()
+        else:
+            # 3) Ghostscript /ebook fallback
+            ebook_output = original.with_suffix(".gs_ebook_tmp.pdf")
+            ok_ebook = run_ghostscript_ebook(src, ebook_output)
+            ebook_size = ebook_output.stat().st_size if (ok_ebook and ebook_output.exists()) else None
+
+            # Collect all candidates (over-limit from GS/cpdf + /ebook),
+            # but we will only accept <= MAX_BYTES.
+            candidates: List[Tuple[Path, int]] = []
+            if gs_over_path is not None and gs_over_size is not None:
+                candidates.append((gs_over_path, gs_over_size))
+            if cpdf_over_path is not None and cpdf_over_size is not None:
+                candidates.append((cpdf_over_path, cpdf_over_size))
+            if ebook_size is not None:
+                candidates.append((ebook_output, ebook_size))
+
+            # Filter to those within MAX_BYTES
+            candidates = [(p, s) for (p, s) in candidates if s <= MAX_BYTES]
+
+            if not candidates:
+                # Nothing usable under MAX_BYTES; restore original
+                if original.exists():
+                    original.unlink()
+                backup_uncompressed.replace(original)
+                # size of restored original:
+                restored_size = original.stat().st_size
+                return False, restored_size, False
+
+            candidates.sort(key=lambda x: x[1])
+            chosen_path, chosen_size = candidates[0]
+
+            # Delete other candidates
+            for path, _sz in candidates[1:]:
+                if path.exists():
+                    path.unlink()
 
     # Replace original with chosen candidate
     if original.exists():
         original.unlink()
     chosen_path.replace(original)
 
-    # Clean up any leftover candidate files (.under_*.pdf or .over_*.pdf)
+    # Clean up leftover candidate files
     for f in original.parent.glob(f"{original.stem}.under_*.pdf"):
         if f.exists():
             f.unlink()
     for f in original.parent.glob(f"{original.stem}.over_*.pdf"):
         if f.exists():
             f.unlink()
-
-    # One more safety cleanup: remove any lingering .tmp.pdf for this base name
-    tmp_glob = original.parent.glob(f"{original.stem}.tmp.pdf")
-    for f in tmp_glob:
+    for f in original.parent.glob(f"{original.stem}.gs_tmp.pdf"):
+        if f.exists():
+            f.unlink()
+    for f in original.parent.glob(f"{original.stem}.cpdf_tmp.pdf"):
+        if f.exists():
+            f.unlink()
+    for f in original.parent.glob(f"{original.stem}.gs_ebook_tmp.pdf"):
         if f.exists():
             f.unlink()
 
-    return True, chosen_size  # type: ignore[arg-type]
+    flagged = chosen_size > TARGET_BYTES if chosen_size is not None else False
+    return True, chosen_size, flagged  # type: ignore[arg-type]
 
 
 # ---------- Stats structures ----------
@@ -454,18 +649,15 @@ class FolderStats:
         self.file_count = 0
         self.above_limit_count = 0
         self.compressed_count = 0
+        self.flagged_over_target = 0
 
 
 def scan_and_compress(root: Path, dry_run: bool = False) -> None:
-    """
-    Scan year folders under `root`, compress PDFs over 5 MB,
-    and print detailed statistics.
-    """
     year_stats: Dict[str, FolderStats] = defaultdict(FolderStats)
     total_big_files = 0
     total_compressed_files = 0
+    flagged_files: List[Path] = []
 
-    # Collect all candidate PDFs first
     pdfs_to_process: List[Tuple[str, Path]] = []
 
     for year_dir in sorted(root.iterdir()):
@@ -477,13 +669,12 @@ def scan_and_compress(root: Path, dry_run: bool = False) -> None:
                 continue
             pdfs_to_process.append((year, path))
 
-    # First pass: compute "before" sizes and count big files
     for year, path in pdfs_to_process:
         size = path.stat().st_size
         st = year_stats[year]
         st.file_count += 1
         st.total_size_before += size
-        st.total_size_after += size  # will be updated if compressed
+        st.total_size_after += size
 
         if size > MAX_BYTES:
             st.above_limit_count += 1
@@ -493,7 +684,6 @@ def scan_and_compress(root: Path, dry_run: bool = False) -> None:
     print(f"Files above {human_size(MAX_BYTES)}: {total_big_files}")
     print()
 
-    # Second pass: compress big files
     for year, path in pdfs_to_process:
         size_before = path.stat().st_size
         if size_before <= MAX_BYTES:
@@ -501,8 +691,6 @@ def scan_and_compress(root: Path, dry_run: bool = False) -> None:
 
         st = year_stats[year]
 
-        # Skip if an uncompressed backup already exists (to avoid re-compressing)
-        backup_candidate = choose_uncompressed_name(path)
         existing_backups = list(path.parent.glob(path.stem + "_uncompressed*.pdf"))
         if existing_backups:
             print(f"[SKIP] {path} (uncompressed backup already present; probably compressed earlier)")
@@ -516,21 +704,19 @@ def scan_and_compress(root: Path, dry_run: bool = False) -> None:
             print()
             continue
 
-        backup_uncompressed = backup_candidate
-        # Rename original -> backup_uncompressed
+        backup_uncompressed = choose_uncompressed_name(path)
         try:
             path.replace(backup_uncompressed)
         except OSError as e:
             print(f"  ERROR: Could not rename to backup ({e}); skipping.")
             continue
 
-        success, size_after = compress_pdf_to_target(path, backup_uncompressed)
+        success, size_after, flagged = compress_pdf_to_target(path, backup_uncompressed)
 
         if not success:
-            print("  ERROR: Compression failed. Original restored.")
-            # Restore stats: file_after is original size
+            print("  Compression failed. Original restored.")
             year_stats[year].total_size_after -= size_before
-            year_stats[year].total_size_after += backup_uncompressed.stat().st_size
+            year_stats[year].total_size_after += path.stat().st_size
             print()
             continue
 
@@ -540,13 +726,17 @@ def scan_and_compress(root: Path, dry_run: bool = False) -> None:
         st.total_size_after -= size_before
         st.total_size_after += size_after
 
-        print(f"  New size:      {human_size(size_after)}")
+        if flagged:
+            st.flagged_over_target += 1
+            flagged_files.append(path)
+            print(f"  WARNING: final size {human_size(size_after)} > target {human_size(TARGET_BYTES)}")
+        else:
+            print(f"  New size:      {human_size(size_after)}")
+
         delta = size_before - size_after
         print(f"  Saved:         {human_size(delta)}")
         print(f"  Backup (uncompressed/original): {backup_uncompressed.name}")
         print()
-
-    # ---------- Summary ----------
 
     print("\n=== Per-year statistics ===")
     for year in sorted(year_stats.keys()):
@@ -557,8 +747,9 @@ def scan_and_compress(root: Path, dry_run: bool = False) -> None:
         avg_after = st.total_size_after / st.file_count
         print(f"Year {year}:")
         print(f"  Files considered: {st.file_count}")
-        print(f"  Above {human_size(MAX_BYTES)}: {st.above_limit_count}")
+        print(f"  Above {human_size(MAX_BYTES)} (before): {st.above_limit_count}")
         print(f"  Compressed: {st.compressed_count}")
+        print(f"  Still > {human_size(TARGET_BYTES)}: {st.flagged_over_target}")
         print(f"  Avg size before: {human_size(avg_before)}")
         print(f"  Avg size after:  {human_size(avg_after)}")
         print()
@@ -567,20 +758,26 @@ def scan_and_compress(root: Path, dry_run: bool = False) -> None:
     total_files = sum(st.file_count for st in year_stats.values())
     total_before = sum(st.total_size_before for st in year_stats.values())
     total_after = sum(st.total_size_after for st in year_stats.values())
+    total_flagged = sum(st.flagged_over_target for st in year_stats.values())
     print(f"Total files considered: {total_files}")
-    print(f"Total > {human_size(MAX_BYTES)}: {total_big_files}")
+    print(f"Total > {human_size(MAX_BYTES)} (before): {total_big_files}")
     print(f"Total compressed: {total_compressed_files}")
+    print(f"Total still > {human_size(TARGET_BYTES)}: {total_flagged}")
     if total_files > 0:
         print(f"Overall average before: {human_size(total_before / total_files)}")
         print(f"Overall average after:  {human_size(total_after / total_files)}")
+
+    if flagged_files:
+        print("\n=== Files still exceeding TARGET_BYTES ===")
+        print(f"TARGET_BYTES = {TARGET_BYTES} ({human_size(TARGET_BYTES)})")
+        for p in flagged_files:
+            sz = p.stat().st_size
+            print(f"  {p} -> {human_size(sz)} ({sz} bytes)")
 
 
 # ---------- Undo logic ----------
 
 def undo_compression(root: Path, dry_run: bool = False) -> None:
-    """
-    Restore all *_uncompressed.pdf backups to their original names.
-    """
     restored_count = 0
 
     for pdf in root.rglob("*.pdf"):
@@ -592,12 +789,10 @@ def undo_compression(root: Path, dry_run: bool = False) -> None:
 
         original_path = pdf.parent / base_name
 
-        # Overwrite existing compressed version with uncompressed/original (if any)
         if dry_run:
             print(f"[UNDO dry-run] Would restore {pdf} -> {original_path}")
         else:
             if original_path.exists():
-                # Backup current compressed just in case
                 tmp_backup = original_path.with_suffix(".undo_backup.pdf")
                 shutil.move(str(original_path), str(tmp_backup))
                 try:
@@ -606,7 +801,6 @@ def undo_compression(root: Path, dry_run: bool = False) -> None:
                     if tmp_backup.exists():
                         tmp_backup.unlink()
             else:
-                # No compressed file present, just rename
                 pdf.replace(original_path)
 
         restored_count += 1
@@ -618,7 +812,7 @@ def undo_compression(root: Path, dry_run: bool = False) -> None:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Compress NIME PDFs to just under 5MB, with undo support."
+        description="Compress NIME PDFs to comfortably under Google Scholar's 5MB limit (decimal) using Ghostscript + cpdf fallback."
     )
     parser.add_argument(
         "--root",
