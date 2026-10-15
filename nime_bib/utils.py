@@ -149,6 +149,21 @@ writer.order_entries_by = DEFAULT_ENTRY_ORDER
 # all proceedings types, in the order used for reporting
 PROC_TYPES = ("paper", "music", "installation", "alt")
 
+# The CLI type is singular ("paper", "installation") while the files and the
+# release names are plural ("nime_papers.bib", "nimeYYYY_installations.bib").
+# Accept either spelling on the command line so nobody has to remember which
+# one the tool wants (issue #137).
+PROC_TYPE_ALIASES = {
+    "papers": "paper",
+    "installations": "installation",
+}
+PROC_TYPE_CHOICES = PROC_TYPES + tuple(PROC_TYPE_ALIASES)
+
+
+def normalise_proc_type(value):
+    """Returns the canonical (singular) proceedings type for a CLI value."""
+    return PROC_TYPE_ALIASES.get(value, value)
+
 # fields that are published as UTF-8 and should not contain LaTeX escapes
 PUBLISHED_TEXT_FIELDS = ("title", "author", "abstract", "keywords")
 

@@ -12,6 +12,21 @@ import re
 import yaml
 
 
+def _proc_type_callback(ctx, param, value):
+  return utils.normalise_proc_type(value)
+
+
+# Shared --type option. One definition so the choices cannot drift between
+# commands, and so the plural spellings are accepted everywhere (#137).
+proc_type_option = click.option(
+    "--type",
+    type=click.Choice(utils.PROC_TYPE_CHOICES),
+    default="paper",
+    callback=_proc_type_callback,
+    help="type of proceedings (singular or plural)"
+)
+
+
 def set_id_order(id_order):
   """Sets the entry order for the bibtex writer.
 
@@ -46,12 +61,7 @@ def preserve_file_order():
 
 @click.command()
 @click.argument('year', type=click.INT)
-@click.option(
-    "--type",
-    type=click.Choice(["paper", "music", "installation", "alt"]),
-    default="paper",
-    help="type of proceedings"
-)
+@proc_type_option
 @click.option(
     "--id_order",
     "-I",
@@ -100,12 +110,7 @@ def harmonise(year, type, id_order):
 
 
 @click.command()
-@click.option(
-    "--type",
-    type=click.Choice(["paper", "music", "installation", "alt"]),
-    default="paper",
-    help="type of proceedings"
-)
+@proc_type_option
 @click.option(
     "--format",
     "-F",
@@ -227,12 +232,7 @@ def _strip_pdf_suffix(key: str) -> str:
 @click.command()
 @click.argument('year', type=click.INT)
 @click.argument('csvfile', type=click.STRING)
-@click.option(
-    "--type",
-    type=click.Choice(["paper", "music", "installation", "alt"]),
-    default="paper",
-    help="type of proceedings"
-)
+@proc_type_option
 @click.option(
     "--translated",
     is_flag=True,
