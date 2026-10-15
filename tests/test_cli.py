@@ -168,3 +168,46 @@ def test_readme_template_matches_field_order(cli_module):
     template = readme.split("@inproceedings{article_id,", 1)[1].split("\n}", 1)[0]
     fields = re.findall(r"^\s+([\w-]+) = ", template, flags=re.M)
     assert tuple(fields) == utils.FIELD_ORDER
+
+
+# harmonise keeps programme order in files without article numbers (#117)
+
+def ids_in(path):
+    with open(path, encoding="utf-8") as f:
+        return re.findall(r"@inproceedings\{([^,\s]+)", f.read())
+
+
+def music_entry(key, url):
+    return MUSIC.replace("nime2099_music_Babbage", key).replace(
+        "nime2099_music_Babbage.pdf", url)
+
+
+MUSIC_FILE = (music_entry("nime2099_music_Zuse", "nime2099_music03.pdf")
+              + music_entry("nime2099_music_Babbage", "nime2099_music01.pdf")
+              + music_entry("nime2099_music_Ada", "nime2099_music02.pdf"))
+
+
+def test_harmonise_keeps_file_order_without_articleno(cli_module, archive):
+    archive("music_proceedings/nime2099_music.bib", MUSIC_FILE)
+    result = run(cli_module, "harmonise", "2099", "--type", "music")
+    assert "keeping entries in file order" in result.output
+    assert ids_in("music_proceedings/nime2099_music.bib") == [
+        "nime2099_music_Zuse", "nime2099_music_Babbage", "nime2099_music_Ada"]
+
+
+def test_harmonise_id_order_still_sorts_music_by_key(cli_module, archive):
+    archive("music_proceedings/nime2099_music.bib", MUSIC_FILE)
+    run(cli_module, "harmonise", "2099", "--type", "music", "-I")
+    assert ids_in("music_proceedings/nime2099_music.bib") == [
+        "nime2099_music_Ada", "nime2099_music_Babbage", "nime2099_music_Zuse"]
+
+
+def test_harmonise_sorts_papers_by_articleno(cli_module, archive):
+    papers = "".join(
+        PAPER.replace("nime2099_1", f"nime2099_{n}").replace(
+            "articleno = {1}", f"articleno = {{{n}}}")
+        for n in (10, 2, 1))
+    archive("paper_proceedings/nime2099.bib", papers)
+    run(cli_module, "harmonise", "2099", "--type", "paper")
+    assert ids_in("paper_proceedings/nime2099.bib") == [
+        "nime2099_1", "nime2099_2", "nime2099_10"]

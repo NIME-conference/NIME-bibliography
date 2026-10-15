@@ -142,7 +142,8 @@ writer = NumericOrderWriter()
 writer.indent = FIELD_INDENT
 writer.display_order = FIELD_ORDER
 writer.common_strings = False # would like it to write month 3-letter codes, but can't seem to avoid writing them at the start of each file weirdly.
-writer.order_entries_by = ("articleno", "url", "ID")
+DEFAULT_ENTRY_ORDER = ("articleno", "url", "ID")
+writer.order_entries_by = DEFAULT_ENTRY_ORDER
 
 
 # all proceedings types, in the order used for reporting
