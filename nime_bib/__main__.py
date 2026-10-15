@@ -311,7 +311,7 @@ def add_dois(year, csvfile, type, translated, overwrite):
 
     if not translated:
       # Normal mode: keys in CSV (minus '.pdf') match BibTeX IDs exactly
-      key_to_doi = {_strip_pdf_suffix(row['key']): row['doi'] for row in rows}
+      key_to_doi = {_strip_pdf_suffix(row['key']): row['doi'].strip() for row in rows}
 
       # Add the DOIs
       kept = []
