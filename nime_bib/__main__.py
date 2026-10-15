@@ -211,6 +211,12 @@ def _read_doi_rows(reader, csvfile):
   rows = list(reader)
   seen = {}
   for row in rows:
+    missing_values = [c for c in ("key", "doi") if row[c] is None]
+    if missing_values:
+      raise click.ClickException(
+          f"{csvfile} has a row missing {', '.join(missing_values)} values; "
+          "each row must include both key and doi"
+      )
     key = _strip_pdf_suffix(row['key'])
     seen.setdefault(key, []).append(row['doi'].strip())
   duplicates = {k: v for k, v in seen.items() if len(v) > 1}
