@@ -101,6 +101,15 @@ def test_collate_converts_keywords(cli_module, archive):
     assert text["keywords"]["0"] == "jacques rémus,machines"
 
 
+def test_collate_preserves_math_braces_after_currency(cli_module, archive):
+    title = r"Costs \$5 for {X}; tune to $f_{0}$."
+    archive("paper_proceedings/nime2099.bib", PAPER.replace("A Paper", title))
+    run(cli_module, "collate", "--type", "paper", "--format", "json")
+    with open("release/nime_papers.json", encoding="utf-8") as f:
+        text = json.load(f)
+    assert text["title"]["0"] == "Costs $5 for X; tune to $f_{0}$."
+
+
 def test_collate_bibtex_field_matches_converted_fields(cli_module, archive):
     archive("paper_proceedings/nime2099.bib", ACCENTED)
     run(cli_module, "collate", "--type", "paper", "--format", "json")

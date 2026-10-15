@@ -64,22 +64,24 @@ def _symbol_pattern(key):
 
 
 _SYMBOL_PATTERNS = [
-    (_symbol_pattern(key), value) for key, value in symbol_replacements.items()
+    (key, _symbol_pattern(key), value) for key, value in symbol_replacements.items()
 ]
 
 
-def replace_symbols(input_text):
+def replace_symbols(input_text, preserve_escaped_dollars=False):
   """Replace latex symbols in the given text according to the replacements list.
     The list isn't too long, so just doing this in a simple/slow way.
   """
-  for pattern, value in _SYMBOL_PATTERNS:
+  for key, pattern, value in _SYMBOL_PATTERNS:
+    if preserve_escaped_dollars and key == "\\$":
+      continue
     input_text = pattern.sub(value, input_text)
 
   return input_text
 
 
-# an inline maths span: $...$ with no $ inside
-_MATH_SPAN = re.compile(r"\$[^$]*\$")
+# An inline maths span: unescaped $...$ with no unescaped $ inside.
+_MATH_SPAN = re.compile(r"(?<!\\)\$(?:[^$]|\\\$)*?(?<!\\)\$")
 
 
 def clean_braces(input_text):
@@ -96,4 +98,4 @@ def clean_braces(input_text):
     parts.append(m.group(0))
     last = m.end()
   parts.append(input_text[last:].replace("{", "").replace("}", ""))
-  return "".join(parts)
+  return "".join(parts).replace("\\$", "$")
