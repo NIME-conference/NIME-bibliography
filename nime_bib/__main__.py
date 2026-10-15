@@ -195,6 +195,33 @@ def list_fields():
     click.echo(f"{marker} {field}: {counts[field]}")
 
 
+def _read_doi_rows(reader, csvfile):
+  """Reads a DOI CSV, checking its header and keys before anything is written.
+
+  The CSV must have 'key' and 'doi' columns, and no key may appear twice
+  (the last row would otherwise silently win, see issue #104).
+  """
+  fields = reader.fieldnames or []
+  missing = [c for c in ("key", "doi") if c not in fields]
+  if missing:
+    raise click.ClickException(
+        f"{csvfile} has no {' or '.join(missing)} column "
+        f"(found: {', '.join(fields) or 'no header'})"
+    )
+  rows = list(reader)
+  seen = {}
+  for row in rows:
+    key = _strip_pdf_suffix(row['key'])
+    seen.setdefault(key, []).append(row['doi'].strip())
+  duplicates = {k: v for k, v in seen.items() if len(v) > 1}
+  if duplicates:
+    listing = "; ".join(f"{k} ({', '.join(v)})" for k, v in duplicates.items())
+    raise click.ClickException(
+        f"{csvfile} lists the same key more than once: {listing}"
+    )
+  return rows
+
+
 def _strip_pdf_suffix(key: str) -> str:
   """Remove a trailing .pdf (case-insensitive) from a key, if present."""
   key = key.strip()
@@ -221,7 +248,13 @@ def _strip_pdf_suffix(key: str) -> str:
         "translations={LANG, DOI, TITLE, ...} to the BibTeX entries"
     )
 )
-def add_dois(year, csvfile, type, translated):
+@click.option(
+    "--overwrite",
+    is_flag=True,
+    default=False,
+    help="replace DOIs already in the .bib file when the CSV has a different one"
+)
+def add_dois(year, csvfile, type, translated, overwrite):
   """Adds DOIs (and optionally translation metadata) to a year of NIME proceedings.
 
   CSV 'key' values are expected to include a '.pdf' suffix and it is
@@ -230,6 +263,10 @@ def add_dois(year, csvfile, type, translated):
   Normal mode:
       - CSV 'key' (without '.pdf') must match the BibTeX 'ID' exactly.
       - Adds/overwrites the 'doi' field in each matching entry.
+
+  An entry that already has a different DOI is left alone and reported,
+  unless --overwrite is given. The CSV must have 'key' and 'doi' columns
+  and no repeated keys; otherwise nothing is written.
 
   Translation mode (with --translated):
 
@@ -264,25 +301,38 @@ def add_dois(year, csvfile, type, translated):
   # Load the CSV file and apply logic depending on mode
   with open(csvfile, newline='', encoding="utf-8") as doi_file:
     reader = csv.DictReader(doi_file)
+    rows = _read_doi_rows(reader, csvfile)
 
     if not translated:
       # Normal mode: keys in CSV (minus '.pdf') match BibTeX IDs exactly
-      key_to_doi = {}
-      for row in reader:
-        raw_key = row['key']
-        clean_key = _strip_pdf_suffix(raw_key)
-        key_to_doi[clean_key] = row['doi']
+      key_to_doi = {_strip_pdf_suffix(row['key']): row['doi'] for row in rows}
 
       # Add the DOIs
+      kept = []
       for e in bib_database.entries:
         click.secho(f"Finding DOI for {e['ID']}", fg='yellow')
-        try:
-          e['doi'] = key_to_doi[e['ID']]
-        except KeyError:
+        new_doi = key_to_doi.get(e['ID'])
+        if new_doi is None:
           click.secho(
               f"No DOI found for {e['ID']} in CSV (leaving entry unchanged)",
               fg='red'
           )
+          continue
+        old_doi = e.get('doi', '').strip()
+        if old_doi and old_doi != new_doi and not overwrite:
+          kept.append(e['ID'])
+          click.secho(
+              f"{e['ID']} already has doi {old_doi}; CSV has {new_doi}. "
+              f"Kept the existing DOI (use --overwrite to replace it)",
+              fg='red'
+          )
+          continue
+        e['doi'] = new_doi
+      if kept:
+        click.secho(
+            f"{len(kept)} entries kept their existing DOI: {', '.join(kept)}",
+            fg='red'
+        )
 
     else:
       # Translation mode, using CSV from nime_zenodo_upload --title.
@@ -295,7 +345,7 @@ def add_dois(year, csvfile, type, translated):
       #
       basekey_to_translations = {}
 
-      for row in reader:
+      for row in rows:
         raw_key = row['key']                     # e.g. "nime2026_27_Spanish.pdf"
         key_no_pdf = _strip_pdf_suffix(raw_key)  # "nime2026_27_Spanish"
         doi_value = row['doi']                   # e.g. "10.5281/zenodo.20784032"

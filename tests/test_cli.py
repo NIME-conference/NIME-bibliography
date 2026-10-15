@@ -168,3 +168,85 @@ def test_readme_template_matches_field_order(cli_module):
     template = readme.split("@inproceedings{article_id,", 1)[1].split("\n}", 1)[0]
     fields = re.findall(r"^\s+([\w-]+) = ", template, flags=re.M)
     assert tuple(fields) == utils.FIELD_ORDER
+
+
+# add-dois checks the CSV and does not clobber existing DOIs (#104)
+
+def write_csv(path, text):
+    with open(path, "w", encoding="utf-8", newline="") as f:
+        f.write(text)
+
+
+def doi_of(path, key):
+    with open(path, encoding="utf-8") as f:
+        entry = f.read().split(f"{key},", 1)[1].split("\n}", 1)[0]
+    m = re.search(r"doi = \{([^}]*)\}", entry)
+    return m.group(1) if m else None
+
+
+def test_add_dois_adds_doi(cli_module, archive):
+    archive("paper_proceedings/nime2099.bib", PAPER)
+    write_csv("dois.csv", "key,doi\nnime2099_1.pdf,10.5281/zenodo.1\n")
+    run(cli_module, "add-dois", "2099", "dois.csv", "--type", "paper")
+    assert doi_of("paper_proceedings/nime2099.bib", "nime2099_1") == "10.5281/zenodo.1"
+
+
+def test_add_dois_rejects_csv_without_doi_column(cli_module, archive):
+    archive("paper_proceedings/nime2099.bib", PAPER)
+    write_csv("bad.csv", "key\nnime2099_1.pdf\n")
+    result = CliRunner().invoke(
+        cli_module.cli, ["add-dois", "2099", "bad.csv", "--type", "paper"])
+    assert result.exit_code != 0
+    assert "no doi column" in result.output
+    assert "Traceback" not in result.output
+    assert doi_of("paper_proceedings/nime2099.bib", "nime2099_1") is None
+
+
+def test_add_dois_rejects_duplicate_keys(cli_module, archive):
+    archive("paper_proceedings/nime2099.bib", PAPER)
+    write_csv("dup.csv", "key,doi\nnime2099_1.pdf,10.5281/zenodo.1\n"
+                         "nime2099_1.pdf,10.5281/zenodo.2\n")
+    result = CliRunner().invoke(
+        cli_module.cli, ["add-dois", "2099", "dup.csv", "--type", "paper"])
+    assert result.exit_code != 0
+    assert "more than once" in result.output
+    assert "nime2099_1 (10.5281/zenodo.1, 10.5281/zenodo.2)" in result.output
+    assert doi_of("paper_proceedings/nime2099.bib", "nime2099_1") is None
+
+
+WITH_DOI = PAPER.replace("  articleno", "  doi = {10.5281/zenodo.1},\n  articleno")
+
+
+def test_add_dois_keeps_existing_doi_by_default(cli_module, archive):
+    archive("paper_proceedings/nime2099.bib", WITH_DOI)
+    write_csv("dois.csv", "key,doi\nnime2099_1.pdf,10.5281/zenodo.2\n")
+    result = run(cli_module, "add-dois", "2099", "dois.csv", "--type", "paper")
+    assert "Kept the existing DOI" in result.output
+    assert "1 entries kept their existing DOI: nime2099_1" in result.output
+    assert doi_of("paper_proceedings/nime2099.bib", "nime2099_1") == "10.5281/zenodo.1"
+
+
+def test_add_dois_overwrite_flag_replaces_doi(cli_module, archive):
+    archive("paper_proceedings/nime2099.bib", WITH_DOI)
+    write_csv("dois.csv", "key,doi\nnime2099_1.pdf,10.5281/zenodo.2\n")
+    result = run(cli_module, "add-dois", "2099", "dois.csv", "--type", "paper",
+                 "--overwrite")
+    assert "Kept the existing DOI" not in result.output
+    assert doi_of("paper_proceedings/nime2099.bib", "nime2099_1") == "10.5281/zenodo.2"
+
+
+def test_add_dois_same_doi_is_not_a_conflict(cli_module, archive):
+    archive("paper_proceedings/nime2099.bib", WITH_DOI)
+    write_csv("dois.csv", "key,doi\nnime2099_1.pdf,10.5281/zenodo.1\n")
+    result = run(cli_module, "add-dois", "2099", "dois.csv", "--type", "paper")
+    assert "Kept the existing DOI" not in result.output
+
+
+def test_add_dois_translated_checks_header_too(cli_module, archive):
+    archive("paper_proceedings/nime2099.bib", PAPER)
+    write_csv("bad.csv", "name,doi,title\nnime2099_1_Spanish.pdf,10.1/x,Un Papel\n")
+    result = CliRunner().invoke(
+        cli_module.cli,
+        ["add-dois", "2099", "bad.csv", "--type", "paper", "--translated"])
+    assert result.exit_code != 0
+    assert "no key column" in result.output
