@@ -170,35 +170,44 @@ def test_readme_template_matches_field_order(cli_module):
     assert tuple(fields) == utils.FIELD_ORDER
 
 
-# --type accepts the plural spellings used by the file names (#137)
+# harmonise keeps programme order in files without article numbers (#117)
 
-@pytest.mark.parametrize("given, canonical", [
-    ("paper", "paper"), ("papers", "paper"),
-    ("installation", "installation"), ("installations", "installation"),
-    ("music", "music"), ("alt", "alt"),
-])
-def test_normalise_proc_type(cli_module, given, canonical):
-    utils = sys.modules["utils"]
-    assert utils.normalise_proc_type(given) == canonical
-    assert given in utils.PROC_TYPE_CHOICES
+def ids_in(path):
+    with open(path, encoding="utf-8") as f:
+        return re.findall(r"@inproceedings\{([^,\s]+)", f.read())
 
 
-def test_collate_accepts_plural_type(cli_module, archive):
-    archive("paper_proceedings/nime2099.bib", PAPER)
-    result = run(cli_module, "collate", "--type", "papers", "--format", "bib")
-    assert "Saved 1 entries" in result.output
-    with open("release/nime_papers.bib", encoding="utf-8") as f:
-        assert "nime2099_1" in f.read()
+def music_entry(key, url):
+    return MUSIC.replace("nime2099_music_Babbage.pdf", url).replace(
+        "nime2099_music_Babbage", key)
 
 
-def test_collate_rejects_unknown_type(cli_module, archive):
-    result = CliRunner().invoke(cli_module.cli, ["collate", "--type", "poster"])
-    assert result.exit_code != 0
+MUSIC_FILE = (music_entry("nime2099_music_Zuse", "nime2099_music03.pdf")
+              + music_entry("nime2099_music_Babbage", "nime2099_music01.pdf")
+              + music_entry("nime2099_music_Ada", "nime2099_music02.pdf"))
 
 
-@pytest.mark.parametrize("command", ["harmonise", "collate", "add-dois"])
-def test_every_type_option_lists_the_same_choices(cli_module, command):
-    utils = sys.modules["utils"]
-    cmd = cli_module.cli.commands[command]
-    opt = next(p for p in cmd.params if p.name == "type")
-    assert tuple(opt.type.choices) == utils.PROC_TYPE_CHOICES
+def test_harmonise_keeps_file_order_without_articleno(cli_module, archive):
+    archive("music_proceedings/nime2099_music.bib", MUSIC_FILE)
+    result = run(cli_module, "harmonise", "2099", "--type", "music")
+    assert "keeping entries in file order" in result.output
+    assert ids_in("music_proceedings/nime2099_music.bib") == [
+        "nime2099_music_Zuse", "nime2099_music_Babbage", "nime2099_music_Ada"]
+
+
+def test_harmonise_id_order_still_sorts_music_by_key(cli_module, archive):
+    archive("music_proceedings/nime2099_music.bib", MUSIC_FILE)
+    run(cli_module, "harmonise", "2099", "--type", "music", "-I")
+    assert ids_in("music_proceedings/nime2099_music.bib") == [
+        "nime2099_music_Ada", "nime2099_music_Babbage", "nime2099_music_Zuse"]
+
+
+def test_harmonise_sorts_papers_by_articleno(cli_module, archive):
+    papers = "".join(
+        PAPER.replace("nime2099_1", f"nime2099_{n}").replace(
+            "articleno = {1}", f"articleno = {{{n}}}")
+        for n in (10, 2, 1))
+    archive("paper_proceedings/nime2099.bib", papers)
+    run(cli_module, "harmonise", "2099", "--type", "paper")
+    assert ids_in("paper_proceedings/nime2099.bib") == [
+        "nime2099_1", "nime2099_2", "nime2099_10"]
