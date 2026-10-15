@@ -101,6 +101,15 @@ def test_collate_converts_keywords(cli_module, archive):
     assert text["keywords"]["0"] == "jacques rémus,machines"
 
 
+def test_collate_preserves_math_braces_after_currency(cli_module, archive):
+    title = r"Costs \$5 for {X}; tune to $f_{0}$."
+    archive("paper_proceedings/nime2099.bib", PAPER.replace("A Paper", title))
+    run(cli_module, "collate", "--type", "paper", "--format", "json")
+    with open("release/nime_papers.json", encoding="utf-8") as f:
+        text = json.load(f)
+    assert text["title"]["0"] == "Costs $5 for X; tune to $f_{0}$."
+
+
 def test_collate_bibtex_field_matches_converted_fields(cli_module, archive):
     archive("paper_proceedings/nime2099.bib", ACCENTED)
     run(cli_module, "collate", "--type", "paper", "--format", "json")
@@ -250,3 +259,46 @@ def test_add_dois_translated_checks_header_too(cli_module, archive):
         ["add-dois", "2099", "bad.csv", "--type", "paper", "--translated"])
     assert result.exit_code != 0
     assert "no key column" in result.output
+
+
+# harmonise keeps programme order in files without article numbers (#117)
+
+def ids_in(path):
+    with open(path, encoding="utf-8") as f:
+        return re.findall(r"@inproceedings\{([^,\s]+)", f.read())
+
+
+def music_entry(key, url):
+    return MUSIC.replace("nime2099_music_Babbage.pdf", url).replace(
+        "nime2099_music_Babbage", key)
+
+
+MUSIC_FILE = (music_entry("nime2099_music_Zuse", "nime2099_music03.pdf")
+              + music_entry("nime2099_music_Babbage", "nime2099_music01.pdf")
+              + music_entry("nime2099_music_Ada", "nime2099_music02.pdf"))
+
+
+def test_harmonise_keeps_file_order_without_articleno(cli_module, archive):
+    archive("music_proceedings/nime2099_music.bib", MUSIC_FILE)
+    result = run(cli_module, "harmonise", "2099", "--type", "music")
+    assert "keeping entries in file order" in result.output
+    assert ids_in("music_proceedings/nime2099_music.bib") == [
+        "nime2099_music_Zuse", "nime2099_music_Babbage", "nime2099_music_Ada"]
+
+
+def test_harmonise_id_order_still_sorts_music_by_key(cli_module, archive):
+    archive("music_proceedings/nime2099_music.bib", MUSIC_FILE)
+    run(cli_module, "harmonise", "2099", "--type", "music", "-I")
+    assert ids_in("music_proceedings/nime2099_music.bib") == [
+        "nime2099_music_Ada", "nime2099_music_Babbage", "nime2099_music_Zuse"]
+
+
+def test_harmonise_sorts_papers_by_articleno(cli_module, archive):
+    papers = "".join(
+        PAPER.replace("nime2099_1", f"nime2099_{n}").replace(
+            "articleno = {1}", f"articleno = {{{n}}}")
+        for n in (10, 2, 1))
+    archive("paper_proceedings/nime2099.bib", papers)
+    run(cli_module, "harmonise", "2099", "--type", "paper")
+    assert ids_in("paper_proceedings/nime2099.bib") == [
+        "nime2099_1", "nime2099_2", "nime2099_10"]

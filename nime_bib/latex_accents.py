@@ -34,7 +34,7 @@ class AccentConverter:
         self.populate_encode_dict( encode_dict, strKey_umlaut, strValue_umlaut,  '{\\"', "}" )
         regex_detectors.append( re.compile(r'{ *\\" *[a-zA-Z]{1} *}') )
         self.populate_encode_dict( encode_dict, strKey_umlaut, strValue_umlaut,  '\\"', ""  )
-        regex_detectors.append( re.compile(r'\\" *[a-zA-z]{1}' ) ) # backslash followed by " followed by any number of spaces followed by a char
+        regex_detectors.append( re.compile(r'\\" *[a-zA-Z]{1}' ) ) # backslash followed by " followed by any number of spaces followed by a char
         self.populate_encode_dict( encode_dict, strKey_umlaut, strValue_umlaut,  '\\"{', "}" )
         regex_detectors.append( re.compile(r'\\"{ *[a-zA-Z]{1} *}') )
 
@@ -46,7 +46,7 @@ class AccentConverter:
         self.populate_encode_dict( encode_dict, strKey_acute, strValue_acute,  "{\\'", "}" )
         regex_detectors.append( re.compile(r"{ *\\' *[a-zA-Z]{1} *}") )
         self.populate_encode_dict( encode_dict, strKey_acute, strValue_acute, "\\'", "" )
-        regex_detectors.append( re.compile(r"\\' *[a-zA-z]{1}" ) )
+        regex_detectors.append( re.compile(r"\\' *[a-zA-Z]{1}" ) )
         self.populate_encode_dict( encode_dict, strKey_acute, strValue_acute, "\\'{", "}" )
         regex_detectors.append( re.compile(r"\\'{ *[a-zA-Z]{1} *}") )
 
@@ -65,7 +65,7 @@ class AccentConverter:
         self.populate_encode_dict( encode_dict, strKey_grave, strValue_grave,  "{\\`", "}" )
         regex_detectors.append( re.compile(r"{ *\\` *[a-zA-Z]{1} *}") )
         self.populate_encode_dict( encode_dict, strKey_grave, strValue_grave, "\\`", "" )
-        regex_detectors.append( re.compile(r"\\` *[a-zA-z]{1}" ) )
+        regex_detectors.append( re.compile(r"\\` *[a-zA-Z]{1}" ) )
         self.populate_encode_dict( encode_dict, strKey_grave, strValue_grave, "\\`{", "}" )
         regex_detectors.append( re.compile(r"\\`{ *[a-zA-Z]{1} *}") )
 
@@ -77,7 +77,7 @@ class AccentConverter:
         regex_detectors.append( re.compile(r"{ *\\\^ *[a-zA-Z]{1} *}") )
         self.populate_encode_dict( encode_dict, strKey_circumflex,
                                    strValue_circumflex, r"\\^", "")
-        regex_detectors.append( re.compile(r"\\\^ *[a-zA-z]{1}" ) )
+        regex_detectors.append( re.compile(r"\\\^ *[a-zA-Z]{1}" ) )
         self.populate_encode_dict( encode_dict, strKey_circumflex,
                                    strValue_circumflex, r"\\^{", "}")
         regex_detectors.append( re.compile(r"\\\^{ *[a-zA-Z]{1} *}") )
@@ -112,9 +112,9 @@ class AccentConverter:
         self.populate_encode_dict(encode_dict, strKey_dot, strValue_dot, r"{\\\.", "}")
         regex_detectors.append( re.compile(r"{ *\\\. *[a-zA-Z]{1} *}") )
         self.populate_encode_dict( encode_dict, strKey_dot, strValue_dot, "\\.", "" )
-        regex_detectors.append( re.compile(r"\\\. *[a-zA-z]{1}" ) )
+        regex_detectors.append( re.compile(r"\\\. *[a-zA-Z]{1}" ) )
         self.populate_encode_dict( encode_dict, strKey_dot, strValue_dot, "\\.{", "}" )
-        regex_detectors.append( re.compile(r"\\\.{ *[a-zA-z]{1} *}" ) )
+        regex_detectors.append( re.compile(r"\\\.{ *[a-zA-Z]{1} *}" ) )
 
         # dot under the letter \d{u}
         strValue_dot_under = 'Ạ ạ Ḅ ḅ C̣ c̣ Ḍ ḍ Ẹ ẹ F̣ f̣ G̣ g̣ Ḥ ḥ Ị ị J̣ j̣ Ḳ ḳ Ḷ ḷ Ṃ ṃ Ṇ ṇ Ọ ọ P̣ p̣ Q̣ q̣ Ṛ ṛ Ṣ ṣ Ṭ ṭ Ụ ụ Ṿ ṿ Ẉ ẉ X̣ x̣ Ỵ ỵ Ẓ ẓ'

@@ -12,6 +12,21 @@ import re
 import yaml
 
 
+def _proc_type_callback(ctx, param, value):
+  return utils.normalise_proc_type(value)
+
+
+# Shared --type option. One definition so the choices cannot drift between
+# commands, and so the plural spellings are accepted everywhere (#137).
+proc_type_option = click.option(
+    "--type",
+    type=click.Choice(utils.PROC_TYPE_CHOICES),
+    default="paper",
+    callback=_proc_type_callback,
+    help="type of proceedings (singular or plural)"
+)
+
+
 def set_id_order(id_order):
   """Sets the entry order for the bibtex writer.
 
@@ -24,7 +39,15 @@ def set_id_order(id_order):
       utils.writer.order_entries_by = ("ID",)
       click.secho("ordering by ID")
   else:
+      # Set it explicitly: another command in the same process may have
+      # switched the shared writer to file order.
+      utils.writer.order_entries_by = utils.DEFAULT_ENTRY_ORDER
       click.secho(f"Using default order: {utils.writer.order_entries_by}")
+
+
+def _has_article_numbers(entries):
+  """True if any entry carries a numeric articleno to sort by."""
+  return any(str(e.get("articleno", "")).strip().isdecimal() for e in entries)
 
 
 def preserve_file_order():
@@ -38,12 +61,7 @@ def preserve_file_order():
 
 @click.command()
 @click.argument('year', type=click.INT)
-@click.option(
-    "--type",
-    type=click.Choice(["paper", "music", "installation", "alt"]),
-    default="paper",
-    help="type of proceedings"
-)
+@proc_type_option
 @click.option(
     "--id_order",
     "-I",
@@ -54,6 +72,11 @@ def preserve_file_order():
 def harmonise(year, type, id_order):
   """Loads a NIME proceedings BibTeX file for a given YEAR and harmonises the
   fields and order.
+
+  Paper proceedings are sorted by article number (then url and key). Files
+  with no article numbers, which is every music and installation file, are
+  written back in the order they were read, since that is programme order.
+  Pass -I to sort by key instead.
 
   This was specifically used to update older NIME .bib files to current
   standards. From 2024, this should not be used on new .bib files for new
@@ -69,8 +92,16 @@ def harmonise(year, type, id_order):
         customization=homogenize_latex_encoding
     ).parse_file(bibtex_file)
   click.secho(f"Loaded {len(bib_database.entries)} entries.")
-  
-  set_id_order(id_order)
+
+  if id_order:
+    set_id_order(True)
+  elif not _has_article_numbers(bib_database.entries):
+    # Music and installation files have no articleno and are kept in
+    # programme order, which the url/ID sort would discard (#117).
+    preserve_file_order()
+    click.secho("No articleno in this file: keeping entries in file order")
+  else:
+    set_id_order(False)
   # Write back to the bibtex file
   with open(nime_file, 'w', encoding="utf-8") as bibtex_file:
       bibtex_file.write(utils.writer.write(bib_database))
@@ -79,12 +110,7 @@ def harmonise(year, type, id_order):
 
 
 @click.command()
-@click.option(
-    "--type",
-    type=click.Choice(["paper", "music", "installation", "alt"]),
-    default="paper",
-    help="type of proceedings"
-)
+@proc_type_option
 @click.option(
     "--format",
     "-F",
@@ -239,12 +265,7 @@ def _strip_pdf_suffix(key: str) -> str:
 @click.command()
 @click.argument('year', type=click.INT)
 @click.argument('csvfile', type=click.STRING)
-@click.option(
-    "--type",
-    type=click.Choice(["paper", "music", "installation", "alt"]),
-    default="paper",
-    help="type of proceedings"
-)
+@proc_type_option
 @click.option(
     "--translated",
     is_flag=True,
@@ -429,9 +450,9 @@ def _convert_latex(text, accent_converter):
   reach the published files, not what the source happens to contain.
   """
   text = accent_converter.decode_Tex_Accents(text, utf8_or_ascii=1)
-  text = latex_symbols.replace_symbols(text)
+  text = latex_symbols.replace_symbols(text, preserve_escaped_dollars=True)
   text = accent_converter.decode_Tex_Accents(text, utf8_or_ascii=1)
-  return text
+  return latex_symbols.clean_braces(text)
 
 
 def _malformed_name_list(names):
@@ -453,10 +474,12 @@ def _convert_entry_field(entry, field, accent_converter):
     return
   if '\\' in value:
     value = _convert_latex(value, accent_converter)
+  else:
+    value = latex_symbols.clean_braces(value)
   if '\\' in value:
     click.secho(f"{entry['ID']} {field} still contains backslashes!", fg="red")
     click.secho(f"{entry['ID']} {field}: {value}", fg="yellow")
-  entry[field] = latex_symbols.clean_braces(value)
+  entry[field] = value
 
 
 def _raw_entry_keys(text):

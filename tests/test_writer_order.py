@@ -26,7 +26,8 @@ def written_ids(entries, order=("articleno", "url", "ID")):
 
 
 def test_default_order_is_articleno_url_id():
-    assert utils.writer.order_entries_by == ("articleno", "url", "ID")
+    assert utils.DEFAULT_ENTRY_ORDER == ("articleno", "url", "ID")
+    assert utils.writer.order_entries_by == utils.DEFAULT_ENTRY_ORDER
 
 
 def test_articleno_sorts_numerically():
