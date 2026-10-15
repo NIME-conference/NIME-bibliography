@@ -394,9 +394,9 @@ def _convert_latex(text, accent_converter):
   reach the published files, not what the source happens to contain.
   """
   text = accent_converter.decode_Tex_Accents(text, utf8_or_ascii=1)
-  text = latex_symbols.replace_symbols(text)
+  text = latex_symbols.replace_symbols(text, preserve_escaped_dollars=True)
   text = accent_converter.decode_Tex_Accents(text, utf8_or_ascii=1)
-  return text
+  return latex_symbols.clean_braces(text)
 
 
 def _malformed_name_list(names):
@@ -418,10 +418,12 @@ def _convert_entry_field(entry, field, accent_converter):
     return
   if '\\' in value:
     value = _convert_latex(value, accent_converter)
+  else:
+    value = latex_symbols.clean_braces(value)
   if '\\' in value:
     click.secho(f"{entry['ID']} {field} still contains backslashes!", fg="red")
     click.secho(f"{entry['ID']} {field}: {value}", fg="yellow")
-  entry[field] = latex_symbols.clean_braces(value)
+  entry[field] = value
 
 
 def _raw_entry_keys(text):
