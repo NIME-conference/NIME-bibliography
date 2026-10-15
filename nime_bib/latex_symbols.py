@@ -46,20 +46,54 @@ symbol_replacements = {
 # {ğ}
 # TODO: something still broke in ô... probably in the accents package.
 
+import re
+
+
+def _symbol_pattern(key):
+  """Regex for one symbol key.
+
+  A control word such as \\o or \\ss must not match inside a longer
+  one (\\omega, \\ssharp), so a key that is a control word only matches
+  when the next character is not a letter (issue #101). Other keys, like
+  \\&, {\\o} or the accent \\^o, are matched literally.
+  """
+  pattern = re.escape(key)
+  if re.fullmatch(r"\\[A-Za-z]+", key):
+    pattern += r"(?![A-Za-z])"
+  return re.compile(pattern)
+
+
+_SYMBOL_PATTERNS = [
+    (_symbol_pattern(key), value) for key, value in symbol_replacements.items()
+]
+
+
 def replace_symbols(input_text):
   """Replace latex symbols in the given text according to the replacements list.
     The list isn't too long, so just doing this in a simple/slow way.
   """
-  for key in symbol_replacements:
-    input_text = input_text.replace(key, symbol_replacements[key])
-  
+  for pattern, value in _SYMBOL_PATTERNS:
+    input_text = pattern.sub(value, input_text)
+
   return input_text
 
+
+# an inline maths span: $...$ with no $ inside
+_MATH_SPAN = re.compile(r"\$[^$]*\$")
+
+
 def clean_braces(input_text):
-  """Cleans braces ( {...} ) in pairs throughout a text.
+  """Removes every brace ( { and } ) outside inline maths.
+
+  Braces inside $...$ are part of the maths ($f_{0}$, $\\{1,2\\}$) and are
+  kept; everywhere else they are LaTeX grouping with no meaning in the
+  published UTF-8 text.
   """
-  input_text = input_text.replace('{', '')
-  input_text = input_text.replace('}', '')
-  input_text = input_text.replace('{{', '')
-  input_text = input_text.replace('}}', '')
-  return input_text
+  parts = []
+  last = 0
+  for m in _MATH_SPAN.finditer(input_text):
+    parts.append(input_text[last:m.start()].replace("{", "").replace("}", ""))
+    parts.append(m.group(0))
+    last = m.end()
+  parts.append(input_text[last:].replace("{", "").replace("}", ""))
+  return "".join(parts)
