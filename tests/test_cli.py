@@ -168,3 +168,37 @@ def test_readme_template_matches_field_order(cli_module):
     template = readme.split("@inproceedings{article_id,", 1)[1].split("\n}", 1)[0]
     fields = re.findall(r"^\s+([\w-]+) = ", template, flags=re.M)
     assert tuple(fields) == utils.FIELD_ORDER
+
+
+# --type accepts the plural spellings used by the file names (#137)
+
+@pytest.mark.parametrize("given, canonical", [
+    ("paper", "paper"), ("papers", "paper"),
+    ("installation", "installation"), ("installations", "installation"),
+    ("music", "music"), ("alt", "alt"),
+])
+def test_normalise_proc_type(cli_module, given, canonical):
+    utils = sys.modules["utils"]
+    assert utils.normalise_proc_type(given) == canonical
+    assert given in utils.PROC_TYPE_CHOICES
+
+
+def test_collate_accepts_plural_type(cli_module, archive):
+    archive("paper_proceedings/nime2099.bib", PAPER)
+    result = run(cli_module, "collate", "--type", "papers", "--format", "bib")
+    assert "Saved 1 entries" in result.output
+    with open("release/nime_papers.bib", encoding="utf-8") as f:
+        assert "nime2099_1" in f.read()
+
+
+def test_collate_rejects_unknown_type(cli_module, archive):
+    result = CliRunner().invoke(cli_module.cli, ["collate", "--type", "poster"])
+    assert result.exit_code != 0
+
+
+@pytest.mark.parametrize("command", ["harmonise", "collate", "add-dois"])
+def test_every_type_option_lists_the_same_choices(cli_module, command):
+    utils = sys.modules["utils"]
+    cmd = cli_module.cli.commands[command]
+    opt = next(p for p in cmd.params if p.name == "type")
+    assert tuple(opt.type.choices) == utils.PROC_TYPE_CHOICES
