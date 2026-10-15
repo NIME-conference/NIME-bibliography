@@ -178,8 +178,8 @@ def ids_in(path):
 
 
 def music_entry(key, url):
-    return MUSIC.replace("nime2099_music_Babbage", key).replace(
-        "nime2099_music_Babbage.pdf", url)
+    return MUSIC.replace("nime2099_music_Babbage.pdf", url).replace(
+        "nime2099_music_Babbage", key)
 
 
 MUSIC_FILE = (music_entry("nime2099_music_Zuse", "nime2099_music03.pdf")
