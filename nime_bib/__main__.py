@@ -8,6 +8,7 @@ import pyaml
 import latex_accents
 import latex_symbols
 import csv
+import json
 import re
 import yaml
 
@@ -36,13 +37,13 @@ def set_id_order(id_order):
   field names "I" and "D" and silently not sort at all.
   """
   if id_order:
-      utils.writer.order_entries_by = ("ID",)
-      click.secho("ordering by ID")
+    utils.writer.order_entries_by = ("ID",)
+    click.secho("ordering by ID")
   else:
-      # Set it explicitly: another command in the same process may have
-      # switched the shared writer to file order.
-      utils.writer.order_entries_by = utils.DEFAULT_ENTRY_ORDER
-      click.secho(f"Using default order: {utils.writer.order_entries_by}")
+    # Set it explicitly: another command in the same process may have
+    # switched the shared writer to file order.
+    utils.writer.order_entries_by = utils.DEFAULT_ENTRY_ORDER
+    click.secho(f"Using default order: {utils.writer.order_entries_by}")
 
 
 def _has_article_numbers(entries):
@@ -104,7 +105,7 @@ def harmonise(year, type, id_order):
     set_id_order(False)
   # Write back to the bibtex file
   with open(nime_file, 'w', encoding="utf-8") as bibtex_file:
-      bibtex_file.write(utils.writer.write(bib_database))
+    bibtex_file.write(utils.writer.write(bib_database))
 
   click.secho(f"Saved new entried to: {nime_file}, hope that's ok.", fg="green")
 
@@ -148,7 +149,7 @@ def collate(type, format):
   if format == "bib":
     preserve_file_order()
     with open(output_file, 'w', encoding="utf-8") as bibtex_file:
-        bibtex_file.write(utils.writer.write(bd))
+      bibtex_file.write(utils.writer.write(bd))
     click.secho(
         f"Saved {len(bd.entries)} entries to: {output_file}, hope that's ok.",
         fg="green"
@@ -182,16 +183,19 @@ def collate(type, format):
     small_bd.entries = [e]
     e['bibtex'] = utils.writer.write(small_bd)
 
+  # CSV and JSON have one row/record per entry, like the YAML (#111).
   if format == "csv":
     df = pd.DataFrame.from_records(bib_entries)
-    df.to_csv(output_file)
+    df.to_csv(output_file, index=False)
   if format == "yaml":
     with open(output_file, 'w', encoding="utf-8") as f:
       pyaml.dump(bib_entries, f, vspacing=[2, 0])
   if format == "json":
-    df = pd.DataFrame.from_records(bib_entries)
-    df.to_json(output_file)
-  
+    # Not pandas: its to_json escapes "/" in every url and writes null for
+    # each field an entry lacks.
+    with open(output_file, 'w', encoding="utf-8") as f:
+      json.dump(bib_entries, f, ensure_ascii=False, indent=1)
+
   click.secho(
       f"Saved {len(bd.entries)} entries to: {output_file}, hope that's ok.",
       fg="green"
@@ -438,7 +442,7 @@ def add_dois(year, csvfile, type, translated, overwrite):
   # Write back to the bibtex file
   preserve_file_order()
   with open(nime_file, 'w', encoding="utf-8") as bibtex_file:
-      bibtex_file.write(utils.writer.write(bib_database))
+    bibtex_file.write(utils.writer.write(bib_database))
 
   click.secho(f"Saved new entries to: {nime_file}, hope that's ok.", fg="green")
 
@@ -632,7 +636,7 @@ def validate(strict, release):
 
 @click.group()
 def cli():
-    pass
+  pass
 
 
 cli.add_command(harmonise)
@@ -642,4 +646,4 @@ cli.add_command(add_dois)
 cli.add_command(validate)
 
 if __name__ == '__main__':
-    cli()
+  cli()

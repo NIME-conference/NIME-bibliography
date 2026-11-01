@@ -1,5 +1,6 @@
 """Tests for the nime_bib command line commands, run against small archives."""
 
+import csv
 import json
 import re
 import sys
@@ -98,7 +99,7 @@ def test_collate_converts_keywords(cli_module, archive):
     run(cli_module, "collate", "--type", "paper", "--format", "json")
     with open("release/nime_papers.json", encoding="utf-8") as f:
         text = json.load(f)
-    assert text["keywords"]["0"] == "jacques rémus,machines"
+    assert text[0]["keywords"] == "jacques rémus,machines"
 
 
 def test_collate_preserves_math_braces_after_currency(cli_module, archive):
@@ -107,19 +108,44 @@ def test_collate_preserves_math_braces_after_currency(cli_module, archive):
     run(cli_module, "collate", "--type", "paper", "--format", "json")
     with open("release/nime_papers.json", encoding="utf-8") as f:
         text = json.load(f)
-    assert text["title"]["0"] == "Costs $5 for X; tune to $f_{0}$."
+    assert text[0]["title"] == "Costs $5 for X; tune to $f_{0}$."
 
 
 def test_collate_bibtex_field_matches_converted_fields(cli_module, archive):
     archive("paper_proceedings/nime2099.bib", ACCENTED)
     run(cli_module, "collate", "--type", "paper", "--format", "json")
     with open("release/nime_papers.json", encoding="utf-8") as f:
-        bibtex = json.load(f)["bibtex"]["0"]
+        bibtex = json.load(f)[0]["bibtex"]
     assert "\\" not in bibtex
     assert "author = {Jacques Rémus}" in bibtex
     # written with utils.writer: canonical field order and indent
     assert bibtex.index("author") < bibtex.index("title") < bibtex.index("url")
     assert "\n  title = " in bibtex
+
+
+# JSON and CSV have one record/row per entry (#111)
+
+def test_collate_json_is_a_list_of_records(cli_module, archive):
+    archive("paper_proceedings/nime2099.bib", PAPER + "\n" + ACCENTED)
+    run(cli_module, "collate", "--type", "paper", "--format", "json")
+    with open("release/nime_papers.json", encoding="utf-8") as f:
+        text = f.read()
+    records = json.loads(text)
+    assert [r["ID"] for r in records] == ["nime2099_1", "nime2099_2"]
+    # fields an entry lacks are left out, not written as null
+    assert "keywords" not in records[0]
+    # urls and accents are written as-is
+    assert '"https://nime.org/proceedings/2099/nime2099_1.pdf"' in text
+    assert "Rémus" in text
+
+
+def test_collate_csv_has_no_index_column(cli_module, archive):
+    archive("paper_proceedings/nime2099.bib", PAPER + "\n" + ACCENTED)
+    run(cli_module, "collate", "--type", "paper", "--format", "csv")
+    with open("release/nime_papers.csv", encoding="utf-8", newline="") as f:
+        rows = list(csv.DictReader(f))
+    assert "" not in rows[0]
+    assert [r["ID"] for r in rows] == ["nime2099_1", "nime2099_2"]
 
 
 # validate rejects stray 'and' in author lists (#91)
