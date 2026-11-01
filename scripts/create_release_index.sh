@@ -22,6 +22,7 @@ cat > release/index.html <<End-Of-File-Delimiter
 <li><a href="nime_installations.json">Combined Installation Proceedings (JSON Format)</a></li>
 <li><a href="nime_alt.json">Combined alt.nime Proceedings (JSON Format)</a></li>
 </ul>
+<p>The CSV and JSON files have one row or record per entry. Before November 2026 the JSON was keyed by column, and the CSV began with an unnamed index column.</p>
 <p>Source available at <a href="https://github.com/NIME-conference/NIME-bibliography">the NIME-bibliography repository.</a></p>
 <p>More information at <a href="https://nime.org">nime.org</a></p>
 </body></html>

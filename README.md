@@ -21,7 +21,7 @@ The files can be found at [this repository's website](http://nime-conference.git
 Build 
 --------
 
-The `Makefile` creates combined files from the individual yearly BibTeX files for all proceedings types and places them in a directory called `release`. Outputs are created in `.bib`, `.csv` and `.yaml` format. 
+The `Makefile` creates combined files from the individual yearly BibTeX files for all proceedings types and places them in a directory called `release`. Outputs are created in `.bib`, `.csv`, `.yaml` and `.json` format. The CSV has one row per entry, and the YAML and JSON are lists with one record per entry.
 
 The built proceedings are automatically deployed at <https://nime-conference.github.io/NIME-bibliography/>, separately to the main NIME website.
 
